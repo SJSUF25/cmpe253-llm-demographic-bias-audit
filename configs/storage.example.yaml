@@ -1,0 +1,29 @@
+schema_version: 1
+root_env_var: AUDIT_SHARED_ROOT
+project_directory: cmpe253-llm-bias-audit
+locations:
+  raw_immutable:
+    path: raw_immutable
+    git_allowed: false
+    contains: pinned third-party source data
+  private_outputs:
+    path: private_outputs
+    git_allowed: false
+    contains: raw model generations and annotation exports
+  adapters_private:
+    path: adapters_private
+    git_allowed: false
+    contains: QLoRA checkpoints and final adapter
+  aggregate_results:
+    path: aggregate_results
+    git_allowed: reviewed_only
+    contains: aggregate tables, plots, and redacted examples
+  manifests:
+    path: manifests
+    git_allowed: checksum_copy_only
+    contains: hashes and run/storage metadata
+  backups:
+    path: backups
+    git_allowed: false
+    contains: timestamped private recovery copies
+

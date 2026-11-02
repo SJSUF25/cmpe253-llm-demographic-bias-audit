@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "resolved_at_utc": "2026-09-30T00:00:00Z",
+  "resources": [
+    {
+      "key": "M1",
+      "kind": "model",
+      "provider": "huggingface_model",
+      "repo_id": "Qwen/Qwen3-4B-Instruct-2507",
+      "revision": "cdbee75f17c01a7cc42f958dc650907174af0554",
+      "license": "Apache-2.0",
+      "artifacts": ["README.md", "LICENSE", "config.json", "generation_config.json", "tokenizer_config.json", "model.safetensors.index.json"]
+    },
+    {
+      "key": "M2",
+      "kind": "model",
+      "provider": "huggingface_model",
+      "repo_id": "microsoft/Phi-4-mini-instruct",
+      "revision": "cfbefacb99257ffa30c83adab238a50856ac3083",
+      "license": "MIT",
+      "artifacts": ["README.md", "LICENSE", "config.json", "generation_config.json", "tokenizer_config.json", "model.safetensors.index.json"]
+    },
+    {
+      "key": "S1",
+      "kind": "scorer",
+      "provider": "huggingface_model",
+      "repo_id": "unitary/unbiased-toxic-roberta",
+      "revision": "36295dd80b422dc49f40052021430dae76241adc",
+      "license": "Apache-2.0",
+      "artifacts": ["README.md", "config.json", "tokenizer_config.json"]
+    },
+    {
+      "key": "S2",
+      "kind": "scorer",
+      "provider": "huggingface_model",
+      "repo_id": "distilbert/distilbert-base-uncased-finetuned-sst-2-english",
+      "revision": "714eb0fa89d2f80546fda750413ed43d93601a13",
+      "license": "Apache-2.0",
+      "artifacts": ["README.md", "config.json", "tokenizer_config.json"]
+    },
+    {
+      "key": "S3",
+      "kind": "scorer",
+      "provider": "huggingface_model",
+      "repo_id": "sentence-transformers/all-mpnet-base-v2",
+      "revision": "e8c3b32edf5434bc2275fc9bab85f82640a19130",
+      "license": "Apache-2.0",
+      "artifacts": ["README.md", "config.json", "tokenizer_config.json", "modules.json"]
+    },
+    {
+      "key": "D1",
+      "kind": "dataset",
+      "provider": "huggingface_dataset",
+      "repo_id": "eth-sri/cab",
+      "revision": "798e2f5e9572f98404b8e9e3964ee1db9c70e658",
+      "license": "MIT",
+      "artifacts": ["README.md"]
+    },
+    {
+      "key": "D2",
+      "kind": "dataset",
+      "provider": "github",
+      "repo_id": "nyu-mll/BBQ",
+      "revision": "bea11bd97d79217245b5871acd247b9d6eb24598",
+      "license": "CC-BY-4.0",
+      "artifacts": ["README.md", "LICENSE"]
+    }
+  ]
+}
+

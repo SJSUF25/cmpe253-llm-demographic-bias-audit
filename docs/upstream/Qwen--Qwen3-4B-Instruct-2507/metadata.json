@@ -1,0 +1,50 @@
+{
+  "disabled": false,
+  "gated": false,
+  "id": "Qwen/Qwen3-4B-Instruct-2507",
+  "lastModified": "2025-09-17T06:56:53.000Z",
+  "license": "apache-2.0",
+  "private": false,
+  "sha": "cdbee75f17c01a7cc42f958dc650907174af0554",
+  "siblings": [
+    {
+      "rfilename": ".gitattributes"
+    },
+    {
+      "rfilename": "LICENSE"
+    },
+    {
+      "rfilename": "README.md"
+    },
+    {
+      "rfilename": "config.json"
+    },
+    {
+      "rfilename": "generation_config.json"
+    },
+    {
+      "rfilename": "merges.txt"
+    },
+    {
+      "rfilename": "model-00001-of-00003.safetensors"
+    },
+    {
+      "rfilename": "model-00002-of-00003.safetensors"
+    },
+    {
+      "rfilename": "model-00003-of-00003.safetensors"
+    },
+    {
+      "rfilename": "model.safetensors.index.json"
+    },
+    {
+      "rfilename": "tokenizer.json"
+    },
+    {
+      "rfilename": "tokenizer_config.json"
+    },
+    {
+      "rfilename": "vocab.json"
+    }
+  ]
+}

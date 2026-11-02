@@ -1,0 +1,74 @@
+{
+  "disabled": false,
+  "gated": false,
+  "id": "microsoft/Phi-4-mini-instruct",
+  "lastModified": "2025-12-10T20:24:40.000Z",
+  "license": "mit",
+  "private": false,
+  "sha": "cfbefacb99257ffa30c83adab238a50856ac3083",
+  "siblings": [
+    {
+      "rfilename": ".gitattributes"
+    },
+    {
+      "rfilename": "CODE_OF_CONDUCT.md"
+    },
+    {
+      "rfilename": "LICENSE"
+    },
+    {
+      "rfilename": "NOTICE.md"
+    },
+    {
+      "rfilename": "README.md"
+    },
+    {
+      "rfilename": "SECURITY.md"
+    },
+    {
+      "rfilename": "added_tokens.json"
+    },
+    {
+      "rfilename": "config.json"
+    },
+    {
+      "rfilename": "configuration_phi3.py"
+    },
+    {
+      "rfilename": "data_summary_card.md"
+    },
+    {
+      "rfilename": "generation_config.json"
+    },
+    {
+      "rfilename": "merges.txt"
+    },
+    {
+      "rfilename": "model-00001-of-00002.safetensors"
+    },
+    {
+      "rfilename": "model-00002-of-00002.safetensors"
+    },
+    {
+      "rfilename": "model.safetensors.index.json"
+    },
+    {
+      "rfilename": "modeling_phi3.py"
+    },
+    {
+      "rfilename": "sample_finetune.py"
+    },
+    {
+      "rfilename": "special_tokens_map.json"
+    },
+    {
+      "rfilename": "tokenizer.json"
+    },
+    {
+      "rfilename": "tokenizer_config.json"
+    },
+    {
+      "rfilename": "vocab.json"
+    }
+  ]
+}

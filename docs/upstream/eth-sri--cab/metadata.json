@@ -1,0 +1,20 @@
+{
+  "disabled": false,
+  "gated": false,
+  "id": "eth-sri/cab",
+  "lastModified": "2025-10-16T07:40:33.000Z",
+  "license": "mit",
+  "private": false,
+  "sha": "798e2f5e9572f98404b8e9e3964ee1db9c70e658",
+  "siblings": [
+    {
+      "rfilename": ".gitattributes"
+    },
+    {
+      "rfilename": "README.md"
+    },
+    {
+      "rfilename": "cab.json"
+    }
+  ]
+}

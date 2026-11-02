@@ -1,0 +1,38 @@
+[project]
+name = "cmpe253-llm-demographic-bias-audit"
+version = "0.1.0"
+description = "Offline assurance pipeline for demographic bias, privacy, explainability, and robustness in open-weight LLMs"
+readme = "README.md"
+requires-python = ">=3.11,<3.12"
+license = { text = "Course project; repository license not yet assigned" }
+authors = [
+  { name = "Vineet Malewar" },
+  { name = "Abhinandan" },
+]
+dependencies = []
+
+[dependency-groups]
+dev = [
+  "pytest>=8.3,<10",
+  "ruff>=0.8,<1",
+]
+
+[tool.uv]
+package = false
+
+[tool.pytest.ini_options]
+addopts = "-ra --strict-config --strict-markers"
+testpaths = ["tests"]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 88
+extend-exclude = ["data", "results", "docs/upstream", "build", "dist"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "lf"

@@ -1,0 +1,58 @@
+# Local planning documents (intentionally not committed)
+/LLM_Bias_Audit_PRD.md
+/PROJECT_TASKS.md
+
+# Python environments and caches
+/.venv/
+/venv/
+/.uv-cache/
+__pycache__/
+*.py[cod]
+*.egg-info/
+/.pytest_cache/
+/.ruff_cache/
+/.mypy_cache/
+/.coverage
+/htmlcov/
+
+# Local configuration and credentials
+/.env
+/.env.*
+!/.env.example
+/configs/storage.local.yaml
+*.pem
+*.key
+
+# IDE and operating-system files
+/.idea/
+/.vscode/
+.DS_Store
+
+# Downloaded datasets and generated records
+/data/raw/**
+!/data/raw/.gitkeep
+/data/processed/**
+!/data/processed/.gitkeep
+
+# Model weights, adapters, and caches
+/models/
+/adapters/
+/.cache/
+*.safetensors
+*.bin
+*.pt
+*.pth
+*.ckpt
+*.gguf
+
+# Raw/private experiment outputs and local storage mounts
+/results/raw/
+/results/private/
+/results/checkpoints/
+/drive/
+/gdrive/
+
+# Build and presentation caches
+/build/
+/dist/
+/.streamlit/secrets.toml

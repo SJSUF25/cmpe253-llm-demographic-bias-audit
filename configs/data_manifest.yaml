@@ -1,0 +1,38 @@
+schema_version: 1
+generated_at_utc: "2026-10-01T09:23:55.099807+00:00"
+manifest_type: "datasets"
+resources:
+  - key: "D1"
+    kind: "dataset"
+    provider: "huggingface_dataset"
+    repo_id: "eth-sri/cab"
+    revision: "798e2f5e9572f98404b8e9e3964ee1db9c70e658"
+    tokenizer_revision: null
+    license: "MIT"
+    source_url: "https://huggingface.co/datasets/eth-sri/cab"
+    metadata_url: "https://huggingface.co/api/datasets/eth-sri/cab/revision/798e2f5e9572f98404b8e9e3964ee1db9c70e658"
+    metadata_sha256: "214e01690900f8923112e40f87085aacf9487797905cd1c9a41b499082b69935"
+    artifacts:
+      - path: "docs/upstream/eth-sri--cab/README.md"
+        url: "https://huggingface.co/datasets/eth-sri/cab/resolve/798e2f5e9572f98404b8e9e3964ee1db9c70e658/README.md"
+        size_bytes: 8271
+        sha256: "b78db2bf4f63a34a20700bab2440397dd50022670885b2598585aca59fa74060"
+  - key: "D2"
+    kind: "dataset"
+    provider: "github"
+    repo_id: "nyu-mll/BBQ"
+    revision: "bea11bd97d79217245b5871acd247b9d6eb24598"
+    tokenizer_revision: null
+    license: "CC-BY-4.0"
+    source_url: "https://github.com/nyu-mll/BBQ"
+    metadata_url: "https://api.github.com/repos/nyu-mll/BBQ/commits/bea11bd97d79217245b5871acd247b9d6eb24598"
+    metadata_sha256: "7ad61896e6171abcc718cca1ef420ff2882da070fe2d0fa33abf64554fc7d03f"
+    artifacts:
+      - path: "docs/upstream/nyu-mll--BBQ/README.md"
+        url: "https://raw.githubusercontent.com/nyu-mll/BBQ/bea11bd97d79217245b5871acd247b9d6eb24598/README.md"
+        size_bytes: 5603
+        sha256: "9b98910f37b3c1b0dc12170ece772847e37bbb514e3158f5cfce18aa8cc703b8"
+      - path: "docs/upstream/nyu-mll--BBQ/LICENSE"
+        url: "https://raw.githubusercontent.com/nyu-mll/BBQ/bea11bd97d79217245b5871acd247b9d6eb24598/LICENSE"
+        size_bytes: 18649
+        sha256: "95df2e9564862e51d69683a899b6dcc8218d577057bdf67322880769ff85f29e"

@@ -1,0 +1,147 @@
+schema_version: 1
+generated_at_utc: "2026-10-01T09:23:55.099807+00:00"
+manifest_type: "models_and_scorers"
+resources:
+  - key: "M1"
+    kind: "model"
+    provider: "huggingface_model"
+    repo_id: "Qwen/Qwen3-4B-Instruct-2507"
+    revision: "cdbee75f17c01a7cc42f958dc650907174af0554"
+    tokenizer_revision: "cdbee75f17c01a7cc42f958dc650907174af0554"
+    license: "Apache-2.0"
+    source_url: "https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507"
+    metadata_url: "https://huggingface.co/api/models/Qwen/Qwen3-4B-Instruct-2507/revision/cdbee75f17c01a7cc42f958dc650907174af0554"
+    metadata_sha256: "cd31739c60a591f579da5ab8bf4ae6f06f3d8c45aa6ba27c76cde43ab4a6e615"
+    artifacts:
+      - path: "docs/upstream/Qwen--Qwen3-4B-Instruct-2507/README.md"
+        url: "https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507/resolve/cdbee75f17c01a7cc42f958dc650907174af0554/README.md"
+        size_bytes: 8168
+        sha256: "8e3dd0c3b5b11897cc71092ccfe517bb7a9783479baa3665aad73c8d1a2041cd"
+      - path: "docs/upstream/Qwen--Qwen3-4B-Instruct-2507/LICENSE"
+        url: "https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507/resolve/cdbee75f17c01a7cc42f958dc650907174af0554/LICENSE"
+        size_bytes: 11343
+        sha256: "832dd9e00a68dd83b3c3fb9f5588dad7dcf337a0db50f7d9483f310cd292e92e"
+      - path: "docs/upstream/Qwen--Qwen3-4B-Instruct-2507/config.json"
+        url: "https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507/resolve/cdbee75f17c01a7cc42f958dc650907174af0554/config.json"
+        size_bytes: 727
+        sha256: "5beea1a4a34c62782bfb2f911c606741a3bab8f92d80a118fa053c28af12e8ba"
+      - path: "docs/upstream/Qwen--Qwen3-4B-Instruct-2507/generation_config.json"
+        url: "https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507/resolve/cdbee75f17c01a7cc42f958dc650907174af0554/generation_config.json"
+        size_bytes: 238
+        sha256: "835fffe355c9438e7a25be099b3fccaa98350b83451f9fd2d99512e74f1ade48"
+      - path: "docs/upstream/Qwen--Qwen3-4B-Instruct-2507/tokenizer_config.json"
+        url: "https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507/resolve/cdbee75f17c01a7cc42f958dc650907174af0554/tokenizer_config.json"
+        size_bytes: 9377
+        sha256: "a62ff0a2472a0fa1b8eaabcb57c59b58afa42a22831dc141400b6e0cf2b65ce3"
+      - path: "docs/upstream/Qwen--Qwen3-4B-Instruct-2507/model.safetensors.index.json"
+        url: "https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507/resolve/cdbee75f17c01a7cc42f958dc650907174af0554/model.safetensors.index.json"
+        size_bytes: 32819
+        sha256: "d6c42883a895dfef5b0080ed2116a1bcd764f558406b98923d675978a1abf29c"
+  - key: "M2"
+    kind: "model"
+    provider: "huggingface_model"
+    repo_id: "microsoft/Phi-4-mini-instruct"
+    revision: "cfbefacb99257ffa30c83adab238a50856ac3083"
+    tokenizer_revision: "cfbefacb99257ffa30c83adab238a50856ac3083"
+    license: "MIT"
+    source_url: "https://huggingface.co/microsoft/Phi-4-mini-instruct"
+    metadata_url: "https://huggingface.co/api/models/microsoft/Phi-4-mini-instruct/revision/cfbefacb99257ffa30c83adab238a50856ac3083"
+    metadata_sha256: "60285a2cdb974c56af17a0a757f6d18696058670e0906bfb93701c8b17c3a9f8"
+    artifacts:
+      - path: "docs/upstream/microsoft--Phi-4-mini-instruct/README.md"
+        url: "https://huggingface.co/microsoft/Phi-4-mini-instruct/resolve/cfbefacb99257ffa30c83adab238a50856ac3083/README.md"
+        size_bytes: 29246
+        sha256: "c4f34916182a3ee87d95d00c92847cfa687ab21dc338a577275f0c34cf0e1dfd"
+      - path: "docs/upstream/microsoft--Phi-4-mini-instruct/LICENSE"
+        url: "https://huggingface.co/microsoft/Phi-4-mini-instruct/resolve/cfbefacb99257ffa30c83adab238a50856ac3083/LICENSE"
+        size_bytes: 1084
+        sha256: "fa8235e5b48faca34e3ca98cf4f694ef08bd216d28b58071a1f85b1d50cb814d"
+      - path: "docs/upstream/microsoft--Phi-4-mini-instruct/config.json"
+        url: "https://huggingface.co/microsoft/Phi-4-mini-instruct/resolve/cfbefacb99257ffa30c83adab238a50856ac3083/config.json"
+        size_bytes: 2504
+        sha256: "ac65d86061d3d0d704ee2511fd0eb8713ef19eb6eedba17c3080a4165d5b933b"
+      - path: "docs/upstream/microsoft--Phi-4-mini-instruct/generation_config.json"
+        url: "https://huggingface.co/microsoft/Phi-4-mini-instruct/resolve/cfbefacb99257ffa30c83adab238a50856ac3083/generation_config.json"
+        size_bytes: 168
+        sha256: "3e3f48753753f92d2b958679151861d4fd7bf26e4dfc41fd47056116c4914dcd"
+      - path: "docs/upstream/microsoft--Phi-4-mini-instruct/tokenizer_config.json"
+        url: "https://huggingface.co/microsoft/Phi-4-mini-instruct/resolve/cfbefacb99257ffa30c83adab238a50856ac3083/tokenizer_config.json"
+        size_bytes: 2932
+        sha256: "9c9b6bc0c94d95f69f826c41069a3e8b387ac3ced89601d201886e99240ac9db"
+      - path: "docs/upstream/microsoft--Phi-4-mini-instruct/model.safetensors.index.json"
+        url: "https://huggingface.co/microsoft/Phi-4-mini-instruct/resolve/cfbefacb99257ffa30c83adab238a50856ac3083/model.safetensors.index.json"
+        size_bytes: 16273
+        sha256: "613a98d5e5716ca96fa75931abedc9c5a5d95f488ce4d62df71e639fe3ac6c59"
+  - key: "S1"
+    kind: "scorer"
+    provider: "huggingface_model"
+    repo_id: "unitary/unbiased-toxic-roberta"
+    revision: "36295dd80b422dc49f40052021430dae76241adc"
+    tokenizer_revision: "36295dd80b422dc49f40052021430dae76241adc"
+    license: "Apache-2.0"
+    source_url: "https://huggingface.co/unitary/unbiased-toxic-roberta"
+    metadata_url: "https://huggingface.co/api/models/unitary/unbiased-toxic-roberta/revision/36295dd80b422dc49f40052021430dae76241adc"
+    metadata_sha256: "177896a77ead2161e1a6b901a23cdc9a450efe5a76c7dd6eef17b09ac939e52d"
+    artifacts:
+      - path: "docs/upstream/unitary--unbiased-toxic-roberta/README.md"
+        url: "https://huggingface.co/unitary/unbiased-toxic-roberta/resolve/36295dd80b422dc49f40052021430dae76241adc/README.md"
+        size_bytes: 11134
+        sha256: "5ab17611a1ae299c3ea19b0813ae6f16e571ed472bb08282303eb7386d31bc3f"
+      - path: "docs/upstream/unitary--unbiased-toxic-roberta/config.json"
+        url: "https://huggingface.co/unitary/unbiased-toxic-roberta/resolve/36295dd80b422dc49f40052021430dae76241adc/config.json"
+        size_bytes: 1381
+        sha256: "ec3a47e5c4bd713a8ec190cc696cf4ae247959fbe95921199805d5704bda6031"
+      - path: "docs/upstream/unitary--unbiased-toxic-roberta/tokenizer_config.json"
+        url: "https://huggingface.co/unitary/unbiased-toxic-roberta/resolve/36295dd80b422dc49f40052021430dae76241adc/tokenizer_config.json"
+        size_bytes: 997
+        sha256: "5619b18c2e1bbf39d9300424cb904b5d0b0d266835adb915aeee8ac3d385fd9d"
+  - key: "S2"
+    kind: "scorer"
+    provider: "huggingface_model"
+    repo_id: "distilbert/distilbert-base-uncased-finetuned-sst-2-english"
+    revision: "714eb0fa89d2f80546fda750413ed43d93601a13"
+    tokenizer_revision: "714eb0fa89d2f80546fda750413ed43d93601a13"
+    license: "Apache-2.0"
+    source_url: "https://huggingface.co/distilbert/distilbert-base-uncased-finetuned-sst-2-english"
+    metadata_url: "https://huggingface.co/api/models/distilbert/distilbert-base-uncased-finetuned-sst-2-english/revision/714eb0fa89d2f80546fda750413ed43d93601a13"
+    metadata_sha256: "aac833c8cfbf2ff3c2c12aa6c1cdc9afe38bddb1c1d60ebddc4141fc14a7dacc"
+    artifacts:
+      - path: "docs/upstream/distilbert--distilbert-base-uncased-finetuned-sst-2-english/README.md"
+        url: "https://huggingface.co/distilbert/distilbert-base-uncased-finetuned-sst-2-english/resolve/714eb0fa89d2f80546fda750413ed43d93601a13/README.md"
+        size_bytes: 10512
+        sha256: "75f17282923fea5b541df92640e2d8646c4ff5e8e3e16ed0a7e4e50ee7588851"
+      - path: "docs/upstream/distilbert--distilbert-base-uncased-finetuned-sst-2-english/config.json"
+        url: "https://huggingface.co/distilbert/distilbert-base-uncased-finetuned-sst-2-english/resolve/714eb0fa89d2f80546fda750413ed43d93601a13/config.json"
+        size_bytes: 629
+        sha256: "582122c8f414793d131e10022ce9ba04e3811a9da6389137ee2f18665b4f4d15"
+      - path: "docs/upstream/distilbert--distilbert-base-uncased-finetuned-sst-2-english/tokenizer_config.json"
+        url: "https://huggingface.co/distilbert/distilbert-base-uncased-finetuned-sst-2-english/resolve/714eb0fa89d2f80546fda750413ed43d93601a13/tokenizer_config.json"
+        size_bytes: 48
+        sha256: "5ab9097b4149371c5fd52b2d6e26cb6f9c07c0d19fcfdda895b1adad6b57c3e0"
+  - key: "S3"
+    kind: "scorer"
+    provider: "huggingface_model"
+    repo_id: "sentence-transformers/all-mpnet-base-v2"
+    revision: "e8c3b32edf5434bc2275fc9bab85f82640a19130"
+    tokenizer_revision: "e8c3b32edf5434bc2275fc9bab85f82640a19130"
+    license: "Apache-2.0"
+    source_url: "https://huggingface.co/sentence-transformers/all-mpnet-base-v2"
+    metadata_url: "https://huggingface.co/api/models/sentence-transformers/all-mpnet-base-v2/revision/e8c3b32edf5434bc2275fc9bab85f82640a19130"
+    metadata_sha256: "443a07ad782f5304407bb7b14f0000d7734fd199e274e5f8a345dc2992c0bebf"
+    artifacts:
+      - path: "docs/upstream/sentence-transformers--all-mpnet-base-v2/README.md"
+        url: "https://huggingface.co/sentence-transformers/all-mpnet-base-v2/resolve/e8c3b32edf5434bc2275fc9bab85f82640a19130/README.md"
+        size_bytes: 11612
+        sha256: "89a1a9c3290fe58e76c939b578c48a14331dc7bfcaaf5a53102adb183da6f96a"
+      - path: "docs/upstream/sentence-transformers--all-mpnet-base-v2/config.json"
+        url: "https://huggingface.co/sentence-transformers/all-mpnet-base-v2/resolve/e8c3b32edf5434bc2275fc9bab85f82640a19130/config.json"
+        size_bytes: 571
+        sha256: "d46a3e04ded82bba22528424480697d394eeda6a27484e08c5bb2bdf5906cfa0"
+      - path: "docs/upstream/sentence-transformers--all-mpnet-base-v2/tokenizer_config.json"
+        url: "https://huggingface.co/sentence-transformers/all-mpnet-base-v2/resolve/e8c3b32edf5434bc2275fc9bab85f82640a19130/tokenizer_config.json"
+        size_bytes: 363
+        sha256: "67f2ff7e223518e729869bb3a70f0caf8368fe549383fc11cfe2dfb42fffc268"
+      - path: "docs/upstream/sentence-transformers--all-mpnet-base-v2/modules.json"
+        url: "https://huggingface.co/sentence-transformers/all-mpnet-base-v2/resolve/e8c3b32edf5434bc2275fc9bab85f82640a19130/modules.json"
+        size_bytes: 349
+        sha256: "84e40c8e006c9b1d6c122e02cba9b02458120b5fb0c87b746c41e0207cf642cf"
