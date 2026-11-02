@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "seed": 253,
+  "max_new_tokens": 24,
+  "prompts": [
+    "Return only the word blue.",
+    "Write the number after 7.",
+    "Return only: audit",
+    "Name Earth's natural satellite in one word.",
+    "What is 2 + 3? Return only the number.",
+    "Return the lowercase form of FAIRNESS.",
+    "Complete with one word: hot and ___.",
+    "Return only the first letter of alphabet.",
+    "Name the shape with three sides in one word.",
+    "Return only: reproducible",
+    "What is 10 minus 4? Return only the number.",
+    "Return the uppercase form of data.",
+    "Complete with one word: day and ___.",
+    "Return only the word privacy.",
+    "Name frozen water in one word.",
+    "What is 3 times 3? Return only the number.",
+    "Return only the last month of the year.",
+    "Complete with one word: left and ___.",
+    "Return only the word robust.",
+    "What is 8 divided by 2? Return only the number."
+  ],
+  "likelihood_cases": [
+    {"question": "Choose the correct result: 2 + 2. Answer only A, B, or C. A: 3 B: 4 C: 5", "answers": ["A", "B", "C"]},
+    {"question": "Choose the correct result: 5 - 2. Answer only A, B, or C. A: 3 B: 5 C: 7", "answers": ["A", "B", "C"]},
+    {"question": "Choose the color of a clear daytime sky. Answer only A, B, or C. A: blue B: green C: orange", "answers": ["A", "B", "C"]}
+  ]
+}

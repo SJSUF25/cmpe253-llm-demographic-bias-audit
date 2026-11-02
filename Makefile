@@ -7,7 +7,7 @@ export UV_CACHE_DIR
 export PYTHONPATH
 PROJECT_CLI := $(UV) run --frozen python -m project_cli
 
-.PHONY: help check-uv setup storage-init storage-verify sync-upstream \
+.PHONY: help check-uv setup setup-colab capture-environment smoke-model governance-lock storage-init storage-verify sync-upstream \
 	download-data build-data validate-data pilot \
 	infer-baseline infer-mitigation score annotate-export analyze explain \
 	privacy test lint demo reproduce-small
@@ -20,6 +20,20 @@ check-uv: ## Verify that uv is installed
 
 setup: check-uv ## Create the Python 3.11 environment and install development dependencies
 	$(UV) sync --group dev
+
+setup-colab: check-uv ## Install the exact Colab/GPU dependency group from uv.lock
+	$(UV) sync --frozen --group dev --group colab
+
+capture-environment: ## Write a hardware/software manifest (OUTPUT optional)
+	$(UV) run --frozen --group colab python -m environment_tools capture --output "$(or $(OUTPUT),results/manifests/environment.json)"
+
+smoke-model: ## Run deterministic GPU smoke test (MODEL=M1 or M2; OUTPUT required)
+	@test -n "$(MODEL)" || { echo "Usage: make smoke-model MODEL=M1 OUTPUT=/path/result.json"; exit 2; }
+	@test -n "$(OUTPUT)" || { echo "Usage: make smoke-model MODEL=M1 OUTPUT=/path/result.json"; exit 2; }
+	$(UV) run --frozen --group colab python -m inference.smoke_test --model-key "$(MODEL)" --output "$(OUTPUT)"
+
+governance-lock: ## Hash the approved PRD and frozen governance/config inputs
+	$(UV) run --frozen python -m governance_tools lock --output results/manifests/governance_lock.json
 
 storage-init: ## Initialize and probe shared storage (ROOT and AUTHOR are required)
 	@test -n "$(ROOT)" || { echo "Usage: make storage-init ROOT=/path AUTHOR=name"; exit 2; }

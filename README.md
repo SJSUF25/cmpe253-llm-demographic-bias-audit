@@ -42,6 +42,14 @@ make storage-verify ROOT="/mounted/shared/path" REVIEWER="Abhinandan"
 The mount path belongs in the ignored local environment, never in repository files.
 See `docs/data_handling.md` for the storage layout and handling rules.
 
+## Colab environment gate
+
+Open `notebooks/e0_t04_colab_smoke_test.ipynb` in a fresh Colab Pro GPU runtime. It
+installs the exact `colab` dependency group from `uv.lock`, records the GPU/CUDA/OS
+environment, and tests M1 and M2 sequentially. Both generated manifests must pass
+before confirmatory runs begin. See `docs/system_boundary.md` and
+`docs/experiment_registry.md` for the frozen scope and run IDs.
+
 ## Repository policy
 
 Synthetic/raw data, model files, adapters, private generations, credentials, and local

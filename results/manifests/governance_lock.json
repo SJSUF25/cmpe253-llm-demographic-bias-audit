@@ -1,0 +1,62 @@
+{
+  "approval_status": "pending_both_members",
+  "files": [
+    {
+      "path": "LLM_Bias_Audit_PRD.md",
+      "sha256": "8930ae75d0c18a33291ad3553e51e418bfdf6b5cb2a5982f2ad403f85e7b332a",
+      "size_bytes": 70044
+    },
+    {
+      "path": "pyproject.toml",
+      "sha256": "fecc050f41ae7cf4c80888bf7c1b742849945a17754c7ad9ea8ac1afc8dfc43a",
+      "size_bytes": 1159
+    },
+    {
+      "path": "uv.lock",
+      "sha256": "3fa58dfcd85fd7ed513f78d08b5e27dccdc08adcbe5c000a0f1c812e09ca5c9d",
+      "size_bytes": 147819
+    },
+    {
+      "path": "configs/experiment_registry.json",
+      "sha256": "f99cc496c5a1b41e5da56aacc1d93ff07d31166f35d3136af1db1cc26bd635ce",
+      "size_bytes": 3912
+    },
+    {
+      "path": "configs/upstream_registry.json",
+      "sha256": "fd957a3438eff839e7224a34b969d22bbc9e6226d973c594f760fc5cce56ed43",
+      "size_bytes": 2333
+    },
+    {
+      "path": "configs/model_manifest.yaml",
+      "sha256": "513cb461cbf2f865082d0624ce36dbd4249f44fe5be956e57ce9d9f65a32994b",
+      "size_bytes": 10304
+    },
+    {
+      "path": "configs/data_manifest.yaml",
+      "sha256": "3023d799daf3e6ced57e4c7f1090f82939c1bae936156c29ab29529dec6870b3",
+      "size_bytes": 1872
+    },
+    {
+      "path": "configs/smoke_fixture.json",
+      "sha256": "7cdc94b6268730bcc01c24701c28b6ab7b126322c64cb0930af6068d8926a804",
+      "size_bytes": 1356
+    },
+    {
+      "path": "docs/system_boundary.md",
+      "sha256": "c36705c8166a3af08643bce667b5f8ab0334ce13447f6a5cb5c354d147a41bdb",
+      "size_bytes": 4001
+    },
+    {
+      "path": "docs/experiment_registry.md",
+      "sha256": "ba5662a18c361aedd766b2fc6c47d1d27fc14b5531281819db6dbf98d8f1ec40",
+      "size_bytes": 3140
+    },
+    {
+      "path": "notebooks/e0_t04_colab_smoke_test.ipynb",
+      "sha256": "ac9baaea7362aa4a5f15d2cc5aadc7d4a7826d9824c7cf937062f5bf209c95e6",
+      "size_bytes": 4553
+    }
+  ],
+  "lock_version": 1,
+  "schema_version": 1
+}

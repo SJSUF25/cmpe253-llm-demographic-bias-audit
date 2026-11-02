@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "registry_version": "1.0.0",
+  "frozen_seed": 253,
+  "models": ["M1", "M2"],
+  "conditions": {
+    "B0": "baseline system instruction, greedy FP16",
+    "F1": "fixed fairness system instruction, greedy FP16",
+    "P0": "raw synthetic PII input",
+    "P1": "input-side Presidio and exact-rule redaction",
+    "P2": "P1 plus deterministic output-side filtering"
+  },
+  "runs": [
+    {"id": "CAB-EXP-M1-B0", "model": "M1", "dataset": "D1", "condition": "B0", "output": "private_outputs/cab_exp_m1_b0.jsonl"},
+    {"id": "CAB-EXP-M1-F1", "model": "M1", "dataset": "D1", "condition": "F1", "output": "private_outputs/cab_exp_m1_f1.jsonl"},
+    {"id": "CAB-EXP-M2-B0", "model": "M2", "dataset": "D1", "condition": "B0", "output": "private_outputs/cab_exp_m2_b0.jsonl"},
+    {"id": "CAB-EXP-M2-F1", "model": "M2", "dataset": "D1", "condition": "F1", "output": "private_outputs/cab_exp_m2_f1.jsonl"},
+    {"id": "CAB-IMP-M1-B0", "model": "M1", "dataset": "D1-implicit", "condition": "B0", "output": "private_outputs/cab_imp_m1_b0.jsonl"},
+    {"id": "CAB-IMP-M1-F1", "model": "M1", "dataset": "D1-implicit", "condition": "F1", "output": "private_outputs/cab_imp_m1_f1.jsonl"},
+    {"id": "CAB-IMP-M2-B0", "model": "M2", "dataset": "D1-implicit", "condition": "B0", "output": "private_outputs/cab_imp_m2_b0.jsonl"},
+    {"id": "CAB-IMP-M2-F1", "model": "M2", "dataset": "D1-implicit", "condition": "F1", "output": "private_outputs/cab_imp_m2_f1.jsonl"},
+    {"id": "BBQ-M1-B0", "model": "M1", "dataset": "D2-sample1500", "condition": "B0", "output": "private_outputs/bbq_m1_b0.jsonl"},
+    {"id": "BBQ-M1-F1", "model": "M1", "dataset": "D2-sample1500", "condition": "F1", "output": "private_outputs/bbq_m1_f1.jsonl"},
+    {"id": "BBQ-M2-B0", "model": "M2", "dataset": "D2-sample1500", "condition": "B0", "output": "private_outputs/bbq_m2_b0.jsonl"},
+    {"id": "BBQ-M2-F1", "model": "M2", "dataset": "D2-sample1500", "condition": "F1", "output": "private_outputs/bbq_m2_f1.jsonl"},
+    {"id": "ROB-M1-B0", "model": "M1", "dataset": "D1-robustness60", "condition": "B0", "output": "private_outputs/rob_m1_b0.jsonl"},
+    {"id": "ROB-M1-F1", "model": "M1", "dataset": "D1-robustness60", "condition": "F1", "output": "private_outputs/rob_m1_f1.jsonl"},
+    {"id": "ROB-M2-B0", "model": "M2", "dataset": "D1-robustness60", "condition": "B0", "output": "private_outputs/rob_m2_b0.jsonl"},
+    {"id": "ROB-M2-F1", "model": "M2", "dataset": "D1-robustness60", "condition": "F1", "output": "private_outputs/rob_m2_f1.jsonl"},
+    {"id": "PII-M1-P0", "model": "M1", "dataset": "synthetic-pii-test200", "condition": "P0", "output": "private_outputs/pii_m1_p0.jsonl"},
+    {"id": "PII-M1-P1", "model": "M1", "dataset": "synthetic-pii-test200", "condition": "P1", "output": "private_outputs/pii_m1_p1.jsonl"},
+    {"id": "PII-M1-P2", "model": "M1", "dataset": "synthetic-pii-test200", "condition": "P2", "output": "private_outputs/pii_m1_p2.jsonl"},
+    {"id": "PII-M2-P0", "model": "M2", "dataset": "synthetic-pii-test200", "condition": "P0", "output": "private_outputs/pii_m2_p0.jsonl"},
+    {"id": "PII-M2-P1", "model": "M2", "dataset": "synthetic-pii-test200", "condition": "P1", "output": "private_outputs/pii_m2_p1.jsonl"},
+    {"id": "PII-M2-P2", "model": "M2", "dataset": "synthetic-pii-test200", "condition": "P2", "output": "private_outputs/pii_m2_p2.jsonl"},
+    {"id": "CANARY-M2-QLORA", "model": "M2", "dataset": "synthetic-canary-sealed", "condition": "4bit-qlora", "output": "adapters_private/canary_m2_qlora"},
+    {"id": "EXPLAIN-BBQ-60", "model": "M1+M2", "dataset": "D2-explain60", "condition": "B0+F1", "output": "aggregate_results/explain_bbq_60"}
+  ],
+  "change_control": {
+    "post_freeze_edits_require": ["new registry version", "new hashes", "both-member approval", "rerun of every affected run"],
+    "results_must_not_influence_sampling_or_confirmatory_definitions": true
+  }
+}
