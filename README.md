@@ -42,6 +42,18 @@ make storage-verify ROOT="/mounted/shared/path" REVIEWER="Abhinandan"
 The mount path belongs in the ignored local environment, never in repository files.
 See `docs/data_handling.md` for the storage layout and handling rules.
 
+After the governance gate is approved, download or re-verify the pinned CAB and BBQ
+sources without overwriting existing raw bytes:
+
+```bash
+make download-data ROOT="$AUDIT_SHARED_ROOT"
+make download-data ROOT="$AUDIT_SHARED_ROOT" VERIFY_REMOTE=1
+```
+
+The command checks pinned revisions, byte sizes, SHA-256 values, schemas, row counts,
+CAB race/gender inventory, and all three required BBQ categories before writing an
+immutable raw-data manifest.
+
 ## Colab environment gate
 
 Open `notebooks/e0_t04_colab_smoke_test.ipynb` in a fresh Colab Pro GPU runtime. It

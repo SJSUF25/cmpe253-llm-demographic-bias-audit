@@ -48,8 +48,9 @@ storage-verify: ## Verify a shared-storage probe (ROOT and REVIEWER are required
 sync-upstream: ## Verify pinned revisions and refresh upstream metadata snapshots
 	$(UV) run --frozen python -m upstream_tools sync
 
-download-data: ## Download immutable upstream datasets
-	$(PROJECT_CLI) download-data
+download-data: ## Download immutable upstream datasets (ROOT required)
+	@test -n "$(ROOT)" || { echo "Usage: make download-data ROOT=/path [VERIFY_REMOTE=1]"; exit 2; }
+	$(PROJECT_CLI) download-data --root "$(ROOT)" $(if $(VERIFY_REMOTE),--verify-remote,)
 
 build-data: ## Build deterministic processed datasets
 	$(PROJECT_CLI) build-data

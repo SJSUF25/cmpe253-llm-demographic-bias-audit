@@ -8,3 +8,5 @@ here. Final run configurations must use immutable upstream revisions.
 - `data_manifest.yaml` records CAB and BBQ revisions and governance snapshots.
 - `storage.example.yaml` defines the shared private-storage contract.
 - `storage.local.yaml` is reserved for ignored machine-specific mount configuration.
+- `raw_data_sources.json` pins the exact CAB/BBQ source files, byte sizes, hashes,
+  schemas, row counts, and required category inventory for `make download-data`.

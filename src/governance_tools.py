@@ -17,11 +17,13 @@ LOCKED_FILES = (
     "configs/upstream_registry.json",
     "configs/model_manifest.yaml",
     "configs/data_manifest.yaml",
+    "configs/raw_data_sources.json",
     "configs/smoke_fixture.json",
     "docs/system_boundary.md",
     "docs/experiment_registry.md",
     "notebooks/e0_t04_colab_smoke_test.ipynb",
     "src/environment_tools.py",
+    "src/data/download.py",
     "src/inference/smoke_test.py",
 )
 

@@ -37,6 +37,11 @@
       "size_bytes": 1872
     },
     {
+      "path": "configs/raw_data_sources.json",
+      "sha256": "89d5b9186113e02b73f2d390910a6a2f87efbf9c1d228d78b4648604425e58c8",
+      "size_bytes": 2628
+    },
+    {
       "path": "configs/smoke_fixture.json",
       "sha256": "7cdc94b6268730bcc01c24701c28b6ab7b126322c64cb0930af6068d8926a804",
       "size_bytes": 1356
@@ -53,13 +58,18 @@
     },
     {
       "path": "notebooks/e0_t04_colab_smoke_test.ipynb",
-      "sha256": "ac9baaea7362aa4a5f15d2cc5aadc7d4a7826d9824c7cf937062f5bf209c95e6",
-      "size_bytes": 4553
+      "sha256": "8aabf51d363e91ef4eaa42d9fc6a7a3ba1a6b6aecb4e15e1c46fe94b2443c8bc",
+      "size_bytes": 4708
     },
     {
       "path": "src/environment_tools.py",
       "sha256": "0361c00ac5567725bbd2a9d8f09d3aeabc95acdbe8109ba5c47950997e0b9859",
       "size_bytes": 3924
+    },
+    {
+      "path": "src/data/download.py",
+      "sha256": "0e3c22f439e8b8f1a981a1917305ea53a887fa1d8d850abcbb961155106c8317",
+      "size_bytes": 10420
     },
     {
       "path": "src/inference/smoke_test.py",

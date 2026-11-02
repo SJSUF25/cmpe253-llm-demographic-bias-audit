@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "config_id": "raw-data-sources-v1",
+  "manifest_name": "raw_data_manifest.json",
+  "datasets": [
+    {
+      "key": "D1",
+      "name": "CAB",
+      "repo_id": "eth-sri/cab",
+      "revision": "798e2f5e9572f98404b8e9e3964ee1db9c70e658",
+      "license": "MIT",
+      "files": [
+        {
+          "path": "cab.json",
+          "url": "https://huggingface.co/datasets/eth-sri/cab/resolve/798e2f5e9572f98404b8e9e3964ee1db9c70e658/cab.json",
+          "size_bytes": 706855,
+          "sha256": "a1b9d378406e0667b5c26c33b2bd9d6e96b8bb0ca3e852cb07271438174d5983",
+          "format": "json",
+          "expected_rows": 815,
+          "required_fields": ["attribute", "domain", "domain_explicit", "example", "expl_impl", "superdomain", "superdomain_explicit", "topic"],
+          "required_inventory": {
+            "gender|explicit": 145,
+            "race|explicit": 128
+          }
+        }
+      ]
+    },
+    {
+      "key": "D2",
+      "name": "BBQ",
+      "repo_id": "nyu-mll/BBQ",
+      "revision": "bea11bd97d79217245b5871acd247b9d6eb24598",
+      "license": "CC-BY-4.0",
+      "files": [
+        {
+          "path": "Gender_identity.jsonl",
+          "url": "https://raw.githubusercontent.com/nyu-mll/BBQ/bea11bd97d79217245b5871acd247b9d6eb24598/data/Gender_identity.jsonl",
+          "size_bytes": 4331406,
+          "sha256": "8b5adbb368510a97d5775dc43e1c719e0249fe2da33f13c83e3e29edafec7a00",
+          "format": "jsonl",
+          "expected_rows": 5672,
+          "expected_category": "Gender_identity"
+        },
+        {
+          "path": "Race_ethnicity.jsonl",
+          "url": "https://raw.githubusercontent.com/nyu-mll/BBQ/bea11bd97d79217245b5871acd247b9d6eb24598/data/Race_ethnicity.jsonl",
+          "size_bytes": 6062426,
+          "sha256": "4a9f1214cfaa115ce7f0bdb40609122e431f5152c71b8ca64d665e483b946ae6",
+          "format": "jsonl",
+          "expected_rows": 6880,
+          "expected_category": "Race_ethnicity"
+        },
+        {
+          "path": "Race_x_gender.jsonl",
+          "url": "https://raw.githubusercontent.com/nyu-mll/BBQ/bea11bd97d79217245b5871acd247b9d6eb24598/data/Race_x_gender.jsonl",
+          "size_bytes": 13094106,
+          "sha256": "e5dbba782f8c4e25b99dd5470b5136e2db73dbf401cf6d4a5a3ed31b02f95696",
+          "format": "jsonl",
+          "expected_rows": 15960,
+          "expected_category": "Race_x_gender"
+        }
+      ],
+      "required_fields": ["additional_metadata", "ans0", "ans1", "ans2", "answer_info", "category", "context", "context_condition", "example_id", "label", "question", "question_index", "question_polarity"]
+    }
+  ]
+}

@@ -69,14 +69,17 @@ def test_makefile_exposes_required_targets() -> None:
 
 
 def test_colab_notebook_and_registry_are_valid() -> None:
-    notebook = json.loads(
-        (ROOT / "notebooks/e0_t04_colab_smoke_test.ipynb").read_text(encoding="utf-8")
+    notebook_text = (ROOT / "notebooks/e0_t04_colab_smoke_test.ipynb").read_text(
+        encoding="utf-8"
     )
+    notebook = json.loads(notebook_text)
     registry = json.loads(
         (ROOT / "configs/experiment_registry.json").read_text(encoding="utf-8")
     )
     run_ids = [run["id"] for run in registry["runs"]]
 
     assert notebook["nbformat"] == 4
+    assert "/content/drive/MyDrive/CMPE253-Project" not in notebook_text
+    assert "AUDIT_SHARED_ROOT" in notebook_text
     assert len(run_ids) == len(set(run_ids))
     assert {run["model"] for run in registry["runs"]} >= {"M1", "M2"}
