@@ -40,11 +40,16 @@ def format_prompt(tokenizer: Any, user_text: str) -> Any:
         {"role": "system", "content": SYSTEM_PROMPT},
         {"role": "user", "content": user_text},
     ]
-    return tokenizer.apply_chat_template(
+    encoded = tokenizer.apply_chat_template(
         messages,
         add_generation_prompt=True,
         return_tensors="pt",
     )
+    if hasattr(encoded, "input_ids"):
+        return encoded.input_ids
+    if isinstance(encoded, dict) and "input_ids" in encoded:
+        return encoded["input_ids"]
+    return encoded
 
 
 def generate_once(

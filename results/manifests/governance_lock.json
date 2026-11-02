@@ -55,6 +55,16 @@
       "path": "notebooks/e0_t04_colab_smoke_test.ipynb",
       "sha256": "ac9baaea7362aa4a5f15d2cc5aadc7d4a7826d9824c7cf937062f5bf209c95e6",
       "size_bytes": 4553
+    },
+    {
+      "path": "src/environment_tools.py",
+      "sha256": "0361c00ac5567725bbd2a9d8f09d3aeabc95acdbe8109ba5c47950997e0b9859",
+      "size_bytes": 3924
+    },
+    {
+      "path": "src/inference/smoke_test.py",
+      "sha256": "f0c7d668c370fafb64293113cb2d82b8bac30a5a14c0b88a0ed1640ca1e9156f",
+      "size_bytes": 6998
     }
   ],
   "lock_version": 1,

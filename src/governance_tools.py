@@ -21,6 +21,8 @@ LOCKED_FILES = (
     "docs/system_boundary.md",
     "docs/experiment_registry.md",
     "notebooks/e0_t04_colab_smoke_test.ipynb",
+    "src/environment_tools.py",
+    "src/inference/smoke_test.py",
 )
 
 
