@@ -10,3 +10,5 @@ here. Final run configurations must use immutable upstream revisions.
 - `storage.local.yaml` is reserved for ignored machine-specific mount configuration.
 - `raw_data_sources.json` pins the exact CAB/BBQ source files, byte sizes, hashes,
   schemas, row counts, and required category inventory for `make download-data`.
+- `cab_build.json` freezes CAB expansion, identity ordering, split namespace, expected
+  counts, normalization version, and private processed-output locations.

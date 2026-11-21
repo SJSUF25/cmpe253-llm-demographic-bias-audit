@@ -13,7 +13,7 @@ machine-specific mount path is supplied through `AUDIT_SHARED_ROOT` and must nev
 committed. `configs/storage.example.yaml` defines the required child directories:
 
 - `raw_immutable`: pinned upstream data, never modified in place;
-- `private_outputs`: raw generations and annotation exports;
+- `private_outputs`: processed prompt data, raw generations, and annotation exports;
 - `adapters_private`: checkpoints and the controlled canary adapter;
 - `aggregate_results`: reviewed aggregate tables, plots, and redacted examples;
 - `manifests`: checksums and storage/run metadata;

@@ -3,8 +3,8 @@
   "files": [
     {
       "path": "LLM_Bias_Audit_PRD.md",
-      "sha256": "8930ae75d0c18a33291ad3553e51e418bfdf6b5cb2a5982f2ad403f85e7b332a",
-      "size_bytes": 70044
+      "sha256": "f11fc555ce99e00c06331e6909a80d31c098f1ecd8aa39d163b2ea4701e9e838",
+      "size_bytes": 71339
     },
     {
       "path": "pyproject.toml",
@@ -37,6 +37,11 @@
       "size_bytes": 1872
     },
     {
+      "path": "configs/cab_build.json",
+      "sha256": "2b1c4bcb10c002f58b90ba6ece01689f7987283e2c195c84cedc519a2e8b5546",
+      "size_bytes": 908
+    },
+    {
       "path": "configs/raw_data_sources.json",
       "sha256": "89d5b9186113e02b73f2d390910a6a2f87efbf9c1d228d78b4648604425e58c8",
       "size_bytes": 2628
@@ -65,6 +70,11 @@
       "path": "src/environment_tools.py",
       "sha256": "0361c00ac5567725bbd2a9d8f09d3aeabc95acdbe8109ba5c47950997e0b9859",
       "size_bytes": 3924
+    },
+    {
+      "path": "src/data/cab_builder.py",
+      "sha256": "cd9ed1e074fdb2ccfab6e00ba6bbf967ec5668b5bc96949c7e76f10f2474874a",
+      "size_bytes": 11726
     },
     {
       "path": "src/data/download.py",

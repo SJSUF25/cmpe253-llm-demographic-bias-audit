@@ -6,6 +6,8 @@ import argparse
 from collections.abc import Sequence
 from pathlib import Path
 
+from data.cab_builder import DEFAULT_CONFIG as DEFAULT_CAB_CONFIG
+from data.cab_builder import build_cab
 from data.download import DEFAULT_CONFIG, download_datasets
 
 WORKFLOW_COMMANDS = (
@@ -36,8 +38,11 @@ def build_parser() -> argparse.ArgumentParser:
     download.add_argument("--root", type=Path, required=True)
     download.add_argument("--config", type=Path, default=DEFAULT_CONFIG)
     download.add_argument("--verify-remote", action="store_true")
+    build = subparsers.add_parser("build-data")
+    build.add_argument("--root", type=Path, required=True)
+    build.add_argument("--config", type=Path, default=DEFAULT_CAB_CONFIG)
     for command in WORKFLOW_COMMANDS:
-        if command != "download-data":
+        if command not in {"download-data", "build-data"}:
             subparsers.add_parser(command)
     return parser
 
@@ -53,6 +58,9 @@ def main(argv: Sequence[str] | None = None) -> int:
                 verify_remote=args.verify_remote,
             )
         )
+        return 0
+    if args.command == "build-data":
+        print(build_cab(args.root, args.config))
         return 0
     print(
         f"Workflow command '{args.command}' is registered but not implemented yet. "

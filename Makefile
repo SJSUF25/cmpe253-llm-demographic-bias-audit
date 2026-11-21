@@ -52,8 +52,9 @@ download-data: ## Download immutable upstream datasets (ROOT required)
 	@test -n "$(ROOT)" || { echo "Usage: make download-data ROOT=/path [VERIFY_REMOTE=1]"; exit 2; }
 	$(PROJECT_CLI) download-data --root "$(ROOT)" $(if $(VERIFY_REMOTE),--verify-remote,)
 
-build-data: ## Build deterministic processed datasets
-	$(PROJECT_CLI) build-data
+build-data: ## Build deterministic processed datasets (ROOT required)
+	@test -n "$(ROOT)" || { echo "Usage: make build-data ROOT=/path"; exit 2; }
+	$(PROJECT_CLI) build-data --root "$(ROOT)"
 
 validate-data: ## Validate dataset schemas, counts, hashes, and split integrity
 	$(PROJECT_CLI) validate-data

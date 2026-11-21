@@ -48,11 +48,15 @@ sources without overwriting existing raw bytes:
 ```bash
 make download-data ROOT="$AUDIT_SHARED_ROOT"
 make download-data ROOT="$AUDIT_SHARED_ROOT" VERIFY_REMOTE=1
+make build-data ROOT="$AUDIT_SHARED_ROOT"
 ```
 
 The command checks pinned revisions, byte sizes, SHA-256 values, schemas, row counts,
 CAB race/gender inventory, and all three required BBQ categories before writing an
 immutable raw-data manifest.
+`make build-data` expands the linked CAB explicit/implicit families into a private,
+deterministic prompt manifest; it refuses a source-hash mismatch or changed existing
+output.
 
 ## Colab environment gate
 

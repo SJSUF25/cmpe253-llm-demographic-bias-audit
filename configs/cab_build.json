@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "config_id": "cab-build-v1",
+  "dataset": "CAB",
+  "source_key": "D1",
+  "source_revision": "798e2f5e9572f98404b8e9e3964ee1db9c70e658",
+  "license": "MIT",
+  "input_path": "raw_immutable/D1/798e2f5e9572f98404b8e9e3964ee1db9c70e658/cab.json",
+  "input_sha256": "a1b9d378406e0667b5c26c33b2bd9d6e96b8bb0ca3e852cb07271438174d5983",
+  "output_path": "private_outputs/processed_data/cab/prompt_manifest.jsonl",
+  "manifest_path": "manifests/cab_build_manifest.json",
+  "attributes": {
+    "gender": ["male", "female"],
+    "race": ["white", "black", "asian", "hispanic"]
+  },
+  "expected": {
+    "explicit_families": 273,
+    "explicit_prompts": 802,
+    "implicit_families": 273,
+    "implicit_prompts": 802,
+    "total_prompts": 1604
+  },
+  "split": {
+    "namespace": "cmpe253:",
+    "modulus": 10,
+    "development_buckets": [0, 1]
+  },
+  "normalization_version": "cab-nfkc-lf-v1"
+}
