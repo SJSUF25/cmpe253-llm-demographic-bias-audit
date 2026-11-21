@@ -19,7 +19,7 @@ def test_cross_account_storage_probe(tmp_path) -> None:
 
     assert all((tmp_path / directory).is_dir() for directory in DIRECTORIES)
     assert len(manifest["sha256"]) == 64
-    receipt_path = verify_storage(tmp_path, "Abhinandan")
+    receipt_path = verify_storage(tmp_path, "Abhinand")
     receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
     assert receipt["status"] == "verified"
     assert receipt["probe_sha256"] == manifest["sha256"]
@@ -42,4 +42,4 @@ def test_verification_detects_tampering(tmp_path) -> None:
     )
 
     with pytest.raises(ValueError, match="checksum or size"):
-        verify_storage(tmp_path, "Abhinandan")
+        verify_storage(tmp_path, "Abhinand")

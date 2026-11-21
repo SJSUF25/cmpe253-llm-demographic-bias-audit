@@ -32,11 +32,11 @@ make sync-upstream
 ```
 
 After the private shared Drive folder has been created and mounted, initialize it from
-Vineet's account and verify it independently from Abhinandan's account:
+Vineet's account and verify it independently from Abhinand's account:
 
 ```bash
 make storage-init ROOT="/mounted/shared/path" AUTHOR="Vineet Malewar"
-make storage-verify ROOT="/mounted/shared/path" REVIEWER="Abhinandan"
+make storage-verify ROOT="/mounted/shared/path" REVIEWER="Abhinand"
 ```
 
 The mount path belongs in the ignored local environment, never in repository files.

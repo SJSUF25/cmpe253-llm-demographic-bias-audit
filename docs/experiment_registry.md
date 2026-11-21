@@ -2,7 +2,7 @@
 
 Registry version 1.0.0 is the human-readable companion to
 `configs/experiment_registry.json`. It becomes frozen when Vineet Malewar and
-Abhinandan approve its governance-lock hash after both complete E0-T04.
+Abhinand approve its governance-lock hash after both complete E0-T04.
 
 ## Locked condition vocabulary
 
@@ -39,7 +39,7 @@ dropped.
 
 1. Run both E0-T04 model smoke tests and store their passing JSON manifests.
 2. Run `make governance-lock`; inspect the listed files and SHA-256 values.
-3. Vineet and Abhinandan independently compare the lock with the approved PRD.
+3. Vineet and Abhinand independently compare the lock with the approved PRD.
 4. Both record approval, date, lock SHA-256, and E0-T04 manifest hashes in the task
    tracker before generating confirmatory outputs.
 

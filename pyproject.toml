@@ -7,7 +7,7 @@ requires-python = ">=3.11,<3.12"
 license = { text = "Course project; repository license not yet assigned" }
 authors = [
   { name = "Vineet Malewar" },
-  { name = "Abhinandan" },
+  { name = "Abhinand" },
 ]
 dependencies = []
 

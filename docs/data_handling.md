@@ -19,7 +19,7 @@ committed. `configs/storage.example.yaml` defines the required child directories
 - `manifests`: checksums and storage/run metadata;
 - `backups`: private recovery copies.
 
-Only Vineet and Abhinandan receive editor access. Link sharing must be restricted;
+Only Vineet and Abhinand receive editor access. Link sharing must be restricted;
 public or organization-wide sharing is prohibited. Each member enables account
 multi-factor authentication. Course staff receive artifacts only through the approved
 submission channel, not by broadening Drive permissions.
@@ -51,11 +51,11 @@ into the working tree. Before every commit, inspect `git status` and staged cont
 
 ## Access probe and backup verification
 
-After Vineet creates the Drive folder and grants Abhinandan editor access:
+After Vineet creates the Drive folder and grants Abhinand editor access:
 
 ```bash
 make storage-init ROOT="/mounted/shared/path" AUTHOR="Vineet Malewar"
-make storage-verify ROOT="/mounted/shared/path" REVIEWER="Abhinandan"
+make storage-verify ROOT="/mounted/shared/path" REVIEWER="Abhinand"
 ```
 
 The first command creates the required directories and a harmless random probe. The
