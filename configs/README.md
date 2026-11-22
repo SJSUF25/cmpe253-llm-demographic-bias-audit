@@ -9,6 +9,9 @@ here. Final run configurations must use immutable upstream revisions.
 - `storage.example.yaml` defines the shared private-storage contract.
 - `storage.local.yaml` is reserved for ignored machine-specific mount configuration.
 - `raw_data_sources.json` pins the exact CAB/BBQ source files, byte sizes, hashes,
-  schemas, row counts, and required category inventory for `make download-data`.
+  schemas, row counts, official BBQ supplemental metadata, and required category
+  inventory for `make download-data`.
 - `cab_build.json` freezes CAB expansion, identity ordering, split namespace, expected
   counts, normalization version, and private processed-output locations.
+- `bbq_build.json` freezes the 500-per-category selection and private output paths for
+  `make build-bbq ROOT=/mounted/shared/path`.

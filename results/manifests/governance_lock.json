@@ -3,8 +3,8 @@
   "files": [
     {
       "path": "LLM_Bias_Audit_PRD.md",
-      "sha256": "09d16975824a9bb1b762ac5abe0f726699abafe537fee2214d34497c8aa64c1d",
-      "size_bytes": 71984
+      "sha256": "4809b05823d2ebd0b71910f85b9c14de77943d403cca7f16f5b46bf867f8651a",
+      "size_bytes": 72852
     },
     {
       "path": "pyproject.toml",
@@ -42,14 +42,19 @@
       "size_bytes": 908
     },
     {
+      "path": "configs/bbq_build.json",
+      "sha256": "048c2f7e554d1280a289a332844b5ae9abb967031ba247d6694318eab036ed90",
+      "size_bytes": 500
+    },
+    {
       "path": "configs/privacy_data.json",
       "sha256": "5cbcb442541bdd78c0f11674e6e27012e161f57b45b42189a3abb0614e32304d",
       "size_bytes": 366
     },
     {
       "path": "configs/raw_data_sources.json",
-      "sha256": "89d5b9186113e02b73f2d390910a6a2f87efbf9c1d228d78b4648604425e58c8",
-      "size_bytes": 2628
+      "sha256": "3154202ca6bacc1031955e824fbe9a769bc75712f35a2f814f68edbfef7a0a5d",
+      "size_bytes": 3123
     },
     {
       "path": "configs/smoke_fixture.json",
@@ -82,9 +87,14 @@
       "size_bytes": 11726
     },
     {
+      "path": "src/data/bbq_sampler.py",
+      "sha256": "32c56292be67ce7a6761dc45043485a6e4fddb160d892cf5f151e4512da29992",
+      "size_bytes": 11443
+    },
+    {
       "path": "src/data/download.py",
-      "sha256": "0e3c22f439e8b8f1a981a1917305ea53a887fa1d8d850abcbb961155106c8317",
-      "size_bytes": 10420
+      "sha256": "022bba5ebad8716c40a41dcdce88cea3a3b8c8a488d0ad6a6dcc3a92e410a9fe",
+      "size_bytes": 11977
     },
     {
       "path": "src/privacy/synthetic_data.py",

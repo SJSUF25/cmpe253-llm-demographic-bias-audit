@@ -8,7 +8,7 @@ export PYTHONPATH
 PROJECT_CLI := $(UV) run --frozen python -m project_cli
 
 .PHONY: help check-uv setup setup-colab capture-environment smoke-model governance-lock storage-init storage-verify sync-upstream build-synthetic-pii \
-	download-data build-data validate-data pilot \
+	download-data build-data build-bbq validate-data pilot \
 	infer-baseline infer-mitigation score annotate-export analyze explain \
 	privacy test lint demo reproduce-small
 
@@ -55,6 +55,10 @@ download-data: ## Download immutable upstream datasets (ROOT required)
 build-data: ## Build deterministic processed datasets (ROOT required)
 	@test -n "$(ROOT)" || { echo "Usage: make build-data ROOT=/path"; exit 2; }
 	$(PROJECT_CLI) build-data --root "$(ROOT)"
+
+build-bbq: ## Build the frozen BBQ sample and option permutations (ROOT required)
+	@test -n "$(ROOT)" || { echo "Usage: make build-bbq ROOT=/path"; exit 2; }
+	$(PROJECT_CLI) build-bbq --root "$(ROOT)"
 
 build-synthetic-pii: ## Build deterministic private synthetic PII records (ROOT required)
 	@test -n "$(ROOT)" || { echo "Usage: make build-synthetic-pii ROOT=/path"; exit 2; }

@@ -7,6 +7,7 @@ def test_all_required_workflow_commands_are_registered() -> None:
     expected = {
         "download-data",
         "build-data",
+        "build-bbq",
         "validate-data",
         "pilot",
         "infer-baseline",
@@ -53,4 +54,17 @@ def test_build_command_dispatches(monkeypatch, tmp_path, capsys) -> None:
     monkeypatch.setattr("project_cli.build_cab", fake_build)
 
     assert main(["build-data", "--root", str(tmp_path)]) == 0
+    assert str(expected) in capsys.readouterr().out
+
+
+def test_build_bbq_command_dispatches(monkeypatch, tmp_path, capsys) -> None:
+    expected = tmp_path / "bbq_manifest.json"
+
+    def fake_build(root, config):
+        assert root == tmp_path
+        return expected
+
+    monkeypatch.setattr("project_cli.build_bbq", fake_build)
+
+    assert main(["build-bbq", "--root", str(tmp_path)]) == 0
     assert str(expected) in capsys.readouterr().out

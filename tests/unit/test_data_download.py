@@ -55,6 +55,10 @@ def _fixture(tmp_path: Path) -> tuple[Path, dict[str, bytes]]:
         content[f"{category}.jsonl"] = (
             _json_bytes({**bbq_fields, "category": category}) + b"\n"
         )
+    content["additional_metadata.csv"] = (
+        b"category,example_id,question_index,target_loc,label_type\n"
+        b"Gender_identity,1,1,0,label\n"
+    )
     required_bbq = sorted({*bbq_fields, "category"})
     revision = "a" * 40
     config = {
@@ -96,6 +100,18 @@ def _fixture(tmp_path: Path) -> tuple[Path, dict[str, bytes]]:
                         "Race_x_gender",
                     )
                 ],
+                "supplemental": _source(
+                    "additional_metadata.csv",
+                    content["additional_metadata.csv"],
+                    format="csv",
+                    required_fields=[
+                        "category",
+                        "example_id",
+                        "question_index",
+                        "target_loc",
+                        "label_type",
+                    ],
+                ),
             },
         ],
     }
@@ -120,7 +136,7 @@ def test_download_is_immutable_idempotent_and_remotely_verifiable(
         now=lambda: datetime(2026, 1, 1, tzinfo=UTC),
     )
     first_manifest = manifest_path.read_bytes()
-    assert len(json.loads(first_manifest)["files"]) == 4
+    assert len(json.loads(first_manifest)["files"]) == 5
 
     download_datasets(shared, config_path, fetcher=fetcher, verify_remote=True)
     assert manifest_path.read_bytes() == first_manifest

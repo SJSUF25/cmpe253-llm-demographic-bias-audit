@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "config_id": "raw-data-sources-v1",
-  "manifest_name": "raw_data_manifest.json",
+  "config_id": "raw-data-sources-v2",
+  "manifest_name": "raw_data_manifest_v2.json",
   "datasets": [
     {
       "key": "D1",
@@ -60,6 +60,15 @@
           "expected_category": "Race_x_gender"
         }
       ],
+      "supplemental": {
+        "path": "additional_metadata.csv",
+        "format": "csv",
+        "expected_rows": 58556,
+        "required_fields": ["category", "example_id", "question_index", "target_loc", "label_type"],
+        "url": "https://raw.githubusercontent.com/nyu-mll/BBQ/bea11bd97d79217245b5871acd247b9d6eb24598/supplemental/additional_metadata.csv",
+        "size_bytes": 5827321,
+        "sha256": "f36708416b0e7adb81b47ad1926f9c39c2beb611702b73b01e06c9b6c9ffbd3d"
+      },
       "required_fields": ["additional_metadata", "ans0", "ans1", "ans2", "answer_info", "category", "context", "context_condition", "example_id", "label", "question", "question_index", "question_polarity"]
     }
   ]

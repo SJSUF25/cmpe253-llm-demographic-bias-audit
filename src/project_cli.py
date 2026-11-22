@@ -6,6 +6,8 @@ import argparse
 from collections.abc import Sequence
 from pathlib import Path
 
+from data.bbq_sampler import DEFAULT_CONFIG as DEFAULT_BBQ_CONFIG
+from data.bbq_sampler import build_bbq
 from data.cab_builder import DEFAULT_CONFIG as DEFAULT_CAB_CONFIG
 from data.cab_builder import build_cab
 from data.download import DEFAULT_CONFIG, download_datasets
@@ -13,6 +15,7 @@ from data.download import DEFAULT_CONFIG, download_datasets
 WORKFLOW_COMMANDS = (
     "download-data",
     "build-data",
+    "build-bbq",
     "validate-data",
     "pilot",
     "infer-baseline",
@@ -41,8 +44,11 @@ def build_parser() -> argparse.ArgumentParser:
     build = subparsers.add_parser("build-data")
     build.add_argument("--root", type=Path, required=True)
     build.add_argument("--config", type=Path, default=DEFAULT_CAB_CONFIG)
+    bbq = subparsers.add_parser("build-bbq")
+    bbq.add_argument("--root", type=Path, required=True)
+    bbq.add_argument("--config", type=Path, default=DEFAULT_BBQ_CONFIG)
     for command in WORKFLOW_COMMANDS:
-        if command not in {"download-data", "build-data"}:
+        if command not in {"download-data", "build-data", "build-bbq"}:
             subparsers.add_parser(command)
     return parser
 
@@ -61,6 +67,9 @@ def main(argv: Sequence[str] | None = None) -> int:
         return 0
     if args.command == "build-data":
         print(build_cab(args.root, args.config))
+        return 0
+    if args.command == "build-bbq":
+        print(build_bbq(args.root, args.config))
         return 0
     print(
         f"Workflow command '{args.command}' is registered but not implemented yet. "

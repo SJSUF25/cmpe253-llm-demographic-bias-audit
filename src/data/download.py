@@ -2,7 +2,9 @@
 
 from __future__ import annotations
 
+import csv
 import hashlib
+import io
 import json
 import os
 import re
@@ -137,6 +139,29 @@ def _validate_bytes(
             f"{specification['path']} SHA-256 {actual_hash} != "
             f"{specification['sha256']}"
         )
+    if specification.get("format") == "csv":
+        try:
+            reader = csv.DictReader(io.StringIO(content.decode("utf-8")))
+            fields = set(reader.fieldnames or [])
+            missing = set(specification["required_fields"]) - fields
+            if missing:
+                raise DataValidationError(
+                    f"Supplemental metadata missing fields: {sorted(missing)}"
+                )
+            rows = list(reader)
+        except UnicodeDecodeError as error:
+            raise DataValidationError(
+                "Invalid supplemental metadata encoding"
+            ) from error
+        if any(
+            None in row
+            or any(row[field] is None for field in specification["required_fields"])
+            for row in rows
+        ):
+            raise DataValidationError("Malformed supplemental metadata CSV row")
+        if len(rows) != specification["expected_rows"]:
+            raise DataValidationError("Unexpected supplemental metadata row count")
+        return {"format": "csv", "row_count": len(rows), "fields": sorted(fields)}
     if dataset["key"] == "D1":
         return validate_cab(content, specification)
     return validate_bbq(content, specification, set(dataset["required_fields"]))
@@ -154,7 +179,10 @@ def validate_config(config: dict[str, Any]) -> None:
         revision = dataset.get("revision", "")
         if not PIN_PATTERN.fullmatch(revision):
             raise DataValidationError(f"Dataset {key} has an unpinned revision")
-        for source in dataset.get("files", []):
+        sources = [*dataset.get("files", [])]
+        if dataset.get("supplemental"):
+            sources.append(dataset["supplemental"])
+        for source in sources:
             _safe_relative_path(source["path"])
             if revision not in source["url"]:
                 raise DataValidationError(
@@ -176,6 +204,9 @@ def validate_config(config: dict[str, Any]) -> None:
         raise DataValidationError(
             f"Unexpected BBQ categories: {sorted(str(x) for x in d2_categories)}"
         )
+    supplemental = by_key["D2"].get("supplemental")
+    if not supplemental or supplemental.get("path") != "additional_metadata.csv":
+        raise DataValidationError("Missing official BBQ supplemental metadata")
 
 
 def download_datasets(
@@ -202,7 +233,10 @@ def download_datasets(
     for dataset in config["datasets"]:
         destination_dir = raw_root / dataset["key"] / dataset["revision"]
         destination_dir.mkdir(parents=True, exist_ok=True)
-        for source in dataset["files"]:
+        sources = [*dataset["files"]]
+        if dataset.get("supplemental"):
+            sources.append(dataset["supplemental"])
+        for source in sources:
             destination = destination_dir / _safe_relative_path(source["path"])
             destination.parent.mkdir(parents=True, exist_ok=True)
             if destination.exists():

@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "config_id": "bbq-build-v1",
+  "source_key": "D2",
+  "source_revision": "bea11bd97d79217245b5871acd247b9d6eb24598",
+  "source_config": "configs/raw_data_sources.json",
+  "categories": ["Gender_identity", "Race_ethnicity", "Race_x_gender"],
+  "target_per_category": 500,
+  "items_path": "private_outputs/processed_data/bbq/items.jsonl",
+  "permutations_path": "private_outputs/processed_data/bbq/permutations.jsonl",
+  "manifest_path": "manifests/bbq_build_manifest.json"
+}

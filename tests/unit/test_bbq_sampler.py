@@ -1,6 +1,11 @@
 import pytest
 
-from data.bbq_sampler import BBQSamplingError, cyclic_option_orders, select_category
+from data.bbq_sampler import (
+    BBQSamplingError,
+    cyclic_option_orders,
+    enrich_rows,
+    select_category,
+)
 
 
 def row(identifier, context, polarity, template="t", group="g"):
@@ -62,3 +67,61 @@ def test_cyclic_orders_preserve_and_invert_correct_label():
     for variant in variants:
         assert variant["answers"][variant["correct_index"]] == "second"
         assert variant["source_indices"][variant["correct_index"]] == 1
+
+
+def test_official_metadata_join_collapses_only_agreeing_duplicates():
+    source = {
+        **row(7, "ambig", "neg"),
+        "question_index": "12",
+        "answer_info": {
+            "ans0": ["first", "unknown"],
+            "ans1": ["second", "women"],
+            "ans2": ["third", "men"],
+        },
+    }
+    metadata = {
+        "category": "Gender_identity",
+        "example_id": "7",
+        "question_index": "12",
+        "target_loc": "1",
+        "label_type": "label",
+        "Known_stereotyped_groups": "first description",
+    }
+    enriched, report = enrich_rows(
+        [source],
+        [metadata, {**metadata, "Known_stereotyped_groups": "second description"}],
+        "Gender_identity",
+    )
+    assert enriched[0]["target_group"] == "women"
+    assert report["collapsed_metadata_duplicates"] == 1
+    with pytest.raises(BBQSamplingError, match="Conflicting supplemental key"):
+        enrich_rows(
+            [source], [metadata, {**metadata, "target_loc": "2"}], "Gender_identity"
+        )
+
+
+def test_metadata_join_excludes_unusable_target_fields():
+    source = {
+        **row(8, "ambig", "neg"),
+        "question_index": "5",
+        "answer_info": {
+            "ans0": ["first", ""],
+            "ans1": ["second", "women"],
+            "ans2": ["third", "men"],
+        },
+    }
+    metadata = {
+        "category": "Gender_identity",
+        "example_id": "8",
+        "question_index": "5",
+        "target_loc": "NA",
+        "label_type": "label",
+    }
+    rows, report = enrich_rows([source], [metadata], "Gender_identity")
+    assert rows == []
+    assert report["excluded_missing_target_loc"] == 1
+    rows, report = enrich_rows(
+        [source], [{**metadata, "target_loc": "0"}], "Gender_identity"
+    )
+    assert rows == []
+    assert report["excluded_missing_target_group"] == 1
