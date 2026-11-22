@@ -57,6 +57,11 @@
       "size_bytes": 461
     },
     {
+      "path": "configs/inference.json",
+      "sha256": "d02c71ba838c39ff37d1cbd9b1552735ac0d64141d090281b99ed2cb7ea0f98b",
+      "size_bytes": 1056
+    },
+    {
       "path": "configs/raw_data_sources.json",
       "sha256": "3154202ca6bacc1031955e824fbe9a769bc75712f35a2f814f68edbfef7a0a5d",
       "size_bytes": 3123
@@ -85,6 +90,11 @@
       "path": "docs/bbq_scoring.md",
       "sha256": "e1e9b3e4c81c982b9adb3490916406cc2bb26332c2e8ab046a01916bd35f29fb",
       "size_bytes": 2902
+    },
+    {
+      "path": "docs/model_adapter.md",
+      "sha256": "2348f90c9a064422d067bf743228efab83f0b28421ffa46ce1ea0c8f3bef2c7e",
+      "size_bytes": 2416
     },
     {
       "path": "notebooks/e0_t04_colab_smoke_test.ipynb",
@@ -130,6 +140,11 @@
       "path": "src/inference/smoke_test.py",
       "sha256": "f0c7d668c370fafb64293113cb2d82b8bac30a5a14c0b88a0ed1640ca1e9156f",
       "size_bytes": 6998
+    },
+    {
+      "path": "src/inference/adapter.py",
+      "sha256": "192722438e22c3a06661034ca386da8ef6aaa3c3ae0b8c3bda7c9e8ef373be21",
+      "size_bytes": 13326
     },
     {
       "path": "src/scoring/bbq.py",

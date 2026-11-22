@@ -21,12 +21,14 @@ LOCKED_FILES = (
     "configs/bbq_build.json",
     "configs/privacy_data.json",
     "configs/membership_data.json",
+    "configs/inference.json",
     "configs/raw_data_sources.json",
     "configs/smoke_fixture.json",
     "docs/system_boundary.md",
     "docs/experiment_registry.md",
     "docs/data_qa_checklist.md",
     "docs/bbq_scoring.md",
+    "docs/model_adapter.md",
     "notebooks/e0_t04_colab_smoke_test.ipynb",
     "src/environment_tools.py",
     "src/data/cab_builder.py",
@@ -36,6 +38,7 @@ LOCKED_FILES = (
     "src/privacy/synthetic_data.py",
     "src/privacy/membership_data.py",
     "src/inference/smoke_test.py",
+    "src/inference/adapter.py",
     "src/scoring/bbq.py",
 )
 
