@@ -15,3 +15,5 @@ here. Final run configurations must use immutable upstream revisions.
   counts, normalization version, and private processed-output locations.
 - `bbq_build.json` freezes the 500-per-category selection and private output paths for
   `make build-bbq ROOT=/mounted/shared/path`.
+- `membership_data.json` freezes the controlled canary corpus, repetition strata,
+  calibration/evaluation split, and private output paths for `make build-membership`.

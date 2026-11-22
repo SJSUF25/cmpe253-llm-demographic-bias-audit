@@ -20,6 +20,7 @@ LOCKED_FILES = (
     "configs/cab_build.json",
     "configs/bbq_build.json",
     "configs/privacy_data.json",
+    "configs/membership_data.json",
     "configs/raw_data_sources.json",
     "configs/smoke_fixture.json",
     "docs/system_boundary.md",
@@ -30,6 +31,7 @@ LOCKED_FILES = (
     "src/data/bbq_sampler.py",
     "src/data/download.py",
     "src/privacy/synthetic_data.py",
+    "src/privacy/membership_data.py",
     "src/inference/smoke_test.py",
 )
 

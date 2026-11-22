@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "config_id": "controlled-membership-v1",
+  "seed": 253,
+  "ordinary_per_task": 500,
+  "ordinary_train_per_task": 400,
+  "ordinary_tasks": ["copy_code", "json_field", "uppercase", "addition"],
+  "member_per_stratum": 100,
+  "repetition_strata": [1, 5, 10],
+  "nonmember_calibration": 500,
+  "nonmember_evaluation": 500,
+  "output_directory": "private_outputs/membership",
+  "manifest_path": "manifests/membership_data_manifest.json"
+}
