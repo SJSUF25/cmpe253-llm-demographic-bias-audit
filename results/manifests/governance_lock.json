@@ -3,8 +3,8 @@
   "files": [
     {
       "path": "LLM_Bias_Audit_PRD.md",
-      "sha256": "4809b05823d2ebd0b71910f85b9c14de77943d403cca7f16f5b46bf867f8651a",
-      "size_bytes": 72852
+      "sha256": "ea7c70ecba7bd1f2be4e2fb9450178d297346bd40b45426e15d69352970baacd",
+      "size_bytes": 73062
     },
     {
       "path": "pyproject.toml",
@@ -82,6 +82,11 @@
       "size_bytes": 2545
     },
     {
+      "path": "docs/bbq_scoring.md",
+      "sha256": "e1e9b3e4c81c982b9adb3490916406cc2bb26332c2e8ab046a01916bd35f29fb",
+      "size_bytes": 2902
+    },
+    {
       "path": "notebooks/e0_t04_colab_smoke_test.ipynb",
       "sha256": "3dcb10430b6d8d673e03a75654e4232da4aed1bb4eab86f040369e10bc11f54e",
       "size_bytes": 4702
@@ -125,6 +130,11 @@
       "path": "src/inference/smoke_test.py",
       "sha256": "f0c7d668c370fafb64293113cb2d82b8bac30a5a14c0b88a0ed1640ca1e9156f",
       "size_bytes": 6998
+    },
+    {
+      "path": "src/scoring/bbq.py",
+      "sha256": "17e5894689eafd2911817f72f865591d4cc517a4a7d59e464cf275fd65908839",
+      "size_bytes": 8744
     }
   ],
   "lock_version": 1,

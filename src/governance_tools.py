@@ -26,6 +26,7 @@ LOCKED_FILES = (
     "docs/system_boundary.md",
     "docs/experiment_registry.md",
     "docs/data_qa_checklist.md",
+    "docs/bbq_scoring.md",
     "notebooks/e0_t04_colab_smoke_test.ipynb",
     "src/environment_tools.py",
     "src/data/cab_builder.py",
@@ -35,6 +36,7 @@ LOCKED_FILES = (
     "src/privacy/synthetic_data.py",
     "src/privacy/membership_data.py",
     "src/inference/smoke_test.py",
+    "src/scoring/bbq.py",
 )
 
 
