@@ -11,6 +11,7 @@ from data.bbq_sampler import build_bbq
 from data.cab_builder import DEFAULT_CONFIG as DEFAULT_CAB_CONFIG
 from data.cab_builder import build_cab
 from data.download import DEFAULT_CONFIG, download_datasets
+from data.validate import validate_data
 
 WORKFLOW_COMMANDS = (
     "download-data",
@@ -47,8 +48,10 @@ def build_parser() -> argparse.ArgumentParser:
     bbq = subparsers.add_parser("build-bbq")
     bbq.add_argument("--root", type=Path, required=True)
     bbq.add_argument("--config", type=Path, default=DEFAULT_BBQ_CONFIG)
+    validate = subparsers.add_parser("validate-data")
+    validate.add_argument("--root", type=Path, required=True)
     for command in WORKFLOW_COMMANDS:
-        if command not in {"download-data", "build-data", "build-bbq"}:
+        if command not in {"download-data", "build-data", "build-bbq", "validate-data"}:
             subparsers.add_parser(command)
     return parser
 
@@ -70,6 +73,9 @@ def main(argv: Sequence[str] | None = None) -> int:
         return 0
     if args.command == "build-bbq":
         print(build_bbq(args.root, args.config))
+        return 0
+    if args.command == "validate-data":
+        print(validate_data(args.root))
         return 0
     print(
         f"Workflow command '{args.command}' is registered but not implemented yet. "

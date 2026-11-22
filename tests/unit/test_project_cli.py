@@ -25,7 +25,7 @@ def test_all_required_workflow_commands_are_registered() -> None:
 
 
 def test_unimplemented_command_fails_clearly(capsys) -> None:
-    assert main(["validate-data"]) == 2
+    assert main(["pilot"]) == 2
     captured = capsys.readouterr()
     assert "registered but not implemented yet" in captured.out
 
@@ -67,4 +67,17 @@ def test_build_bbq_command_dispatches(monkeypatch, tmp_path, capsys) -> None:
     monkeypatch.setattr("project_cli.build_bbq", fake_build)
 
     assert main(["build-bbq", "--root", str(tmp_path)]) == 0
+    assert str(expected) in capsys.readouterr().out
+
+
+def test_validate_data_command_dispatches(monkeypatch, tmp_path, capsys) -> None:
+    expected = tmp_path / "validation_manifest.json"
+
+    def fake_validate(root):
+        assert root == tmp_path
+        return expected
+
+    monkeypatch.setattr("project_cli.validate_data", fake_validate)
+
+    assert main(["validate-data", "--root", str(tmp_path)]) == 0
     assert str(expected) in capsys.readouterr().out

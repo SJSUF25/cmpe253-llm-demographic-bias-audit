@@ -68,8 +68,9 @@ build-membership: ## Build the sealed ordinary and canary corpus (ROOT required)
 	@test -n "$(ROOT)" || { echo "Usage: make build-membership ROOT=/path"; exit 2; }
 	$(UV) run --frozen python -m privacy.membership_data --root "$(ROOT)"
 
-validate-data: ## Validate dataset schemas, counts, hashes, and split integrity
-	$(PROJECT_CLI) validate-data
+validate-data: ## Reverify all built datasets and create the private manual-QA packet
+	@test -n "$(ROOT)" || { echo "Usage: make validate-data ROOT=/path"; exit 2; }
+	$(PROJECT_CLI) validate-data --root "$(ROOT)"
 
 pilot: ## Run the preregistered model and data pilot
 	$(PROJECT_CLI) pilot

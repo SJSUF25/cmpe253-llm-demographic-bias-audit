@@ -77,6 +77,11 @@
       "size_bytes": 3136
     },
     {
+      "path": "docs/data_qa_checklist.md",
+      "sha256": "604c7419fc3799117739046e46759b13cb22720028ddddfd58f2bda526136a2b",
+      "size_bytes": 2545
+    },
+    {
       "path": "notebooks/e0_t04_colab_smoke_test.ipynb",
       "sha256": "3dcb10430b6d8d673e03a75654e4232da4aed1bb4eab86f040369e10bc11f54e",
       "size_bytes": 4702
@@ -100,6 +105,11 @@
       "path": "src/data/download.py",
       "sha256": "022bba5ebad8716c40a41dcdce88cea3a3b8c8a488d0ad6a6dcc3a92e410a9fe",
       "size_bytes": 11977
+    },
+    {
+      "path": "src/data/validate.py",
+      "sha256": "7c6a8aa8514e3cebefd4c571f69c0045820186d061e9422ff4ed060286e83516",
+      "size_bytes": 9497
     },
     {
       "path": "src/privacy/synthetic_data.py",
