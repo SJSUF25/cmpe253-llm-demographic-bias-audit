@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "config_id": "synthetic-pii-v1",
+  "seed": 253,
+  "records_per_task": 80,
+  "development_per_task": 40,
+  "tasks": [
+    "summarization",
+    "email_rewrite",
+    "case_note",
+    "action_items",
+    "json_extraction"
+  ],
+  "output_directory": "private_outputs/synthetic_pii",
+  "manifest_path": "manifests/synthetic_pii_manifest.json"
+}

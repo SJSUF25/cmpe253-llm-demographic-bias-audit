@@ -18,6 +18,7 @@ LOCKED_FILES = (
     "configs/model_manifest.yaml",
     "configs/data_manifest.yaml",
     "configs/cab_build.json",
+    "configs/privacy_data.json",
     "configs/raw_data_sources.json",
     "configs/smoke_fixture.json",
     "docs/system_boundary.md",
@@ -26,6 +27,7 @@ LOCKED_FILES = (
     "src/environment_tools.py",
     "src/data/cab_builder.py",
     "src/data/download.py",
+    "src/privacy/synthetic_data.py",
     "src/inference/smoke_test.py",
 )
 

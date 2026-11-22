@@ -42,6 +42,11 @@
       "size_bytes": 908
     },
     {
+      "path": "configs/privacy_data.json",
+      "sha256": "5cbcb442541bdd78c0f11674e6e27012e161f57b45b42189a3abb0614e32304d",
+      "size_bytes": 366
+    },
+    {
       "path": "configs/raw_data_sources.json",
       "sha256": "89d5b9186113e02b73f2d390910a6a2f87efbf9c1d228d78b4648604425e58c8",
       "size_bytes": 2628
@@ -80,6 +85,11 @@
       "path": "src/data/download.py",
       "sha256": "0e3c22f439e8b8f1a981a1917305ea53a887fa1d8d850abcbb961155106c8317",
       "size_bytes": 10420
+    },
+    {
+      "path": "src/privacy/synthetic_data.py",
+      "sha256": "fd1051cd6a1eb61692a8a06ada78b02dea5cadd77aabac92d03df6783a8b20b0",
+      "size_bytes": 8082
     },
     {
       "path": "src/inference/smoke_test.py",
