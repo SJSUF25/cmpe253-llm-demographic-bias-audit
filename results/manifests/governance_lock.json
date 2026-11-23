@@ -97,6 +97,11 @@
       "size_bytes": 2416
     },
     {
+      "path": "docs/inference_runner.md",
+      "sha256": "2aea6be9f87137ad5bdfa552b6d81623be03450dd481fb2a1debff0cd8d838f0",
+      "size_bytes": 3107
+    },
+    {
       "path": "notebooks/e0_t04_colab_smoke_test.ipynb",
       "sha256": "3dcb10430b6d8d673e03a75654e4232da4aed1bb4eab86f040369e10bc11f54e",
       "size_bytes": 4702
@@ -145,6 +150,11 @@
       "path": "src/inference/adapter.py",
       "sha256": "192722438e22c3a06661034ca386da8ef6aaa3c3ae0b8c3bda7c9e8ef373be21",
       "size_bytes": 13326
+    },
+    {
+      "path": "src/inference/runner.py",
+      "sha256": "68267c8e86f888a0baef9cde7542889cc8478b23106335a0018a74650cf9901c",
+      "size_bytes": 23989
     },
     {
       "path": "src/scoring/bbq.py",

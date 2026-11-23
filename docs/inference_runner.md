@@ -1,0 +1,54 @@
+# Resumable CAB Inference Runner
+
+`make run-cab ROOT=/mounted/shared/path RUN_ID=CAB-EXP-M1-B0 SPLIT=development`
+runs a registered CAB explicit or implicit cell with one pinned model. `RUN_ID`
+must match `configs/experiment_registry.json`; supported conditions are B0
+(baseline) and F1 (fairness mitigation). Development outputs are stored under
+`private_outputs/pilot/`. A test run uses `SPLIT=test` and writes to the exact
+registered private output path. The runner selects only the requested CAB
+explicit/implicit mode and split from the frozen prompt manifest.
+
+The runner writes successive 100-row JSONL files under a private `parts/`
+directory. Each part is first written and synced as a temporary file, then
+renamed into place. After each full part it writes a checksum manifest under
+`manifests/inference/`. If the process is interrupted partway through a block,
+only the completed, verified parts are reused; the uncheckpointed prompts are
+rerun. A final part may have fewer than 100 rows. When all prompts have a row,
+the registered output file is assembled from the parts and checked against
+their hashes. On resume, every stored row is checked against its prompt ID,
+model revision, condition, seed, decoding hash, code commit, config hash, and
+raw-output hash. Conflicting or repeated keys fail visibly.
+
+The unique key is `(prompt_id, model_revision, condition, seed,
+decoding_config_hash)`. Infrastructure errors receive one immediate retry with
+the identical prompt and decode settings. Other errors become explicit terminal
+rows with `status=error`, an error type, and null output fields. A confirmatory
+run containing any such row fails after saving its evidence. The manifest holds
+row counts, partition hashes, output hash, UTC times, accumulated elapsed time,
+environment/GPU data, package-lock hash, code commit, worktree state, input and
+config hashes, seed, and error counts. Raw outputs stay in restricted Drive
+storage.
+
+`SPLIT=test` refuses to load a model unless the Git worktree is clean and a
+private `manifests/data_gate_approval.json` exists with the exact fields below.
+The generic runner checks the same gate for every confirmatory call.
+Create this receipt only after the tokenizer-length check and independent human
+QA are completed. The two named approvals are process evidence; the program
+checks the receipt contents and hashes, not cryptographic signatures.
+
+```json
+{
+  "schema_version": 1,
+  "validation_manifest_sha256": "<SHA-256 of manifests/data_validation_manifest.json>",
+  "governance_lock_sha256": "<SHA-256 of results/manifests/governance_lock.json>",
+  "token_length_status": "passed",
+  "human_review_status": "approved",
+  "approved_by": ["Vineet Malewar", "Abhinand"]
+}
+```
+
+The generic `run_inference` function is also usable by later controlled-run
+wrappers. Its integration tests deliberately interrupt execution, resume,
+verify no omissions or duplicates, exercise one retry, and reject tampered
+outputs. The local tests use a fake adapter. Actual Qwen/Phi generation and
+storage-mount behavior still require the Colab gate before E2-T02 is Done.

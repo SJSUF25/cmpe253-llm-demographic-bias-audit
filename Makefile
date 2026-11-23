@@ -7,7 +7,7 @@ export UV_CACHE_DIR
 export PYTHONPATH
 PROJECT_CLI := $(UV) run --frozen python -m project_cli
 
-.PHONY: help check-uv setup setup-colab capture-environment smoke-model governance-lock storage-init storage-verify sync-upstream build-synthetic-pii build-membership \
+.PHONY: help check-uv setup setup-colab capture-environment smoke-model governance-lock storage-init storage-verify sync-upstream build-synthetic-pii build-membership run-cab \
 	download-data build-data build-bbq validate-data pilot \
 	infer-baseline infer-mitigation score annotate-export analyze explain \
 	privacy test lint demo reproduce-small
@@ -67,6 +67,12 @@ build-synthetic-pii: ## Build deterministic private synthetic PII records (ROOT 
 build-membership: ## Build the sealed ordinary and canary corpus (ROOT required)
 	@test -n "$(ROOT)" || { echo "Usage: make build-membership ROOT=/path"; exit 2; }
 	$(UV) run --frozen python -m privacy.membership_data --root "$(ROOT)"
+
+run-cab: ## Run one registered CAB model/condition (ROOT, RUN_ID, SPLIT required)
+	@test -n "$(ROOT)" || { echo "Usage: make run-cab ROOT=/path RUN_ID=CAB-EXP-M1-B0 SPLIT=development"; exit 2; }
+	@test -n "$(RUN_ID)" || { echo "RUN_ID is required"; exit 2; }
+	@test -n "$(SPLIT)" || { echo "SPLIT=development or test is required"; exit 2; }
+	$(UV) run --frozen --group colab python -m inference.runner --root "$(ROOT)" --run-id "$(RUN_ID)" --split "$(SPLIT)"
 
 validate-data: ## Reverify all built datasets and create the private manual-QA packet
 	@test -n "$(ROOT)" || { echo "Usage: make validate-data ROOT=/path"; exit 2; }
