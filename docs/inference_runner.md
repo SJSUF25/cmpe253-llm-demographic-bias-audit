@@ -26,24 +26,27 @@ rows with `status=error`, an error type, and null output fields. A confirmatory
 run containing any such row fails after saving its evidence. The manifest holds
 row counts, partition hashes, output hash, UTC times, accumulated elapsed time,
 environment/GPU data, package-lock hash, code commit, worktree state, input and
-config hashes, seed, and error counts. Raw outputs stay in restricted Drive
-storage.
+config hashes, seed, and error counts. Raw outputs stay in the designated Drive
+folder under the documented access exception.
 
 `SPLIT=test` refuses to load a model unless the Git worktree is clean and a
 private `manifests/data_gate_approval.json` exists with the exact fields below.
 The generic runner checks the same gate for every confirmatory call.
-Create this receipt only after the tokenizer-length check and independent human
-QA are completed. The two named approvals are process evidence; the program
-checks the receipt contents and hashes, not cryptographic signatures.
+Create this receipt only after the tokenizer-length check and Vineet's manual QA
+are completed. The named approval is process evidence; the program checks receipt
+contents and hashes, not a cryptographic signature. Before accepting the receipt,
+the runner rehashes the CAB, BBQ, and training-presentation inputs listed in the
+token-length manifest, so a changed data file cannot reuse a stale length check.
 
 ```json
 {
   "schema_version": 1,
   "validation_manifest_sha256": "<SHA-256 of manifests/data_validation_manifest.json>",
+  "token_length_manifest_sha256": "<SHA-256 of manifests/token_length_manifest.json>",
   "governance_lock_sha256": "<SHA-256 of results/manifests/governance_lock.json>",
   "token_length_status": "passed",
   "human_review_status": "approved",
-  "approved_by": ["Vineet Malewar", "Abhinand"]
+  "approved_by": ["Vineet Malewar"]
 }
 ```
 

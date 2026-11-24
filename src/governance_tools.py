@@ -11,6 +11,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 LOCKED_FILES = (
     "LLM_Bias_Audit_PRD.md",
+    "Makefile",
     "pyproject.toml",
     "uv.lock",
     "configs/experiment_registry.json",
@@ -36,6 +37,7 @@ LOCKED_FILES = (
     "src/data/bbq_sampler.py",
     "src/data/download.py",
     "src/data/validate.py",
+    "src/data/token_lengths.py",
     "src/privacy/synthetic_data.py",
     "src/privacy/membership_data.py",
     "src/inference/smoke_test.py",

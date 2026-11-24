@@ -13,7 +13,8 @@ families, two development PII records per task, two ordinary training records pe
 task, one member canary from each repetition stratum, two calibration non-members,
 and one BBQ item from each category/context/polarity cell. It does not include CAB
 test prompts, PII test records, or final non-member evaluation records. Keep the
-packet in restricted shared storage; do not commit or share its contents publicly.
+packet in the designated shared storage under the accepted access exception; do not
+commit its contents publicly.
 
 ## Human review
 
@@ -34,11 +35,15 @@ and disposition in a private signed review receipt. Under PRD v2.5 Vineet perfor
 this check and marks it as an operator review. A Codex check or repeat by Vineet
 must not be described as independent human QA.
 
-## Remaining automated gate
+## Pinned tokenizer-length gate
 
-With both pinned model tokenizers available, compute input-token lengths **after**
-applying each model's official chat template and the exact condition-specific system
-instruction. Reject any CAB or BBQ input above 4,096 tokens. Check the controlled
-adapter prompt-plus-target sequences against the 512-token training limit. Record
-the maximum and all failures in the data-gate receipt. Until this check and human
-review pass, the manifest's overall status remains pending.
+After structural validation, run `make token-length-check ROOT=/mounted/shared/path`
+in the locked Colab environment. It loads only the two pinned tokenizers, applies
+their official chat templates with both exact system instructions, and checks every
+CAB prompt and BBQ option-order input against 4,096 tokens. It also checks all 3,200
+Phi adapter prompt-plus-target presentations against 512 tokens without truncation.
+The deterministic `manifests/token_length_manifest.json` records counts, maxima,
+input hashes, tokenizer revisions, and every overlength ID. A failing limit blocks
+the data gate. The structural manifest remains immutable and pending human review;
+the signed approval receipt binds both manifest hashes after this check and the
+manual QA above pass.

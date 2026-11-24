@@ -239,26 +239,58 @@ def test_registered_cab_test_accepts_matching_review_receipt(monkeypatch, tmp_pa
     manifest_dir.mkdir()
     validation = manifest_dir / "data_validation_manifest.json"
     validation.write_text(json.dumps({"structural_checks": "passed"}))
+    config = json.loads(runner.CAB_CONFIG_PATH.read_text())
+    bbq_config = json.loads((runner.ROOT / "configs/bbq_build.json").read_text())
+    membership_config = json.loads(
+        (runner.ROOT / "configs/membership_data.json").read_text()
+    )
+    input_paths = [
+        config["output_path"],
+        bbq_config["items_path"],
+        bbq_config["permutations_path"],
+        f"{membership_config['output_directory']}/training_presentations.jsonl",
+    ]
+    for relative in input_paths:
+        path = tmp_path / relative
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text("fixture\n")
+    path = tmp_path / config["output_path"]
+    path.write_text(
+        json.dumps({**prompt(0), "split": "test", "explicit_implicit": "explicit"})
+        + "\n"
+    )
+    input_hashes = {
+        relative: hashlib.sha256((tmp_path / relative).read_bytes()).hexdigest()
+        for relative in input_paths
+    }
+    token_lengths = manifest_dir / "token_length_manifest.json"
+    token_lengths.write_text(
+        json.dumps(
+            {
+                "status": "passed",
+                "validation_manifest_sha256": hashlib.sha256(
+                    validation.read_bytes()
+                ).hexdigest(),
+                "inputs_sha256": input_hashes,
+            }
+        )
+    )
     receipt = {
         "schema_version": 1,
         "validation_manifest_sha256": hashlib.sha256(
             validation.read_bytes()
+        ).hexdigest(),
+        "token_length_manifest_sha256": hashlib.sha256(
+            token_lengths.read_bytes()
         ).hexdigest(),
         "governance_lock_sha256": hashlib.sha256(
             runner.GOVERNANCE_LOCK_PATH.read_bytes()
         ).hexdigest(),
         "token_length_status": "passed",
         "human_review_status": "approved",
-        "approved_by": ["Vineet Malewar", "Abhinand"],
+        "approved_by": ["Vineet Malewar"],
     }
     (manifest_dir / "data_gate_approval.json").write_text(json.dumps(receipt))
-    config = json.loads(runner.CAB_CONFIG_PATH.read_text())
-    path = tmp_path / config["output_path"]
-    path.parent.mkdir(parents=True)
-    path.write_text(
-        json.dumps({**prompt(0), "split": "test", "explicit_implicit": "explicit"})
-        + "\n"
-    )
     captured = {}
 
     def fake_run(selected, adapter, spec, root):
@@ -274,6 +306,23 @@ def test_registered_cab_test_accepts_matching_review_receipt(monkeypatch, tmp_pa
     )
     assert captured["spec"].confirmatory is True
     assert [row["prompt_id"] for row in captured["selected"]] == ["P-0"]
+    valid_lengths = token_lengths.read_bytes()
+    token_lengths.write_text(
+        json.dumps(
+            {
+                "status": "failed",
+                "validation_manifest_sha256": hashlib.sha256(
+                    validation.read_bytes()
+                ).hexdigest(),
+            }
+        )
+    )
+    with pytest.raises(RunnerError, match="incomplete or stale"):
+        runner.run_registered_cab(tmp_path, "CAB-EXP-M1-B0", "test")
+    token_lengths.write_bytes(valid_lengths)
+    path.write_text("tampered\n")
+    with pytest.raises(RunnerError, match="incomplete or stale"):
+        runner.run_registered_cab(tmp_path, "CAB-EXP-M1-B0", "test")
 
 
 def test_partition_written_before_manifest_is_recovered(monkeypatch, tmp_path):

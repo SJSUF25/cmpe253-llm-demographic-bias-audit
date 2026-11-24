@@ -559,23 +559,56 @@ def run_inference(
 
 
 def _check_test_gate(root: Path) -> None:
-    """Require a separate two-person receipt before opening sealed CAB test prompts."""
+    """Require structural, tokenizer, and operator receipts for sealed CAB prompts."""
     validation = root / "manifests/data_validation_manifest.json"
+    token_lengths = root / "manifests/token_length_manifest.json"
     receipt = root / "manifests/data_gate_approval.json"
-    if not validation.is_file() or not receipt.is_file():
+    if not validation.is_file() or not token_lengths.is_file() or not receipt.is_file():
         raise RunnerError(
             "CAB test run requires the private data-gate approval receipt"
         )
     structural = json.loads(validation.read_text(encoding="utf-8"))
+    lengths = json.loads(token_lengths.read_text(encoding="utf-8"))
     approval = json.loads(receipt.read_text(encoding="utf-8"))
-    if structural.get("structural_checks") != "passed" or approval != {
-        "schema_version": 1,
-        "validation_manifest_sha256": _hash(validation.read_bytes()),
-        "governance_lock_sha256": _hash(GOVERNANCE_LOCK_PATH.read_bytes()),
-        "token_length_status": "passed",
-        "human_review_status": "approved",
-        "approved_by": ["Vineet Malewar", "Abhinand"],
-    }:
+    cab_config = json.loads(CAB_CONFIG_PATH.read_text(encoding="utf-8"))
+    bbq_config = json.loads(
+        (ROOT / "configs/bbq_build.json").read_text(encoding="utf-8")
+    )
+    membership_config = json.loads(
+        (ROOT / "configs/membership_data.json").read_text(encoding="utf-8")
+    )
+    expected_inputs = {
+        cab_config["output_path"],
+        bbq_config["items_path"],
+        bbq_config["permutations_path"],
+        f"{membership_config['output_directory']}/training_presentations.jsonl",
+    }
+    input_hashes = lengths.get("inputs_sha256")
+    inputs_match = (
+        isinstance(input_hashes, dict) and set(input_hashes) == expected_inputs
+    )
+    if inputs_match:
+        inputs_match = all(
+            (root / relative).is_file()
+            and _hash((root / relative).read_bytes()) == input_hashes[relative]
+            for relative in expected_inputs
+        )
+    if (
+        structural.get("structural_checks") != "passed"
+        or lengths.get("status") != "passed"
+        or lengths.get("validation_manifest_sha256") != _hash(validation.read_bytes())
+        or not inputs_match
+        or approval
+        != {
+            "schema_version": 1,
+            "validation_manifest_sha256": _hash(validation.read_bytes()),
+            "token_length_manifest_sha256": _hash(token_lengths.read_bytes()),
+            "governance_lock_sha256": _hash(GOVERNANCE_LOCK_PATH.read_bytes()),
+            "token_length_status": "passed",
+            "human_review_status": "approved",
+            "approved_by": ["Vineet Malewar"],
+        }
+    ):
         raise RunnerError("CAB test data-gate receipt is incomplete or stale")
 
 

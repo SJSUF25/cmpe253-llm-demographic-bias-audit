@@ -50,6 +50,11 @@ sources without overwriting existing raw bytes:
 make download-data ROOT="$AUDIT_SHARED_ROOT"
 make download-data ROOT="$AUDIT_SHARED_ROOT" VERIFY_REMOTE=1
 make build-data ROOT="$AUDIT_SHARED_ROOT"
+make build-bbq ROOT="$AUDIT_SHARED_ROOT"
+make build-synthetic-pii ROOT="$AUDIT_SHARED_ROOT"
+make build-membership ROOT="$AUDIT_SHARED_ROOT"
+make validate-data ROOT="$AUDIT_SHARED_ROOT"
+make token-length-check ROOT="$AUDIT_SHARED_ROOT"
 ```
 
 The command checks pinned revisions, byte sizes, SHA-256 values, schemas, row counts,
@@ -57,7 +62,9 @@ CAB race/gender inventory, and all three required BBQ categories before writing 
 immutable raw-data manifest.
 `make build-data` expands the linked CAB explicit/implicit families into a private,
 deterministic prompt manifest; it refuses a source-hash mismatch or changed existing
-output.
+output. The tokenizer-length check uses the pinned official chat templates for every
+CAB and BBQ input and the Phi adapter training sequences. It produces a separate
+private receipt; manual data QA is still required before confirmatory inference.
 
 ## Colab environment gate
 
