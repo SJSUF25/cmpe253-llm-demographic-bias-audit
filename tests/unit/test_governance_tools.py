@@ -8,7 +8,7 @@ def test_governance_lock_contains_every_frozen_input(tmp_path: Path) -> None:
     output = create_lock(tmp_path / "governance.json")
     manifest = json.loads(output.read_text(encoding="utf-8"))
 
-    assert manifest["approval_status"] == "pending_both_members"
+    assert manifest["approval_status"] == "pending_operator_review"
     assert [entry["path"] for entry in manifest["files"]] == list(LOCKED_FILES)
     assert all(len(entry["sha256"]) == 64 for entry in manifest["files"])
 

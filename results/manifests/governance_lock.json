@@ -1,10 +1,10 @@
 {
-  "approval_status": "pending_both_members",
+  "approval_status": "pending_operator_review",
   "files": [
     {
       "path": "LLM_Bias_Audit_PRD.md",
-      "sha256": "ea7c70ecba7bd1f2be4e2fb9450178d297346bd40b45426e15d69352970baacd",
-      "size_bytes": 73062
+      "sha256": "4908ab520e2993594a9fc861223a67bbeb75ac6ff290a6323c7a7ff25acd594c",
+      "size_bytes": 73613
     },
     {
       "path": "pyproject.toml",
@@ -73,18 +73,18 @@
     },
     {
       "path": "docs/system_boundary.md",
-      "sha256": "c36705c8166a3af08643bce667b5f8ab0334ce13447f6a5cb5c354d147a41bdb",
-      "size_bytes": 4001
+      "sha256": "1cfc7b1b0089082a6fa42f3908a72ebe39b21ff609a4a89cd0331f880b979c6d",
+      "size_bytes": 4049
     },
     {
       "path": "docs/experiment_registry.md",
-      "sha256": "7382a543fa725ccecad819832c8299c696ebfadd7d459a95ecdbab0f3b23beea",
-      "size_bytes": 3136
+      "sha256": "f06219187adb1a6d4c49fd9c1488d6ecc42f555ae6b8e450f3d8b74dc613123f",
+      "size_bytes": 3237
     },
     {
       "path": "docs/data_qa_checklist.md",
-      "sha256": "604c7419fc3799117739046e46759b13cb22720028ddddfd58f2bda526136a2b",
-      "size_bytes": 2545
+      "sha256": "3531ab2e9b3ed154e7ac4c35f61e53bd3a2ceb6f0ba64aaa9666ea9ab2d48d09",
+      "size_bytes": 2538
     },
     {
       "path": "docs/bbq_scoring.md",
@@ -103,8 +103,8 @@
     },
     {
       "path": "notebooks/e0_t04_colab_smoke_test.ipynb",
-      "sha256": "3dcb10430b6d8d673e03a75654e4232da4aed1bb4eab86f040369e10bc11f54e",
-      "size_bytes": 4702
+      "sha256": "a32543084e2bc2f74a6574c972f86518e429698602cc8b491773b15a662333c0",
+      "size_bytes": 5954
     },
     {
       "path": "src/environment_tools.py",

@@ -1,8 +1,8 @@
 # Experiment Registry and Change Control
 
 Registry version 1.0.0 is the human-readable companion to
-`configs/experiment_registry.json`. It becomes frozen when Vineet Malewar and
-Abhinand approve its governance-lock hash after both complete E0-T04.
+`configs/experiment_registry.json`. It becomes frozen when Vineet records a dated
+operator review of its governance-lock hash and the Drive-backed E0-T04 manifests.
 
 ## Locked condition vocabulary
 
@@ -39,12 +39,13 @@ dropped.
 
 1. Run both E0-T04 model smoke tests and store their passing JSON manifests.
 2. Run `make governance-lock`; inspect the listed files and SHA-256 values.
-3. Vineet and Abhinand independently compare the lock with the approved PRD.
-4. Both record approval, date, lock SHA-256, and E0-T04 manifest hashes in the task
-   tracker before generating confirmatory outputs.
+3. Vineet compares the lock with PRD v2.5 and checks that each smoke manifest exists
+   in mounted Drive with the expected contents and checksum.
+4. Vineet records the operator review, date, lock SHA-256, and E0-T04 manifest hashes
+   in the task tracker before generating confirmatory outputs.
 
 After freeze, any semantic change requires a new registry version, a new governance
-lock, both-member approval, and rerunning every affected experiment. Typographical
+lock, dated operator review, and rerunning every affected experiment. Typographical
 documentation fixes that do not alter execution or interpretation are logged but do
 not force reruns. No results may be viewed before deciding whether a change is
 semantic. Exploratory work must use a visibly different ID and cannot be promoted to

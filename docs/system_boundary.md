@@ -1,7 +1,7 @@
 # System Boundary and Permitted Claims
 
-Status: frozen candidate v1.0; final approval requires both team members and a passing
-E0-T04 Colab smoke test.
+Status: frozen candidate v1.1; final operator review requires passing E0-T04 Colab
+smoke manifests persisted in Drive and a current governance lock.
 
 ## Evaluated system
 
@@ -15,7 +15,8 @@ The fixed fairness instruction is the only primary fairness mitigation.
 The pipeline also includes synthetic PII controls P0/P1/P2, a separately quantized
 Phi adapter trained on constructed canaries, explanation ablations, perturbation and
 stochastic sensitivity checks, and a cached-results demonstration. Raw generations,
-adapters, credentials, and sealed privacy labels stay in restricted shared storage.
+adapters and sealed privacy labels stay in shared Drive under the documented link-access
+exception; credentials are never stored there.
 
 ## Authorized inputs and execution
 
@@ -61,13 +62,13 @@ changes to hypotheses, samples, outcomes, or thresholds are forbidden.
 Public artifacts contain aggregate tables, reviewed redacted examples, code, and
 non-sensitive manifests only. Potentially harmful raw generations and membership
 labels are not published. Private outputs and adapters are retained only through
-course grading and verification, then deleted by both members; aggregate evidence and
-hash-only manifests may be retained. Any exception requires written agreement from
-both members and must be logged before the action.
+course grading and verification, then deleted by Vineet after recording a deletion
+receipt; aggregate evidence and hash-only manifests may be retained. Any exception
+requires a written change record before the action.
 
 ## Authority and precedence
 
-The course requirements, PRD v2.2, this boundary, the machine-readable experiment
-registry, and pinned manifests jointly define the study. On conflict, the safer and
-more restrictive rule applies until both members document a resolution. Results may
+The course requirements, PRD v2.5, this boundary, the machine-readable experiment
+registry, and pinned manifests jointly define the study. On conflict, Vineet records
+a resolution before continuing. Results may
 not be inspected to decide a resolution that changes a confirmatory analysis.

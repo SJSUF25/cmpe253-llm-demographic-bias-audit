@@ -68,7 +68,7 @@ def create_lock(output: Path) -> Path:
     manifest = {
         "schema_version": 1,
         "lock_version": 1,
-        "approval_status": "pending_both_members",
+        "approval_status": "pending_operator_review",
         "files": entries,
     }
     output = output if output.is_absolute() else ROOT / output

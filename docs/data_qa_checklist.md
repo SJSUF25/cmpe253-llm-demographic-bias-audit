@@ -29,10 +29,10 @@ uses the correct placeholder. For ordinary records, verify each exact answer by
 hand. For canaries, verify the fixed prompt/target format and the assigned 1/5/10
 repetition stratum; verify that calibration records have no training presentation.
 
-Record the reviewer name, date, manifest SHA-256, reviewed item counts, exceptions,
-and disposition in a private signed review receipt. A second person must perform
-the independent QA approval required by the task register. A Codex check or a
-repeat by the implementer does not count as that approval.
+Record the operator name, date, manifest SHA-256, reviewed item counts, exceptions,
+and disposition in a private signed review receipt. Under PRD v2.5 Vineet performs
+this check and marks it as an operator review. A Codex check or repeat by Vineet
+must not be described as independent human QA.
 
 ## Remaining automated gate
 

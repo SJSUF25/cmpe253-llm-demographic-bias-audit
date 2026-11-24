@@ -19,10 +19,13 @@ committed. `configs/storage.example.yaml` defines the required child directories
 - `manifests`: checksums and storage/run metadata;
 - `backups`: private recovery copies.
 
-Only Vineet and Abhinand receive editor access. Link sharing must be restricted;
-public or organization-wide sharing is prohibited. Each member enables account
-multi-factor authentication. Course staff receive artifacts only through the approved
-submission channel, not by broadening Drive permissions.
+Vineet and Abhinand have named editor access. On 2026-11-23 Vineet accepted the
+existing `anyone with the link: Writer` setting for this project folder. A holder of
+the link can therefore read or alter its contents; the project does not describe this
+folder as access restricted. No real personal data or credentials are stored here.
+Source and result hashes are checked before use, and the report records this storage
+limitation. Each member enables account multi-factor authentication. Course staff
+receive artifacts through the approved submission channel.
 
 ## Classification and Git policy
 
@@ -30,8 +33,8 @@ submission channel, not by broadening Drive permissions.
 |---|---|---:|---:|
 | Public source metadata | licenses, URLs, revisions, card snapshots | Yes | Yes |
 | Immutable raw benchmark data | CAB and BBQ files | Yes | No |
-| Synthetic sensitive | full synthetic PII, canary manifests | Yes, restricted | No |
-| Private experiment output | raw harmful generations, annotations, adapters | Yes, restricted | No |
+| Synthetic sensitive | full fictional PII, canary manifests | Yes, with accepted link access | No |
+| Private experiment output | raw harmful generations, annotations, adapters | Yes, with accepted link access | No |
 | Reviewed aggregate | metric tables, CIs, redacted examples | Yes | Yes after review |
 | Secret | Hugging Face token, credentials | Colab secret manager only | Never |
 
@@ -71,7 +74,7 @@ recursive deletion commands against the Drive root.
 
 - Keep raw/private artifacts only through course grading and any formal regrade window,
   unless the instructor requires a different period.
-- After that window, both members confirm before deleting private generations,
+- After that window, Vineet records a deletion receipt before deleting private generations,
   synthetic PII, canary mappings, checkpoints, and adapters.
 - Retain code, public-source metadata, aggregate results, and reports if permitted.
 - On accidental sharing or token exposure: revoke the link/token immediately, record

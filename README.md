@@ -31,12 +31,13 @@ refreshed and verified with:
 make sync-upstream
 ```
 
-After the private shared Drive folder has been created and mounted, initialize it from
-Vineet's account and verify it independently from Abhinand's account:
+After the private shared Drive folder has been created and mounted, initialize it and
+verify its contents. Record the actual reviewer; a repeat by Vineet is a reproducibility
+check, not an independent human review:
 
 ```bash
 make storage-init ROOT="/mounted/shared/path" AUTHOR="Vineet Malewar"
-make storage-verify ROOT="/mounted/shared/path" REVIEWER="Abhinand"
+make storage-verify ROOT="/mounted/shared/path" REVIEWER="Vineet Malewar (repeat check)"
 ```
 
 The mount path belongs in the ignored local environment, never in repository files.
