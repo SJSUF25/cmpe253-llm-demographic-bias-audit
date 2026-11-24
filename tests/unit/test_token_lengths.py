@@ -1,4 +1,5 @@
 import json
+from collections import UserDict
 from pathlib import Path
 
 import pytest
@@ -15,9 +16,10 @@ class FakeTokenizer:
             "add_generation_prompt": kwargs["add_generation_prompt"],
             "truncation": False,
             "padding": False,
+            "return_dict": True,
         }
         length = 5 + sum(len(message["content"].split()) for message in messages)
-        return list(range(length))
+        return UserDict({"input_ids": list(range(length))})
 
 
 def _write_rows(root: Path, relative: str, rows: list[dict]) -> None:

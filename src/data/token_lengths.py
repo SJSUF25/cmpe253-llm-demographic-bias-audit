@@ -5,7 +5,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
-from collections.abc import Callable, Sequence
+from collections.abc import Callable, Mapping, Sequence
 from pathlib import Path
 from typing import Any
 
@@ -38,13 +38,17 @@ def _rows(path: Path) -> list[dict[str, Any]]:
 def _token_ids(
     tokenizer: Any, messages: list[dict[str, str]], *, generate: bool
 ) -> list[int]:
-    ids = tokenizer.apply_chat_template(
+    encoded = tokenizer.apply_chat_template(
         messages,
         tokenize=True,
         add_generation_prompt=generate,
         truncation=False,
         padding=False,
+        return_dict=True,
     )
+    if not isinstance(encoded, Mapping):
+        raise TokenLengthError("Pinned chat template did not return input_ids")
+    ids = encoded.get("input_ids")
     if not isinstance(ids, list) or not ids or any(not isinstance(i, int) for i in ids):
         raise TokenLengthError("Pinned chat template did not return token IDs")
     return ids
