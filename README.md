@@ -70,6 +70,11 @@ private receipt; manual data QA is still required before confirmatory inference.
 The CAB quality check freezes a source-preserving exclusion of 23 implicit families
 with answer-like source content. It retains all explicit primary prompts and
 requires a separate quality-manifest hash in the data-gate receipt.
+Use `notebooks/e1_t06_data_gate_colab.ipynb` for the CPU-only quality check,
+fresh 85-item operator review, and hash-bound data-gate receipt. The notebook
+does not import the prior 85-pass log or approve the gate automatically.
+Abhinand runs the CPU-only review and is the sole named data-gate approver. His
+fresh review log must cover all 85 items; Vineet's prior log is not imported.
 The privacy-controls smoke command checks the pinned Presidio and spaCy models
 against one synthetic development record; see `docs/privacy_controls.md`.
 The six registered PII inference cells and aggregate exposure scorer are described

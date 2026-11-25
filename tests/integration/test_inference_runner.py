@@ -335,7 +335,7 @@ def test_registered_cab_test_accepts_matching_review_receipt(monkeypatch, tmp_pa
         ).hexdigest(),
         "token_length_status": "passed",
         "human_review_status": "approved",
-        "approved_by": ["Vineet Malewar"],
+        "approved_by": ["Abhinand"],
     }
     (manifest_dir / "data_gate_approval.json").write_text(json.dumps(receipt))
     captured = {}

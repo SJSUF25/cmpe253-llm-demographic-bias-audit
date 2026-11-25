@@ -621,7 +621,7 @@ def _check_test_gate(root: Path) -> None:
             "governance_lock_sha256": _hash(GOVERNANCE_LOCK_PATH.read_bytes()),
             "token_length_status": "passed",
             "human_review_status": "approved",
-            "approved_by": ["Vineet Malewar"],
+            "approved_by": ["Abhinand"],
         }
     ):
         raise RunnerError("CAB test data-gate receipt is incomplete or stale")

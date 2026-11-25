@@ -34,7 +34,7 @@ folder under the documented access exception.
 `SPLIT=test` refuses to load a model unless the Git worktree is clean and a
 private `manifests/data_gate_approval.json` exists with the exact fields below.
 The generic runner checks the same gate for every confirmatory call.
-Create this receipt only after the tokenizer-length check and Vineet's manual QA
+Create this receipt only after the tokenizer-length check and Abhinand's manual QA
 are completed. The named approval is process evidence; the program checks receipt
 contents and hashes, not a cryptographic signature. Before accepting the receipt,
 the runner rehashes the CAB, BBQ, and training-presentation inputs listed in the
@@ -49,7 +49,7 @@ token-length manifest, so a changed data file cannot reuse a stale length check.
   "governance_lock_sha256": "<SHA-256 of results/manifests/governance_lock.json>",
   "token_length_status": "passed",
   "human_review_status": "approved",
-  "approved_by": ["Vineet Malewar"]
+  "approved_by": ["Abhinand"]
 }
 ```
 

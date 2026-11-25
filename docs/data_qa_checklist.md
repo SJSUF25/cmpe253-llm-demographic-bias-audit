@@ -31,9 +31,9 @@ hand. For canaries, verify the fixed prompt/target format and the assigned 1/5/1
 repetition stratum; verify that calibration records have no training presentation.
 
 Record the operator name, date, manifest SHA-256, reviewed item counts, exceptions,
-and disposition in a private signed review receipt. Under PRD v2.5 Vineet performs
-this check and marks it as an operator review. A Codex check or repeat by Vineet
-must not be described as independent human QA.
+and disposition in a private signed review receipt. Under the 2026-11-25
+delegation, Abhinand performs this check as the sole operator. A Codex check or
+Vineet's earlier review must not be described as Abhinand's human QA.
 
 The 2026-11-25 AI-assisted review found six development CAB implicit prompts with
 embedded answer text; see `docs/data_qa_ai_review.md`. The old 85-pass notebook log
@@ -43,6 +43,18 @@ exclusion count and 736 eligible implicit prompts, and bind the resulting privat
 manifest hash in any data-gate approval receipt. An operator review may approve
 the documented exceptions and exclusion, but must not say the original packet
 was exception-free. The data-gate receipt remains pending until then.
+
+`notebooks/e1_t06_data_gate_colab.ipynb` is the current Colab operator workflow.
+It creates a fresh private review log and asks for a separate explicit `x` decision
+on each of the six sampled development exclusions. The other 17 flagged test
+families are excluded by rule without opening their text. Its final cell checks
+the complete review, Drive PRD/governance-lock match, and all data hashes before
+writing the operator and inference-gate receipts. Do not use the old scratch
+notebook or its 85-pass log as approval evidence.
+Abhinand runs the notebook on a free CPU runtime. Its fixed reviewer name is
+`Abhinand`, and the fresh operator log is `manual_review_abhinand_operator.json`.
+He alone can enter the final attestation. No independent second human review is
+claimed.
 
 ## Pinned tokenizer-length gate
 

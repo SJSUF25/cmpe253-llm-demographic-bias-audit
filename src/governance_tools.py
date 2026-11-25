@@ -46,6 +46,7 @@ LOCKED_FILES = (
     "docs/model_adapter.md",
     "docs/inference_runner.md",
     "notebooks/e0_t04_colab_smoke_test.ipynb",
+    "notebooks/e1_t06_data_gate_colab.ipynb",
     "src/environment_tools.py",
     "src/data/cab_builder.py",
     "src/data/cab_quality.py",

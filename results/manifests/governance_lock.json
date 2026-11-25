@@ -3,8 +3,8 @@
   "files": [
     {
       "path": "LLM_Bias_Audit_PRD.md",
-      "sha256": "b5ef4c61ced8da676c2c2df7cedae2409d45ded04c927c60d8c9fe53fb9631a6",
-      "size_bytes": 77422
+      "sha256": "cf51ad155a45f9f2e78fc9be560ecf63b07f8b422179eabc51fffc607d268f55",
+      "size_bytes": 78009
     },
     {
       "path": "Makefile",
@@ -108,8 +108,8 @@
     },
     {
       "path": "docs/data_qa_checklist.md",
-      "sha256": "7f09717cb3973034cd199af98bc5b6a8af532daa252861ae27785f41f98a882c",
-      "size_bytes": 3510
+      "sha256": "564f88ca329b801d2bde5cbea73c7c6f7a47d8d44930ff6466e51d1ed4b4665b",
+      "size_bytes": 4301
     },
     {
       "path": "docs/data_qa_ai_review.md",
@@ -173,13 +173,18 @@
     },
     {
       "path": "docs/inference_runner.md",
-      "sha256": "73ed7f2320ee40877e47760e3a198515c98054f2d6932a6aec19bed069323211",
-      "size_bytes": 3687
+      "sha256": "018a92066513d1ac0226212197430c0b6757dddeb247139dfca71eae7662015d",
+      "size_bytes": 3683
     },
     {
       "path": "notebooks/e0_t04_colab_smoke_test.ipynb",
       "sha256": "a32543084e2bc2f74a6574c972f86518e429698602cc8b491773b15a662333c0",
       "size_bytes": 5954
+    },
+    {
+      "path": "notebooks/e1_t06_data_gate_colab.ipynb",
+      "sha256": "8ebeff6cf6f38a29d73b1d5fcbf699d7b27fb1fcdfbde29a217c8d3e97fe5b1b",
+      "size_bytes": 27668
     },
     {
       "path": "src/environment_tools.py",
@@ -278,8 +283,8 @@
     },
     {
       "path": "src/inference/runner.py",
-      "sha256": "e4a591ce97b3d4ab537ed34e65df7e522fba91fd4c88c51d987312bfb9860fde",
-      "size_bytes": 26284
+      "sha256": "4e3ff8e2cc2f4d0c9db9eb3c154f9b843684d8c1adaf6cb8d9bbec53f5013ccc",
+      "size_bytes": 26278
     },
     {
       "path": "src/scoring/bbq.py",
