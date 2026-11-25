@@ -1,4 +1,5 @@
 import csv
+from types import SimpleNamespace
 
 import pytest
 
@@ -8,6 +9,7 @@ from scoring.bbq import (
     aggregate_group,
     aggregate_report,
     attach_label_type,
+    score_dataset,
     score_item,
 )
 
@@ -53,8 +55,89 @@ def test_option_order_scores_map_back_before_item_prediction():
     assert result["mean_log_likelihood_by_source"] == pytest.approx([-0.2, -0.8, -1.1])
     assert result["predicted_source_index"] == 0
     assert result["order_choices_by_source"] == [0, 0, 0]
+    for scores in result["order_log_likelihoods_by_source"]:
+        assert scores == pytest.approx([-0.2, -0.8, -1.1])
     assert result["target_selected"] is True
     assert all("Answer with the full text" in prompt for prompt, _ in seen)
+
+
+def test_dataset_bridge_scores_exact_item_inventory_with_pinned_condition():
+    source = item()
+    variants = [
+        {"item_id": source["item_id"], **row} for row in cyclic_option_orders(source)
+    ]
+
+    class FakeAdapter:
+        spec = SimpleNamespace(key="M2", revision="a" * 40, tokenizer_revision="b" * 40)
+        config = {"conditions": {"mitigation": {"version": "fairness-v1"}}}
+
+        def __init__(self):
+            self.calls = []
+
+        def conditional_log_likelihood(self, prompt, answer, condition):
+            self.calls.append((prompt, answer, condition))
+            return {"Person A": -0.3, "Person B": -0.7, "Not known": -1.2}[answer]
+
+    adapter = FakeAdapter()
+    rows = score_dataset([source], variants, adapter, "mitigation")
+    assert len(rows) == 1
+    assert len(adapter.calls) == 9
+    assert {call[2] for call in adapter.calls} == {"mitigation"}
+    assert rows[0]["model_id"] == "M2"
+    assert rows[0]["model_revision"] == "a" * 40
+    assert rows[0]["tokenizer_revision"] == "b" * 40
+    assert rows[0]["system_prompt_version"] == "fairness-v1"
+    assert rows[0]["mean_log_likelihood_by_source"] == pytest.approx([-0.3, -0.7, -1.2])
+    with pytest.raises(BBQScoreError, match="exactly three"):
+        score_dataset([source], variants[:2], adapter, "mitigation")
+    with pytest.raises(BBQScoreError, match="Duplicate BBQ source"):
+        score_dataset([source, source], variants, adapter, "mitigation")
+    with pytest.raises(BBQScoreError, match="Unknown BBQ permutation"):
+        score_dataset(
+            [source],
+            [*variants[:2], {**variants[2], "item_id": "unknown"}],
+            adapter,
+            "mitigation",
+        )
+    with pytest.raises(BBQScoreError, match="Unknown model condition"):
+        score_dataset([source], variants, adapter, "baseline")
+
+
+def test_order_specific_scores_are_mapped_to_source_answers():
+    per_order = [
+        [-0.1, -0.9, -1.0],
+        [-1.2, -0.2, -0.7],
+        [-0.3, -0.8, -0.1],
+    ]
+    calls = 0
+
+    def score_answer(_prompt, _answer):
+        nonlocal calls
+        score = per_order[calls // 3][calls % 3]
+        calls += 1
+        return score
+
+    source = item()
+    result = score_item(
+        source,
+        cyclic_option_orders(source),
+        score_answer,
+        model_id="M1",
+        condition="baseline",
+    )
+    assert calls == 9
+    for actual, expected in zip(
+        result["order_log_likelihoods_by_source"],
+        [[-0.1, -0.9, -1.0], [-0.7, -1.2, -0.2], [-0.8, -0.1, -0.3]],
+        strict=True,
+    ):
+        assert actual == pytest.approx(expected)
+    assert result["mean_log_likelihood_by_source"] == pytest.approx(
+        [(-0.1 - 0.7 - 0.8) / 3, (-0.9 - 1.2 - 0.1) / 3, (-1.0 - 0.2 - 0.3) / 3]
+    )
+    assert result["predicted_source_index"] == 2
+    assert result["order_choices_by_source"] == [0, 2, 1]
+    assert result["order_disagreement"] is True
 
 
 def test_malformed_permutation_and_nonfinite_likelihood_fail():

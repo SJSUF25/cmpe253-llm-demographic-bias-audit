@@ -17,6 +17,13 @@ the statistical unit. Record order-level choices separately to measure order
 sensitivity. Every scored row carries model and condition IDs, so aggregation
 cannot silently combine different runs.
 
+The full four-cell model/condition grid has 18,000 option-order presentations and
+54,000 answer likelihood forward passes (three full answers per presentation).
+The item-level record preserves all nine likelihoods, mapped to source-answer
+order within each presentation, alongside the three option-order choices and
+their source-answer means. The local `score_dataset` bridge calls the pinned
+adapter for each answer; it does not itself execute or checkpoint the full run.
+
 The fixed user message is:
 
 ```text
