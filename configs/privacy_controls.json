@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "config_id": "synthetic-pii-controls-v1",
+  "language": "en",
+  "spacy_model": "en_core_web_sm",
+  "presidio_entities": ["PERSON", "EMAIL_ADDRESS", "PHONE_NUMBER", "LOCATION"],
+  "entity_priority": ["ADDRESS", "EMAIL_ADDRESS", "PHONE_NUMBER", "ACCOUNT_ID", "PERSON"],
+  "placeholders": {
+    "PERSON": "[PERSON]",
+    "EMAIL_ADDRESS": "[EMAIL]",
+    "PHONE_NUMBER": "[PHONE]",
+    "ADDRESS": "[ADDRESS]",
+    "ACCOUNT_ID": "[ACCOUNT_ID]"
+  },
+  "patterns": {
+    "ADDRESS": "\\b\\d{3} Example Ave, Testville, CA 00000\\b",
+    "POSTAL_CODE": "\\b00000\\b",
+    "ACCOUNT_ID": "\\bACCT-[A-Z0-9]{12}\\b",
+    "PHONE_NUMBER": "\\+1-202-555-01\\d{2}\\b"
+  },
+  "normalization": "Unicode NFKC, casefold, retain alphanumeric characters with source offsets",
+  "output_filter_version": "p2-known-values-and-presidio-v1"
+}

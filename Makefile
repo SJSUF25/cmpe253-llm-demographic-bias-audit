@@ -7,7 +7,7 @@ export UV_CACHE_DIR
 export PYTHONPATH
 PROJECT_CLI := $(UV) run --frozen python -m project_cli
 
-.PHONY: help check-uv setup setup-colab capture-environment smoke-model governance-lock storage-init storage-verify sync-upstream build-synthetic-pii build-membership run-cab token-length-check cab-quality-check \
+.PHONY: help check-uv setup setup-colab capture-environment smoke-model governance-lock storage-init storage-verify sync-upstream build-synthetic-pii build-membership run-cab token-length-check cab-quality-check privacy-controls-smoke \
 	download-data build-data build-bbq validate-data pilot \
 	infer-baseline infer-mitigation score annotate-export analyze explain \
 	privacy test lint demo reproduce-small
@@ -63,6 +63,9 @@ build-bbq: ## Build the frozen BBQ sample and option permutations (ROOT required
 build-synthetic-pii: ## Build deterministic private synthetic PII records (ROOT required)
 	@test -n "$(ROOT)" || { echo "Usage: make build-synthetic-pii ROOT=/path"; exit 2; }
 	$(UV) run --frozen python -m privacy.synthetic_data --root "$(ROOT)"
+
+privacy-controls-smoke: ## Check pinned Presidio redaction on a development fixture
+	$(UV) run --frozen --group colab python -m privacy.controls --smoke
 
 build-membership: ## Build the sealed ordinary and canary corpus (ROOT required)
 	@test -n "$(ROOT)" || { echo "Usage: make build-membership ROOT=/path"; exit 2; }

@@ -56,6 +56,7 @@ make build-membership ROOT="$AUDIT_SHARED_ROOT"
 make validate-data ROOT="$AUDIT_SHARED_ROOT"
 make token-length-check ROOT="$AUDIT_SHARED_ROOT"
 make cab-quality-check ROOT="$AUDIT_SHARED_ROOT"
+make privacy-controls-smoke
 ```
 
 The command checks pinned revisions, byte sizes, SHA-256 values, schemas, row counts,
@@ -69,6 +70,8 @@ private receipt; manual data QA is still required before confirmatory inference.
 The CAB quality check freezes a source-preserving exclusion of 23 implicit families
 with answer-like source content. It retains all explicit primary prompts and
 requires a separate quality-manifest hash in the data-gate receipt.
+The privacy-controls smoke command checks the pinned Presidio and spaCy models
+against one synthetic development record; see `docs/privacy_controls.md`.
 
 ## Colab environment gate
 

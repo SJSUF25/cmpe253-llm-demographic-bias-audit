@@ -20,9 +20,11 @@ colab = [
   "accelerate==1.15.0",
   "bitsandbytes==0.50.2",
   "datasets==5.1.0",
+  "en-core-web-sm",
   "huggingface-hub==2.4.0",
   "numpy==2.4.6",
   "peft==0.21.2",
+  "presidio-analyzer==2.2.366",
   "safetensors==0.8.0",
   "sentencepiece==0.2.2",
   "torch==2.15.0",
@@ -31,6 +33,9 @@ colab = [
 
 [tool.uv]
 package = false
+
+[tool.uv.sources]
+en-core-web-sm = { url = "https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.8.0/en_core_web_sm-3.8.0-py3-none-any.whl" }
 
 [tool.pytest.ini_options]
 addopts = "-ra --strict-config --strict-markers"

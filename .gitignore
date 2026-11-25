@@ -7,6 +7,7 @@
 /.venv/
 /venv/
 /.uv-cache/
+/.privacy-cache/
 __pycache__/
 *.py[cod]
 *.egg-info/

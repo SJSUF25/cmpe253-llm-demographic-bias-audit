@@ -3,23 +3,23 @@
   "files": [
     {
       "path": "LLM_Bias_Audit_PRD.md",
-      "sha256": "91b9c34886e69bd060e527241deec5f3e35ebda918e49db7eb055e5a9de3a674",
-      "size_bytes": 75002
+      "sha256": "716ea83687f96446131cc98b9d5828c86688e45b92741573b009de113096c783",
+      "size_bytes": 75437
     },
     {
       "path": "Makefile",
-      "sha256": "ead0b08f13f571b91f804eb520dc0454c8130c33f70542bea97c53948d5b9d9b",
-      "size_bytes": 6173
+      "sha256": "7f2351cd89ced8740d1c5b869e4d8a7d547f5d7a0d8ca657b7cf58e32223b377",
+      "size_bytes": 6350
     },
     {
       "path": "pyproject.toml",
-      "sha256": "ad800cd8864003bec8aca996f4b92f754da2b096a9d1a546f7139b3a469cdc24",
-      "size_bytes": 1157
+      "sha256": "f2f1b559c0f65d54bd9e02a874945b0cabf9302340a6f2271f398e77a1f7c870",
+      "size_bytes": 1376
     },
     {
       "path": "uv.lock",
-      "sha256": "3fa58dfcd85fd7ed513f78d08b5e27dccdc08adcbe5c000a0f1c812e09ca5c9d",
-      "size_bytes": 147819
+      "sha256": "84abf7e5472ecd11e10ea2eabf2d48540c644b28b28bdb95a18a1f2107361248",
+      "size_bytes": 210716
     },
     {
       "path": "configs/experiment_registry.json",
@@ -55,6 +55,11 @@
       "path": "configs/privacy_data.json",
       "sha256": "5cbcb442541bdd78c0f11674e6e27012e161f57b45b42189a3abb0614e32304d",
       "size_bytes": 366
+    },
+    {
+      "path": "configs/privacy_controls.json",
+      "sha256": "72460f4d7e99d3b7330cca82075ae3df7bf81df93caea002fce1fe9e71f54b89",
+      "size_bytes": 841
     },
     {
       "path": "configs/membership_data.json",
@@ -95,6 +100,11 @@
       "path": "docs/data_qa_ai_review.md",
       "sha256": "9fce357e0086bc5d07536eeaf33ceff423b4ad39319628d563072f10a5e52cd3",
       "size_bytes": 4303
+    },
+    {
+      "path": "docs/privacy_controls.md",
+      "sha256": "5027dbbf4dab999b96a375e0f6da93b5f6563a4472e71dd6f356126cb9d36406",
+      "size_bytes": 2555
     },
     {
       "path": "docs/bbq_scoring.md",
@@ -155,6 +165,11 @@
       "path": "src/privacy/synthetic_data.py",
       "sha256": "fd1051cd6a1eb61692a8a06ada78b02dea5cadd77aabac92d03df6783a8b20b0",
       "size_bytes": 8082
+    },
+    {
+      "path": "src/privacy/controls.py",
+      "sha256": "f46299c99599b25ade8026c08a5bf6d4d1f58f56414d2a441fd766cdba767920",
+      "size_bytes": 10337
     },
     {
       "path": "src/privacy/membership_data.py",
