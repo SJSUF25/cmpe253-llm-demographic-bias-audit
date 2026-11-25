@@ -74,6 +74,8 @@ The privacy-controls smoke command checks the pinned Presidio and spaCy models
 against one synthetic development record; see `docs/privacy_controls.md`.
 The six registered PII inference cells and aggregate exposure scorer are described
 in `docs/privacy_evaluation.md`. Test runs require the private data-gate receipt.
+The controlled Phi QLoRA training/resume procedure is in
+`docs/canary_training.md`.
 
 ## Colab environment gate
 

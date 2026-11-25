@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "config_id": "phi-canary-qlora-v1",
+  "model_key": "M2",
+  "seed": 253,
+  "epochs": 3,
+  "max_sequence_tokens": 512,
+  "per_device_batch_size": 2,
+  "gradient_accumulation_steps": 8,
+  "lora_rank": 16,
+  "lora_alpha": 32,
+  "lora_dropout": 0.05,
+  "learning_rate": 0.0002,
+  "weight_decay": 0.01,
+  "warmup_ratio": 0.03,
+  "max_grad_norm": 1.0,
+  "output_directory": "adapters_private/canary_m2_qlora",
+  "manifest_directory": "manifests/canary_training"
+}

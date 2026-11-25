@@ -7,7 +7,7 @@ export UV_CACHE_DIR
 export PYTHONPATH
 PROJECT_CLI := $(UV) run --frozen python -m project_cli
 
-.PHONY: help check-uv setup setup-colab capture-environment smoke-model governance-lock storage-init storage-verify sync-upstream build-synthetic-pii build-membership run-cab run-pii score-pii token-length-check cab-quality-check privacy-controls-smoke \
+.PHONY: help check-uv setup setup-colab capture-environment smoke-model governance-lock storage-init storage-verify sync-upstream build-synthetic-pii build-membership run-cab run-pii score-pii train-canary token-length-check cab-quality-check privacy-controls-smoke \
 	download-data build-data build-bbq validate-data pilot \
 	infer-baseline infer-mitigation score annotate-export analyze explain \
 	privacy test lint demo reproduce-small
@@ -86,6 +86,10 @@ run-pii: ## Run one registered private PII condition (ROOT, RUN_ID, SPLIT requir
 score-pii: ## Aggregate privacy exposure after all six test runs (ROOT required)
 	@test -n "$(ROOT)" || { echo "Usage: make score-pii ROOT=/path"; exit 2; }
 	$(UV) run --frozen python -m privacy.metrics --root "$(ROOT)"
+
+train-canary: ## Train or resume the controlled Phi QLoRA adapter (ROOT required)
+	@test -n "$(ROOT)" || { echo "Usage: make train-canary ROOT=/path"; exit 2; }
+	$(UV) run --frozen --group colab python -m privacy.train_canary --root "$(ROOT)"
 
 validate-data: ## Reverify all built datasets and create the private manual-QA packet
 	@test -n "$(ROOT)" || { echo "Usage: make validate-data ROOT=/path"; exit 2; }
