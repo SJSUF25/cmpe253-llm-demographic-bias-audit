@@ -7,7 +7,7 @@ export UV_CACHE_DIR
 export PYTHONPATH
 PROJECT_CLI := $(UV) run --frozen python -m project_cli
 
-.PHONY: help check-uv setup setup-colab capture-environment smoke-model governance-lock storage-init storage-verify sync-upstream build-synthetic-pii build-membership run-cab run-pii score-pii score-h5 privacy-audit-packet score-helpfulness score-adapter-utility compare-adapter-utility train-canary attack-canary token-length-check cab-quality-check privacy-controls-smoke \
+.PHONY: help check-uv setup setup-colab capture-environment smoke-model governance-lock storage-init storage-verify sync-upstream build-synthetic-pii build-membership run-cab score-cab run-pii score-pii score-h5 privacy-audit-packet score-helpfulness score-adapter-utility compare-adapter-utility train-canary attack-canary token-length-check cab-quality-check privacy-controls-smoke \
 	download-data build-data build-bbq validate-data pilot \
 	infer-baseline infer-mitigation score annotate-export analyze explain \
 	privacy test lint demo reproduce-small
@@ -76,6 +76,12 @@ run-cab: ## Run one registered CAB model/condition (ROOT, RUN_ID, SPLIT required
 	@test -n "$(RUN_ID)" || { echo "RUN_ID is required"; exit 2; }
 	@test -n "$(SPLIT)" || { echo "SPLIT=development or test is required"; exit 2; }
 	$(UV) run --frozen --group colab python -m inference.runner --root "$(ROOT)" --run-id "$(RUN_ID)" --split "$(SPLIT)"
+
+score-cab: ## Score one completed CAB run with pinned secondary scorers
+	@test -n "$(ROOT)" || { echo "Usage: make score-cab ROOT=/path RUN_ID=CAB-EXP-M1-B0 SPLIT=development"; exit 2; }
+	@test -n "$(RUN_ID)" || { echo "RUN_ID is required"; exit 2; }
+	@test -n "$(SPLIT)" || { echo "SPLIT=development or test is required"; exit 2; }
+	$(UV) run --frozen --group colab python -m scoring.cab --root "$(ROOT)" --run-id "$(RUN_ID)" --split "$(SPLIT)"
 
 run-pii: ## Run one registered private PII condition (ROOT, RUN_ID, SPLIT required)
 	@test -n "$(ROOT)" || { echo "Usage: make run-pii ROOT=/path RUN_ID=PII-M1-P0 SPLIT=development"; exit 2; }

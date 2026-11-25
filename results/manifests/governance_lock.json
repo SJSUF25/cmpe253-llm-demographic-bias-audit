@@ -8,8 +8,8 @@
     },
     {
       "path": "Makefile",
-      "sha256": "f53ff29cfb07bb03c772d3db7a78fdf39e03f595a149c871dba52820c81aa3ca",
-      "size_bytes": 9117
+      "sha256": "9307a4874d154d811294fc93c1fe47c01015d735daf8f2b8e094c8042940f3f6",
+      "size_bytes": 9574
     },
     {
       "path": "pyproject.toml",
@@ -45,6 +45,11 @@
       "path": "configs/cab_build.json",
       "sha256": "2b1c4bcb10c002f58b90ba6ece01689f7987283e2c195c84cedc519a2e8b5546",
       "size_bytes": 908
+    },
+    {
+      "path": "configs/cab_scoring.json",
+      "sha256": "5898793d5444a3af1c8ede44045c3e1cb3be4bcbdb18fdf0df2eab2b83778046",
+      "size_bytes": 443
     },
     {
       "path": "configs/bbq_build.json",
@@ -135,6 +140,11 @@
       "path": "docs/bbq_scoring.md",
       "sha256": "7f749cef06ca6cd52fc9edd82cbadd23aa9bdfcf258c6263af8832cd6d52567d",
       "size_bytes": 3376
+    },
+    {
+      "path": "docs/cab_scoring.md",
+      "sha256": "a09789e797bf935ab218d2be3387e8ee9c7fb20bcb7b86c7f2b9e15585059be7",
+      "size_bytes": 2351
     },
     {
       "path": "docs/model_adapter.md",
@@ -255,6 +265,11 @@
       "path": "src/scoring/bbq.py",
       "sha256": "480a5946ce129bf5cdb3224ea1833501d5f9e4f604f6787a2e68ef9ea3e51c5f",
       "size_bytes": 10998
+    },
+    {
+      "path": "src/scoring/cab.py",
+      "sha256": "3794e48aa4b2a6909d87b7bbdb563f43d06db67f5080c37892b73722af521eb1",
+      "size_bytes": 22351
     }
   ],
   "lock_version": 1,

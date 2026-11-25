@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "config_id": "cab-secondary-scorers-v1",
+  "toxicity_scorer": "S1",
+  "sentiment_scorer": "S2",
+  "similarity_scorer": "S3",
+  "batch_size": 32,
+  "max_classifier_tokens": 512,
+  "max_similarity_tokens": 384,
+  "refusal_rule_version": "anchored-decline-v1",
+  "refusal_rule_threshold": 1,
+  "refusal_probability_status": "pending-development-calibration",
+  "identity_reactivity_probe_version": "identity-term-v1"
+}

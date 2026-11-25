@@ -19,6 +19,7 @@ LOCKED_FILES = (
     "configs/model_manifest.yaml",
     "configs/data_manifest.yaml",
     "configs/cab_build.json",
+    "configs/cab_scoring.json",
     "configs/bbq_build.json",
     "configs/privacy_data.json",
     "configs/privacy_controls.json",
@@ -37,6 +38,7 @@ LOCKED_FILES = (
     "docs/canary_attack.md",
     "docs/privacy_h5.md",
     "docs/bbq_scoring.md",
+    "docs/cab_scoring.md",
     "docs/model_adapter.md",
     "docs/inference_runner.md",
     "notebooks/e0_t04_colab_smoke_test.ipynb",
@@ -61,6 +63,7 @@ LOCKED_FILES = (
     "src/inference/adapter.py",
     "src/inference/runner.py",
     "src/scoring/bbq.py",
+    "src/scoring/cab.py",
 )
 
 
