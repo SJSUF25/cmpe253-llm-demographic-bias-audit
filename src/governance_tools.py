@@ -39,6 +39,7 @@ LOCKED_FILES = (
     "docs/privacy_h5.md",
     "docs/bbq_scoring.md",
     "docs/cab_scoring.md",
+    "docs/cab_annotation.md",
     "docs/model_adapter.md",
     "docs/inference_runner.md",
     "notebooks/e0_t04_colab_smoke_test.ipynb",
@@ -64,6 +65,8 @@ LOCKED_FILES = (
     "src/inference/runner.py",
     "src/scoring/bbq.py",
     "src/scoring/cab.py",
+    "src/scoring/annotation.py",
+    "src/scoring/annotation_review.py",
 )
 
 

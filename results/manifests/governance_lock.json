@@ -3,13 +3,13 @@
   "files": [
     {
       "path": "LLM_Bias_Audit_PRD.md",
-      "sha256": "90016b251b3acfa2676e080d2dd471d9c38cf0f08b8c67fe9dff5d28676b1038",
-      "size_bytes": 76410
+      "sha256": "44eeb02ac25f5b16625c172b188ce4ba5635325d454a1c4718f15d7c73a5171b",
+      "size_bytes": 76799
     },
     {
       "path": "Makefile",
-      "sha256": "9307a4874d154d811294fc93c1fe47c01015d735daf8f2b8e094c8042940f3f6",
-      "size_bytes": 9574
+      "sha256": "2420221721e97714c8193bac98bd7b8ad6179438f3c9b406b05d62f5c4e2add3",
+      "size_bytes": 10459
     },
     {
       "path": "pyproject.toml",
@@ -147,6 +147,11 @@
       "size_bytes": 2351
     },
     {
+      "path": "docs/cab_annotation.md",
+      "sha256": "95c8015044cacab98528172b93d07b8e8ce2750efcfdfaf378c8c1ed3a4a918f",
+      "size_bytes": 3362
+    },
+    {
       "path": "docs/model_adapter.md",
       "sha256": "2348f90c9a064422d067bf743228efab83f0b28421ffa46ce1ea0c8f3bef2c7e",
       "size_bytes": 2416
@@ -270,6 +275,16 @@
       "path": "src/scoring/cab.py",
       "sha256": "3794e48aa4b2a6909d87b7bbdb563f43d06db67f5080c37892b73722af521eb1",
       "size_bytes": 22351
+    },
+    {
+      "path": "src/scoring/annotation.py",
+      "sha256": "27614ef1f47b2bd8f21f048551211727f75b20b0076f249f241bda96f4958c4a",
+      "size_bytes": 9664
+    },
+    {
+      "path": "src/scoring/annotation_review.py",
+      "sha256": "a5b728835befa90f6db42542a32cad1db99fa78904c74fe6396f82208ca5d541",
+      "size_bytes": 7172
     }
   ],
   "lock_version": 1,
