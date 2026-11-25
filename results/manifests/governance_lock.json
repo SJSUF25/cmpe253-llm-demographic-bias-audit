@@ -3,13 +3,13 @@
   "files": [
     {
       "path": "LLM_Bias_Audit_PRD.md",
-      "sha256": "cf51ad155a45f9f2e78fc9be560ecf63b07f8b422179eabc51fffc607d268f55",
-      "size_bytes": 78009
+      "sha256": "6e6b77f7d5428aa685c857bda704c894beb5d79e30a62de79e703b2a938a7805",
+      "size_bytes": 80219
     },
     {
       "path": "Makefile",
-      "sha256": "ec414f3d9d08e8b4ce11796dcb3943e0be1e5d63c5cbb0dcc1625766820b0de2",
-      "size_bytes": 10603
+      "sha256": "01dbf23afab149fa0512a83d626c17395302f45e4220caf508151085175c2e03",
+      "size_bytes": 11119
     },
     {
       "path": "pyproject.toml",
@@ -87,6 +87,11 @@
       "size_bytes": 1482
     },
     {
+      "path": "configs/pilot.json",
+      "sha256": "e5d1e63be22c3a806028b28f02aaaa2e433b96d2c21813c601421b95f1a0aa41",
+      "size_bytes": 487
+    },
+    {
       "path": "configs/raw_data_sources.json",
       "sha256": "3154202ca6bacc1031955e824fbe9a769bc75712f35a2f814f68edbfef7a0a5d",
       "size_bytes": 3123
@@ -108,13 +113,13 @@
     },
     {
       "path": "docs/data_qa_checklist.md",
-      "sha256": "564f88ca329b801d2bde5cbea73c7c6f7a47d8d44930ff6466e51d1ed4b4665b",
-      "size_bytes": 4301
+      "sha256": "a21053f6d9363ec61ed87d52f895332f4da02265a82f2bd7bc91eb78651929e0",
+      "size_bytes": 4791
     },
     {
       "path": "docs/data_qa_ai_review.md",
-      "sha256": "9fce357e0086bc5d07536eeaf33ceff423b4ad39319628d563072f10a5e52cd3",
-      "size_bytes": 4303
+      "sha256": "c9837e094acfc1795a93ba5b62cd250b452a3625bade52f7eedb59e44b3b2fd9",
+      "size_bytes": 4674
     },
     {
       "path": "docs/privacy_controls.md",
@@ -173,8 +178,13 @@
     },
     {
       "path": "docs/inference_runner.md",
-      "sha256": "018a92066513d1ac0226212197430c0b6757dddeb247139dfca71eae7662015d",
-      "size_bytes": 3683
+      "sha256": "333e4b7bda8ec7e1be92c1290a7fcc1f04973a2cf787156d7d927582ba75d1df",
+      "size_bytes": 4041
+    },
+    {
+      "path": "docs/pilot.md",
+      "sha256": "46a0fa47bd2494970bebdea0cdb52c2562791f11dd7fe642465848e0ca729e9a",
+      "size_bytes": 2421
     },
     {
       "path": "notebooks/e0_t04_colab_smoke_test.ipynb",
@@ -185,6 +195,11 @@
       "path": "notebooks/e1_t06_data_gate_colab.ipynb",
       "sha256": "8ebeff6cf6f38a29d73b1d5fcbf699d7b27fb1fcdfbde29a217c8d3e97fe5b1b",
       "size_bytes": 27668
+    },
+    {
+      "path": "notebooks/e2_t04_pilot_colab.ipynb",
+      "sha256": "d6f2241ed2c8ca5879edbe671f57fef594df44c5a70b2e95d08e3310ce846c95",
+      "size_bytes": 6176
     },
     {
       "path": "src/environment_tools.py",
@@ -200,6 +215,11 @@
       "path": "src/data/cab_quality.py",
       "sha256": "2093eec6e629d3e9e5a20c884a5b1d5a20e468bf3258dfe34e3b9b60b0c1f0e5",
       "size_bytes": 5402
+    },
+    {
+      "path": "src/data/ai_review_gate.py",
+      "sha256": "49df9313c92566d70fb0b78218d57a9d14e232870b3669ff268946cd32132d95",
+      "size_bytes": 5375
     },
     {
       "path": "src/data/bbq_sampler.py",
@@ -283,8 +303,13 @@
     },
     {
       "path": "src/inference/runner.py",
-      "sha256": "4e3ff8e2cc2f4d0c9db9eb3c154f9b843684d8c1adaf6cb8d9bbec53f5013ccc",
-      "size_bytes": 26278
+      "sha256": "d089bb9ffd6337151340061c3aea52be2e65f7f5b1c7edb5302957011e21c8ad",
+      "size_bytes": 27610
+    },
+    {
+      "path": "src/inference/pilot.py",
+      "sha256": "fafe3928fc4666ad3e9746c35e6e59d92198e86064ecf1f74b5d1bf5723f2f40",
+      "size_bytes": 28702
     },
     {
       "path": "src/scoring/bbq.py",

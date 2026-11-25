@@ -275,7 +275,19 @@ def test_registered_cab_test_accepts_matching_review_receipt(monkeypatch, tmp_pa
     manifest_dir = tmp_path / "manifests"
     manifest_dir.mkdir()
     validation = manifest_dir / "data_validation_manifest.json"
-    validation.write_text(json.dumps({"structural_checks": "passed"}))
+    packet_path = tmp_path / "private_outputs/data_qa/review_packet.json"
+    packet_path.parent.mkdir(parents=True)
+    packet_path.write_text("{}")
+    validation.write_text(
+        json.dumps(
+            {
+                "structural_checks": "passed",
+                "review_packet_sha256": hashlib.sha256(
+                    packet_path.read_bytes()
+                ).hexdigest(),
+            }
+        )
+    )
     config = json.loads(runner.CAB_CONFIG_PATH.read_text())
     bbq_config = json.loads((runner.ROOT / "configs/bbq_build.json").read_text())
     membership_config = json.loads(
@@ -353,6 +365,39 @@ def test_registered_cab_test_accepts_matching_review_receipt(monkeypatch, tmp_pa
     )
     assert captured["spec"].confirmatory is True
     assert [row["prompt_id"] for row in captured["selected"]] == ["P-0"]
+    ai_receipt = {
+        **{
+            key: value
+            for key, value in receipt.items()
+            if key not in {"human_review_status", "approved_by"}
+        },
+        "review_status": "approved_with_documented_implicit_exclusions",
+        "review_method": "ai_assisted_no_human_review",
+        "reviewed_by": "Codex AI-assisted audit",
+        "review_packet_sha256": hashlib.sha256(packet_path.read_bytes()).hexdigest(),
+        "review_evidence_sha256": hashlib.sha256(
+            (runner.ROOT / "docs/data_qa_ai_review.md").read_bytes()
+        ).hexdigest(),
+    }
+    ai_receipt_path = manifest_dir / "data_ai_review_receipt.json"
+    ai_receipt_path.write_text(json.dumps(ai_receipt))
+    (manifest_dir / "data_gate_approval.json").write_text(
+        json.dumps(
+            {
+                **ai_receipt,
+                "ai_review_receipt_sha256": hashlib.sha256(
+                    ai_receipt_path.read_bytes()
+                ).hexdigest(),
+            }
+        )
+    )
+    assert runner.run_registered_cab(tmp_path, "CAB-EXP-M1-B0", "test") == (
+        tmp_path / "confirmed.json"
+    )
+    packet_path.write_text("changed")
+    with pytest.raises(RunnerError, match="incomplete or stale"):
+        runner.run_registered_cab(tmp_path, "CAB-EXP-M1-B0", "test")
+    packet_path.write_text("{}")
     valid_lengths = token_lengths.read_bytes()
     token_lengths.write_text(
         json.dumps(

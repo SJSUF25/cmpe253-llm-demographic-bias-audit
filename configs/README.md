@@ -19,3 +19,5 @@ here. Final run configurations must use immutable upstream revisions.
   calibration/evaluation split, and private output paths for `make build-membership`.
 - `inference.json` freezes model keys, system instructions, token caps, precision,
   attention, and greedy/sensitivity decoding for the model adapter.
+- `pilot.json` freezes the E2-T04 CAB/BBQ sample sizes, stratification namespace,
+  model/condition grid, checkpoint interval, and output-review sample size.

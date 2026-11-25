@@ -562,7 +562,7 @@ def run_inference(
 
 
 def _check_test_gate(root: Path) -> None:
-    """Require structural, tokenizer, and operator receipts for sealed CAB prompts."""
+    """Require structural, tokenizer, quality, and truthful review receipts."""
     validation = root / "manifests/data_validation_manifest.json"
     token_lengths = root / "manifests/token_length_manifest.json"
     quality_path = root / CAB_QUALITY_MANIFEST
@@ -606,23 +606,58 @@ def _check_test_gate(root: Path) -> None:
             and _hash((root / relative).read_bytes()) == input_hashes[relative]
             for relative in expected_inputs
         )
+    common = {
+        "schema_version": 1,
+        "validation_manifest_sha256": _hash(validation.read_bytes()),
+        "token_length_manifest_sha256": _hash(token_lengths.read_bytes()),
+        "cab_implicit_quality_manifest_sha256": _hash(quality_path.read_bytes()),
+        "governance_lock_sha256": _hash(GOVERNANCE_LOCK_PATH.read_bytes()),
+        "token_length_status": "passed",
+    }
+    human_approval = {
+        **common,
+        "human_review_status": "approved",
+        "approved_by": ["Abhinand"],
+    }
+    ai_receipt_path = root / "manifests/data_ai_review_receipt.json"
+    reviewed_packet_path = root / "private_outputs/data_qa/review_packet.json"
+    ai_approval = {
+        **common,
+        "review_status": "approved_with_documented_implicit_exclusions",
+        "review_method": "ai_assisted_no_human_review",
+        "reviewed_by": "Codex AI-assisted audit",
+        "review_packet_sha256": structural.get("review_packet_sha256"),
+        "review_evidence_sha256": _hash(
+            (ROOT / "docs/data_qa_ai_review.md").read_bytes()
+        ),
+    }
+    ai_receipt_matches = (
+        ai_receipt_path.is_file()
+        and reviewed_packet_path.is_file()
+        and structural.get("review_packet_sha256")
+        == _hash(reviewed_packet_path.read_bytes())
+        and _hash(ai_receipt_path.read_bytes())
+        == approval.get("ai_review_receipt_sha256")
+    )
+    if ai_receipt_matches:
+        ai_receipt = json.loads(ai_receipt_path.read_text(encoding="utf-8"))
+        ai_receipt_matches = ai_receipt == ai_approval
+    expected_ai_gate = {
+        **ai_approval,
+        "ai_review_receipt_sha256": _hash(ai_receipt_path.read_bytes())
+        if ai_receipt_path.is_file()
+        else None,
+    }
     if (
         structural.get("structural_checks") != "passed"
         or lengths.get("status") != "passed"
         or quality.get("status") != "passed_with_implicit_exclusions"
         or lengths.get("validation_manifest_sha256") != _hash(validation.read_bytes())
         or not inputs_match
-        or approval
-        != {
-            "schema_version": 1,
-            "validation_manifest_sha256": _hash(validation.read_bytes()),
-            "token_length_manifest_sha256": _hash(token_lengths.read_bytes()),
-            "cab_implicit_quality_manifest_sha256": _hash(quality_path.read_bytes()),
-            "governance_lock_sha256": _hash(GOVERNANCE_LOCK_PATH.read_bytes()),
-            "token_length_status": "passed",
-            "human_review_status": "approved",
-            "approved_by": ["Abhinand"],
-        }
+        or not (
+            approval == human_approval
+            or (approval == expected_ai_gate and ai_receipt_matches)
+        )
     ):
         raise RunnerError("CAB test data-gate receipt is incomplete or stale")
 

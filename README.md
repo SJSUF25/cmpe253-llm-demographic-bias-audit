@@ -66,15 +66,17 @@ immutable raw-data manifest.
 deterministic prompt manifest; it refuses a source-hash mismatch or changed existing
 output. The tokenizer-length check uses the pinned official chat templates for every
 CAB and BBQ input and the Phi adapter training sequences. It produces a separate
-private receipt; manual data QA is still required before confirmatory inference.
+private receipt; the data review gate must also pass before confirmatory inference.
 The CAB quality check freezes a source-preserving exclusion of 23 implicit families
 with answer-like source content. It retains all explicit primary prompts and
 requires a separate quality-manifest hash in the data-gate receipt.
-Use `notebooks/e1_t06_data_gate_colab.ipynb` for the CPU-only quality check,
-fresh 85-item operator review, and hash-bound data-gate receipt. The notebook
-does not import the prior 85-pass log or approve the gate automatically.
-Abhinand runs the CPU-only review and is the sole named data-gate approver. His
-fresh review log must cover all 85 items; Vineet's prior log is not imported.
+The accelerated AI review is documented in `docs/data_qa_ai_review.md`. After
+the quality check passes and the current PRD is copied to Drive, run
+`make ai-review-gate ROOT="$AUDIT_SHARED_ROOT"` on a CPU Colab runtime. This
+writes a hash-bound receipt labeled `ai_assisted_no_human_review`; the final
+report must disclose that no independent human semantic review was performed.
+`notebooks/e1_t06_data_gate_colab.ipynb` remains available if Abhinand later
+performs a separate human review. Its old 85-pass log is not approval evidence.
 The privacy-controls smoke command checks the pinned Presidio and spaCy models
 against one synthetic development record; see `docs/privacy_controls.md`.
 The six registered PII inference cells and aggregate exposure scorer are described
@@ -83,6 +85,9 @@ The controlled Phi QLoRA training/resume procedure is in
 `docs/canary_training.md`.
 The controlled canary extraction and membership attacks are documented in
 `docs/canary_attack.md`.
+
+The gated E2-T04 model/data pilot is documented in `docs/pilot.md`. GPU execution
+waits for a valid data-gate receipt.
 Pinned CAB secondary diagnostics can be run with `make score-cab` after a CAB
 inference cell completes; see `docs/cab_scoring.md`.
 The H5 privacy decision, blinded review packet, and adapter utility commands are

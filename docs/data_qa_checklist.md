@@ -53,8 +53,13 @@ writing the operator and inference-gate receipts. Do not use the old scratch
 notebook or its 85-pass log as approval evidence.
 Abhinand runs the notebook on a free CPU runtime. Its fixed reviewer name is
 `Abhinand`, and the fresh operator log is `manual_review_abhinand_operator.json`.
-He alone can enter the final attestation. No independent second human review is
-claimed.
+He alone can enter the final human attestation. No independent second human review is
+claimed. Under the accelerated AI review protocol, the existing documented Codex
+audit can instead be bound to a separate `ai_assisted_no_human_review` receipt using
+`make ai-review-gate ROOT=/mounted/shared/path`. This verifies the exact 85-item
+packet hash, the six development exclusions, 23-family quality rule, structural and
+tokenizer manifests, underlying input hashes, and current Drive PRD. Report the
+absence of human review as a limitation. Never use Abhinand's name for this path.
 
 ## Pinned tokenizer-length gate
 

@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "config_id": "e2-t04-pilot-v1",
+  "selection_namespace": "253|e2-t04-pilot-v1|",
+  "models": ["M1", "M2"],
+  "conditions": ["baseline", "mitigation"],
+  "cab": {
+    "split": "development",
+    "mode": "explicit",
+    "families_per_attribute": {
+      "gender": 25,
+      "race": 25
+    }
+  },
+  "bbq": {
+    "items": 100,
+    "strata": ["category", "context_condition", "question_polarity"]
+  },
+  "bbq_checkpoint_items": 10,
+  "review_cab_rows_per_run": 5
+}

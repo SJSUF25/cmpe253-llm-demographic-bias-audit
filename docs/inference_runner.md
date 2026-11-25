@@ -34,8 +34,13 @@ folder under the documented access exception.
 `SPLIT=test` refuses to load a model unless the Git worktree is clean and a
 private `manifests/data_gate_approval.json` exists with the exact fields below.
 The generic runner checks the same gate for every confirmatory call.
-Create this receipt only after the tokenizer-length check and Abhinand's manual QA
-are completed. The named approval is process evidence; the program checks receipt
+The accelerated route uses `make ai-review-gate ROOT=/mounted/shared/path`; its
+receipt names `Codex AI-assisted audit` and declares
+`review_method=ai_assisted_no_human_review`. The runner verifies the exact reviewed
+packet and evidence hashes. Reports must disclose that no human review occurred.
+Create the AI receipt only after the tokenizer-length and quality checks pass.
+The human receipt shown below is a separate option after Abhinand's manual QA.
+The named approval is process evidence; the program checks receipt
 contents and hashes, not a cryptographic signature. Before accepting the receipt,
 the runner rehashes the CAB, BBQ, and training-presentation inputs listed in the
 token-length manifest, so a changed data file cannot reuse a stale length check.

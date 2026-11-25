@@ -1,6 +1,6 @@
 # E1-T06 AI-assisted data review — 2026-11-25
 
-This is a Codex review of the private, pinned data artifacts in the shared Drive. It is **not** the operator-signed human review required by `docs/data_qa_checklist.md`.
+This is a Codex review of the private, pinned data artifacts in the shared Drive. It is **not** a human review. On 2026-11-25, the project owner authorized the distinct AI-assisted gate because a further manual review could not be completed before the deadline. The study must disclose this limitation.
 
 ## Artifacts and scope
 
@@ -33,6 +33,6 @@ An automatic scan of the full processed CAB manifest found **23 families** whose
 
 ## Disposition
 
-**Data gate blocked pending the revised quality manifest and operator approval.** Do not sign an exception-free review receipt or start confirmatory inference yet. PRD section 6.1 now freezes a source-preserving exclusion rule: all implicit variants of the 23 flagged families are omitted from inference; explicit primary prompts remain intact. The 17 test flags are conservatively excluded without opening their text. Keep the current raw source and prior manifests immutable.
+The data gate can proceed through the separately labeled AI-assisted receipt **only after** the revised quality manifest and every hash check pass. This report alone is not a gate receipt. Do not sign an exception-free or human review receipt. PRD section 6.1 freezes a source-preserving exclusion rule: all implicit variants of the 23 flagged families are omitted from inference; explicit primary prompts remain intact. The 17 test flags are conservatively excluded without opening their text. Keep the current raw source and prior manifests immutable.
 
-`make cab-quality-check ROOT=/mounted/shared/path` creates or verifies the private exclusion manifest. The inference runner requires and rechecks it. The existing structural and tokenizer manifests still describe the unmodified 1,604-row prompt inventory; the separate quality manifest describes the 736 eligible implicit prompts. The operator approval receipt must bind all three manifests. Report the reduced implicit sample and its sensitivity limits.
+`make cab-quality-check ROOT=/mounted/shared/path` creates or verifies the private exclusion manifest. Then `make ai-review-gate ROOT=/mounted/shared/path` binds this review and the exact packet to all three manifests and writes a private `ai_assisted_no_human_review` receipt. The inference runner requires and rechecks it. The existing structural and tokenizer manifests still describe the unmodified 1,604-row prompt inventory; the separate quality manifest describes the 736 eligible implicit prompts. Report the reduced implicit sample, its sensitivity limits, and the lack of independent human semantic review.

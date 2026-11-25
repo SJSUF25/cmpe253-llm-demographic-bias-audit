@@ -22,3 +22,7 @@ to reproduce a timestamp or overwrite a passing manifest.
 Notebooks may call importable project modules for exploration and presentation. They
 must not contain transformations or analysis logic unavailable from project commands.
 
+`e2_t04_pilot_colab.ipynb` orchestrates the frozen pilot. It plans the selection,
+runs M1 and M2 in separate restart-safe cells, and builds the combined report. The
+reusable selection, checkpoint, and reporting logic lives in `inference.pilot`.
+

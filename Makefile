@@ -7,7 +7,7 @@ export UV_CACHE_DIR
 export PYTHONPATH
 PROJECT_CLI := $(UV) run --frozen python -m project_cli
 
-.PHONY: help check-uv setup setup-colab capture-environment smoke-model governance-lock storage-init storage-verify sync-upstream build-synthetic-pii build-membership run-cab score-cab annotation-packet annotation-review annotation-freeze analysis-plan-check run-pii score-pii score-h5 privacy-audit-packet score-helpfulness score-adapter-utility compare-adapter-utility train-canary attack-canary token-length-check cab-quality-check privacy-controls-smoke \
+.PHONY: help check-uv setup setup-colab capture-environment smoke-model governance-lock storage-init storage-verify sync-upstream build-synthetic-pii build-membership run-cab score-cab annotation-packet annotation-review annotation-freeze analysis-plan-check run-pii score-pii score-h5 privacy-audit-packet score-helpfulness score-adapter-utility compare-adapter-utility train-canary attack-canary token-length-check cab-quality-check ai-review-gate privacy-controls-smoke \
 	download-data build-data build-bbq validate-data pilot \
 	infer-baseline infer-mitigation score annotate-export analyze explain \
 	privacy test lint demo reproduce-small
@@ -146,12 +146,17 @@ cab-quality-check: ## Freeze and verify implicit CAB exclusions before inference
 	@test -n "$(ROOT)" || { echo "Usage: make cab-quality-check ROOT=/path"; exit 2; }
 	$(UV) run --frozen python -m data.cab_quality --root "$(ROOT)"
 
+ai-review-gate: ## Bind the documented AI data review to the private gate (ROOT required)
+	@test -n "$(ROOT)" || { echo "Usage: make ai-review-gate ROOT=/path"; exit 2; }
+	$(UV) run --frozen python -m data.ai_review_gate --root "$(ROOT)"
+
 token-length-check: ## Check pinned chat-template lengths for inference and training
 	@test -n "$(ROOT)" || { echo "Usage: make token-length-check ROOT=/path"; exit 2; }
 	$(UV) run --frozen --group colab python -m data.token_lengths --root "$(ROOT)"
 
-pilot: ## Run the preregistered model and data pilot
-	$(PROJECT_CLI) pilot
+pilot: ## Plan, run, or report the E2-T04 pilot (ROOT and ACTION required)
+	@test -n "$(ROOT)" && test -n "$(ACTION)" || { echo "Usage: make pilot ROOT=/path ACTION=plan|run-model|report [MODEL=M1|M2]"; exit 2; }
+	$(UV) run --frozen --group colab python -m inference.pilot "$(ACTION)" --root "$(ROOT)" $(if $(MODEL),--model "$(MODEL)",)
 
 infer-baseline: ## Run locked baseline inference
 	$(PROJECT_CLI) infer-baseline
