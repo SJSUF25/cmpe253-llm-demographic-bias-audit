@@ -7,7 +7,7 @@ export UV_CACHE_DIR
 export PYTHONPATH
 PROJECT_CLI := $(UV) run --frozen python -m project_cli
 
-.PHONY: help check-uv setup setup-colab capture-environment smoke-model governance-lock storage-init storage-verify sync-upstream build-synthetic-pii build-membership run-cab token-length-check \
+.PHONY: help check-uv setup setup-colab capture-environment smoke-model governance-lock storage-init storage-verify sync-upstream build-synthetic-pii build-membership run-cab token-length-check cab-quality-check \
 	download-data build-data build-bbq validate-data pilot \
 	infer-baseline infer-mitigation score annotate-export analyze explain \
 	privacy test lint demo reproduce-small
@@ -77,6 +77,10 @@ run-cab: ## Run one registered CAB model/condition (ROOT, RUN_ID, SPLIT required
 validate-data: ## Reverify all built datasets and create the private manual-QA packet
 	@test -n "$(ROOT)" || { echo "Usage: make validate-data ROOT=/path"; exit 2; }
 	$(PROJECT_CLI) validate-data --root "$(ROOT)"
+
+cab-quality-check: ## Freeze and verify implicit CAB exclusions before inference
+	@test -n "$(ROOT)" || { echo "Usage: make cab-quality-check ROOT=/path"; exit 2; }
+	$(UV) run --frozen python -m data.cab_quality --root "$(ROOT)"
 
 token-length-check: ## Check pinned chat-template lengths for inference and training
 	@test -n "$(ROOT)" || { echo "Usage: make token-length-check ROOT=/path"; exit 2; }

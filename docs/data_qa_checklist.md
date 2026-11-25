@@ -35,6 +35,15 @@ and disposition in a private signed review receipt. Under PRD v2.5 Vineet perfor
 this check and marks it as an operator review. A Codex check or repeat by Vineet
 must not be described as independent human QA.
 
+The 2026-11-25 AI-assisted review found six development CAB implicit prompts with
+embedded answer text; see `docs/data_qa_ai_review.md`. The old 85-pass notebook log
+does not resolve these exceptions. The approved exclusion policy is in PRD section
+6.1. Run `make cab-quality-check ROOT=/mounted/shared/path`, verify its 23-family
+exclusion count and 736 eligible implicit prompts, and bind the resulting private
+manifest hash in any data-gate approval receipt. An operator review may approve
+the documented exceptions and exclusion, but must not say the original packet
+was exception-free. The data-gate receipt remains pending until then.
+
 ## Pinned tokenizer-length gate
 
 After structural validation, run `make token-length-check ROOT=/mounted/shared/path`

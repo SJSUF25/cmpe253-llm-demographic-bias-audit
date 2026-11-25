@@ -1,6 +1,7 @@
 # Local planning documents (intentionally not committed)
 /LLM_Bias_Audit_PRD.md
 /PROJECT_TASKS.md
+/e1_t06_manual_data_review.ipynb
 
 # Python environments and caches
 /.venv/

@@ -6,7 +6,9 @@ must match `configs/experiment_registry.json`; supported conditions are B0
 (baseline) and F1 (fairness mitigation). Development outputs are stored under
 `private_outputs/pilot/`. A test run uses `SPLIT=test` and writes to the exact
 registered private output path. The runner selects only the requested CAB
-explicit/implicit mode and split from the frozen prompt manifest.
+explicit/implicit mode and split from the frozen prompt manifest. Implicit runs
+exclude the 23 source-quality-flagged families according to the verified private
+`manifests/cab_implicit_quality_manifest.json`; all explicit primary prompts remain.
 
 The runner writes successive 100-row JSONL files under a private `parts/`
 directory. Each part is first written and synced as a temporary file, then
@@ -43,6 +45,7 @@ token-length manifest, so a changed data file cannot reuse a stale length check.
   "schema_version": 1,
   "validation_manifest_sha256": "<SHA-256 of manifests/data_validation_manifest.json>",
   "token_length_manifest_sha256": "<SHA-256 of manifests/token_length_manifest.json>",
+  "cab_implicit_quality_manifest_sha256": "<SHA-256 of manifests/cab_implicit_quality_manifest.json>",
   "governance_lock_sha256": "<SHA-256 of results/manifests/governance_lock.json>",
   "token_length_status": "passed",
   "human_review_status": "approved",

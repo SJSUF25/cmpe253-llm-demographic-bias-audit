@@ -225,6 +225,43 @@ def test_registered_cab_development_filters_before_model_run(monkeypatch, tmp_pa
     assert captured["spec"].confirmatory is False
 
 
+def test_registered_implicit_run_excludes_entire_flagged_family(monkeypatch, tmp_path):
+    config = json.loads(runner.CAB_CONFIG_PATH.read_text())
+    path = tmp_path / config["output_path"]
+    path.parent.mkdir(parents=True)
+    rows = [
+        {
+            **prompt(0),
+            "split": "development",
+            "explicit_implicit": "implicit",
+            "scenario_id": "excluded",
+        },
+        {
+            **prompt(1),
+            "split": "development",
+            "explicit_implicit": "implicit",
+            "scenario_id": "eligible",
+        },
+    ]
+    path.write_text("\n".join(json.dumps(row) for row in rows) + "\n")
+    captured = {}
+
+    def fake_run(selected, adapter, spec, root):
+        captured["selected"] = selected
+        return tmp_path / "manifest.json"
+
+    monkeypatch.setattr(
+        runner,
+        "verify_cab_quality_manifest",
+        lambda _root: {"excluded_implicit_scenario_ids": ["excluded"]},
+    )
+    monkeypatch.setattr(runner, "git_state", lambda: ("a" * 40, False))
+    monkeypatch.setattr(runner, "load_model", lambda _key: FakeAdapter())
+    monkeypatch.setattr(runner, "run_inference", fake_run)
+    runner.run_registered_cab(tmp_path, "CAB-IMP-M1-B0", "development")
+    assert [row["scenario_id"] for row in captured["selected"]] == ["eligible"]
+
+
 def test_registered_cab_test_requires_gate_before_loading_model(monkeypatch, tmp_path):
     monkeypatch.setattr(runner, "git_state", lambda: ("a" * 40, False))
     monkeypatch.setattr(
@@ -275,6 +312,13 @@ def test_registered_cab_test_accepts_matching_review_receipt(monkeypatch, tmp_pa
             }
         )
     )
+    quality_path = manifest_dir / "cab_implicit_quality_manifest.json"
+    quality_path.write_text(json.dumps({"status": "passed_with_implicit_exclusions"}))
+    monkeypatch.setattr(
+        runner,
+        "verify_cab_quality_manifest",
+        lambda _root: {"status": "passed_with_implicit_exclusions"},
+    )
     receipt = {
         "schema_version": 1,
         "validation_manifest_sha256": hashlib.sha256(
@@ -282,6 +326,9 @@ def test_registered_cab_test_accepts_matching_review_receipt(monkeypatch, tmp_pa
         ).hexdigest(),
         "token_length_manifest_sha256": hashlib.sha256(
             token_lengths.read_bytes()
+        ).hexdigest(),
+        "cab_implicit_quality_manifest_sha256": hashlib.sha256(
+            quality_path.read_bytes()
         ).hexdigest(),
         "governance_lock_sha256": hashlib.sha256(
             runner.GOVERNANCE_LOCK_PATH.read_bytes()
@@ -320,6 +367,13 @@ def test_registered_cab_test_accepts_matching_review_receipt(monkeypatch, tmp_pa
     with pytest.raises(RunnerError, match="incomplete or stale"):
         runner.run_registered_cab(tmp_path, "CAB-EXP-M1-B0", "test")
     token_lengths.write_bytes(valid_lengths)
+    original_quality = quality_path.read_bytes()
+    quality_path.write_text(
+        json.dumps({"status": "passed_with_implicit_exclusions", "edited": True})
+    )
+    with pytest.raises(RunnerError, match="incomplete or stale"):
+        runner.run_registered_cab(tmp_path, "CAB-EXP-M1-B0", "test")
+    quality_path.write_bytes(original_quality)
     path.write_text("tampered\n")
     with pytest.raises(RunnerError, match="incomplete or stale"):
         runner.run_registered_cab(tmp_path, "CAB-EXP-M1-B0", "test")

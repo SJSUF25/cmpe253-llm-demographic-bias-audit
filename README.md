@@ -55,6 +55,7 @@ make build-synthetic-pii ROOT="$AUDIT_SHARED_ROOT"
 make build-membership ROOT="$AUDIT_SHARED_ROOT"
 make validate-data ROOT="$AUDIT_SHARED_ROOT"
 make token-length-check ROOT="$AUDIT_SHARED_ROOT"
+make cab-quality-check ROOT="$AUDIT_SHARED_ROOT"
 ```
 
 The command checks pinned revisions, byte sizes, SHA-256 values, schemas, row counts,
@@ -65,6 +66,9 @@ deterministic prompt manifest; it refuses a source-hash mismatch or changed exis
 output. The tokenizer-length check uses the pinned official chat templates for every
 CAB and BBQ input and the Phi adapter training sequences. It produces a separate
 private receipt; manual data QA is still required before confirmatory inference.
+The CAB quality check freezes a source-preserving exclusion of 23 implicit families
+with answer-like source content. It retains all explicit primary prompts and
+requires a separate quality-manifest hash in the data-gate receipt.
 
 ## Colab environment gate
 

@@ -16,6 +16,9 @@ from datetime import UTC, datetime
 from pathlib import Path, PurePosixPath
 from typing import Any
 
+from data.cab_quality import MANIFEST as CAB_QUALITY_MANIFEST
+from data.cab_quality import CabQualityError
+from data.cab_quality import verify_manifest as verify_cab_quality_manifest
 from environment_tools import collect_environment
 from inference.adapter import DecodeConfig, ModelAdapter, decode_config, load_model
 
@@ -562,14 +565,24 @@ def _check_test_gate(root: Path) -> None:
     """Require structural, tokenizer, and operator receipts for sealed CAB prompts."""
     validation = root / "manifests/data_validation_manifest.json"
     token_lengths = root / "manifests/token_length_manifest.json"
+    quality_path = root / CAB_QUALITY_MANIFEST
     receipt = root / "manifests/data_gate_approval.json"
-    if not validation.is_file() or not token_lengths.is_file() or not receipt.is_file():
+    if (
+        not validation.is_file()
+        or not token_lengths.is_file()
+        or not quality_path.is_file()
+        or not receipt.is_file()
+    ):
         raise RunnerError(
             "CAB test run requires the private data-gate approval receipt"
         )
     structural = json.loads(validation.read_text(encoding="utf-8"))
     lengths = json.loads(token_lengths.read_text(encoding="utf-8"))
     approval = json.loads(receipt.read_text(encoding="utf-8"))
+    try:
+        quality = verify_cab_quality_manifest(root)
+    except CabQualityError as error:
+        raise RunnerError(str(error)) from error
     cab_config = json.loads(CAB_CONFIG_PATH.read_text(encoding="utf-8"))
     bbq_config = json.loads(
         (ROOT / "configs/bbq_build.json").read_text(encoding="utf-8")
@@ -596,6 +609,7 @@ def _check_test_gate(root: Path) -> None:
     if (
         structural.get("structural_checks") != "passed"
         or lengths.get("status") != "passed"
+        or quality.get("status") != "passed_with_implicit_exclusions"
         or lengths.get("validation_manifest_sha256") != _hash(validation.read_bytes())
         or not inputs_match
         or approval
@@ -603,6 +617,7 @@ def _check_test_gate(root: Path) -> None:
             "schema_version": 1,
             "validation_manifest_sha256": _hash(validation.read_bytes()),
             "token_length_manifest_sha256": _hash(token_lengths.read_bytes()),
+            "cab_implicit_quality_manifest_sha256": _hash(quality_path.read_bytes()),
             "governance_lock_sha256": _hash(GOVERNANCE_LOCK_PATH.read_bytes()),
             "token_length_status": "passed",
             "human_review_status": "approved",
@@ -638,6 +653,14 @@ def run_registered_cab(shared_root: Path, run_id: str, split: str) -> Path:
         if dirty:
             raise RunnerError("Confirmatory inference requires a clean Git worktree")
         _check_test_gate(root)
+    if mode == "implicit":
+        try:
+            quality = verify_cab_quality_manifest(root)
+        except CabQualityError as error:
+            raise RunnerError(str(error)) from error
+        excluded = set(quality["excluded_implicit_scenario_ids"])
+    else:
+        excluded = set()
     cab_config = json.loads(CAB_CONFIG_PATH.read_text(encoding="utf-8"))
     prompt_path = root / cab_config["output_path"]
     if not prompt_path.is_file():
@@ -650,7 +673,9 @@ def run_registered_cab(shared_root: Path, run_id: str, split: str) -> Path:
     selected = [
         row
         for row in prompts
-        if row["split"] == split and row["explicit_implicit"] == mode
+        if row["split"] == split
+        and row["explicit_implicit"] == mode
+        and row["scenario_id"] not in excluded
     ]
     if not selected:
         raise RunnerError("Registered CAB selection is empty")

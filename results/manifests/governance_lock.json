@@ -3,13 +3,13 @@
   "files": [
     {
       "path": "LLM_Bias_Audit_PRD.md",
-      "sha256": "4908ab520e2993594a9fc861223a67bbeb75ac6ff290a6323c7a7ff25acd594c",
-      "size_bytes": 73613
+      "sha256": "91b9c34886e69bd060e527241deec5f3e35ebda918e49db7eb055e5a9de3a674",
+      "size_bytes": 75002
     },
     {
       "path": "Makefile",
-      "sha256": "d852a25ce3e042741054014ad432957c415d23e5891418cd79ce20be2a41aa13",
-      "size_bytes": 5925
+      "sha256": "ead0b08f13f571b91f804eb520dc0454c8130c33f70542bea97c53948d5b9d9b",
+      "size_bytes": 6173
     },
     {
       "path": "pyproject.toml",
@@ -88,13 +88,18 @@
     },
     {
       "path": "docs/data_qa_checklist.md",
-      "sha256": "686e9660ba4851d975f3605d4eb07724c7d608a8bd0c0d8bcfea3d56ca047480",
-      "size_bytes": 2868
+      "sha256": "7f09717cb3973034cd199af98bc5b6a8af532daa252861ae27785f41f98a882c",
+      "size_bytes": 3510
+    },
+    {
+      "path": "docs/data_qa_ai_review.md",
+      "sha256": "9fce357e0086bc5d07536eeaf33ceff423b4ad39319628d563072f10a5e52cd3",
+      "size_bytes": 4303
     },
     {
       "path": "docs/bbq_scoring.md",
-      "sha256": "e1e9b3e4c81c982b9adb3490916406cc2bb26332c2e8ab046a01916bd35f29fb",
-      "size_bytes": 2902
+      "sha256": "7f749cef06ca6cd52fc9edd82cbadd23aa9bdfcf258c6263af8832cd6d52567d",
+      "size_bytes": 3376
     },
     {
       "path": "docs/model_adapter.md",
@@ -103,8 +108,8 @@
     },
     {
       "path": "docs/inference_runner.md",
-      "sha256": "12f53685288530a8755ef369f53aab9c7c3f2ba9643a780bbcbc5d935729548e",
-      "size_bytes": 3404
+      "sha256": "73ed7f2320ee40877e47760e3a198515c98054f2d6932a6aec19bed069323211",
+      "size_bytes": 3687
     },
     {
       "path": "notebooks/e0_t04_colab_smoke_test.ipynb",
@@ -120,6 +125,11 @@
       "path": "src/data/cab_builder.py",
       "sha256": "cd9ed1e074fdb2ccfab6e00ba6bbf967ec5668b5bc96949c7e76f10f2474874a",
       "size_bytes": 11726
+    },
+    {
+      "path": "src/data/cab_quality.py",
+      "sha256": "2093eec6e629d3e9e5a20c884a5b1d5a20e468bf3258dfe34e3b9b60b0c1f0e5",
+      "size_bytes": 5402
     },
     {
       "path": "src/data/bbq_sampler.py",
@@ -163,13 +173,13 @@
     },
     {
       "path": "src/inference/runner.py",
-      "sha256": "446bd11d27f7d6410b6dd7cc82f1f21089b9491ef34d86182d98268ee558e1e0",
-      "size_bytes": 25335
+      "sha256": "e4a591ce97b3d4ab537ed34e65df7e522fba91fd4c88c51d987312bfb9860fde",
+      "size_bytes": 26284
     },
     {
       "path": "src/scoring/bbq.py",
-      "sha256": "17e5894689eafd2911817f72f865591d4cc517a4a7d59e464cf275fd65908839",
-      "size_bytes": 8744
+      "sha256": "480a5946ce129bf5cdb3224ea1833501d5f9e4f604f6787a2e68ef9ea3e51c5f",
+      "size_bytes": 10998
     }
   ],
   "lock_version": 1,
