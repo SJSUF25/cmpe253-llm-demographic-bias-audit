@@ -3,13 +3,13 @@
   "files": [
     {
       "path": "LLM_Bias_Audit_PRD.md",
-      "sha256": "44eeb02ac25f5b16625c172b188ce4ba5635325d454a1c4718f15d7c73a5171b",
-      "size_bytes": 76799
+      "sha256": "697d302c101d592593a513e18b69443c9723c76d108b28270c81422f103027fb",
+      "size_bytes": 76953
     },
     {
       "path": "Makefile",
-      "sha256": "2420221721e97714c8193bac98bd7b8ad6179438f3c9b406b05d62f5c4e2add3",
-      "size_bytes": 10459
+      "sha256": "ec414f3d9d08e8b4ce11796dcb3943e0be1e5d63c5cbb0dcc1625766820b0de2",
+      "size_bytes": 10603
     },
     {
       "path": "pyproject.toml",
@@ -50,6 +50,11 @@
       "path": "configs/cab_scoring.json",
       "sha256": "5898793d5444a3af1c8ede44045c3e1cb3be4bcbdb18fdf0df2eab2b83778046",
       "size_bytes": 443
+    },
+    {
+      "path": "configs/confirmatory_analysis.json",
+      "sha256": "5c97b5ef071dd33cb2b56ac5f4990cb61d5e9f27f56364e863f00a91670b4afa",
+      "size_bytes": 24185
     },
     {
       "path": "configs/bbq_build.json",
@@ -150,6 +155,11 @@
       "path": "docs/cab_annotation.md",
       "sha256": "95c8015044cacab98528172b93d07b8e8ce2750efcfdfaf378c8c1ed3a4a918f",
       "size_bytes": 3362
+    },
+    {
+      "path": "docs/analysis_plan.md",
+      "sha256": "21bba315281117cef227ec81456a846dd8e05975e8616279177ecab49d73a62a",
+      "size_bytes": 1440
     },
     {
       "path": "docs/model_adapter.md",
@@ -285,6 +295,11 @@
       "path": "src/scoring/annotation_review.py",
       "sha256": "a5b728835befa90f6db42542a32cad1db99fa78904c74fe6396f82208ca5d541",
       "size_bytes": 7172
+    },
+    {
+      "path": "src/analysis/plan.py",
+      "sha256": "0a6c57d73ee303b67e3afa0aa926cb39afd30719b835ad74f8c3a24c89fa5725",
+      "size_bytes": 9027
     }
   ],
   "lock_version": 1,

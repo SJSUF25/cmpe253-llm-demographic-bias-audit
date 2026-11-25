@@ -20,6 +20,7 @@ LOCKED_FILES = (
     "configs/data_manifest.yaml",
     "configs/cab_build.json",
     "configs/cab_scoring.json",
+    "configs/confirmatory_analysis.json",
     "configs/bbq_build.json",
     "configs/privacy_data.json",
     "configs/privacy_controls.json",
@@ -40,6 +41,7 @@ LOCKED_FILES = (
     "docs/bbq_scoring.md",
     "docs/cab_scoring.md",
     "docs/cab_annotation.md",
+    "docs/analysis_plan.md",
     "docs/model_adapter.md",
     "docs/inference_runner.md",
     "notebooks/e0_t04_colab_smoke_test.ipynb",
@@ -67,6 +69,7 @@ LOCKED_FILES = (
     "src/scoring/cab.py",
     "src/scoring/annotation.py",
     "src/scoring/annotation_review.py",
+    "src/analysis/plan.py",
 )
 
 

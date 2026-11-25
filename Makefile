@@ -7,7 +7,7 @@ export UV_CACHE_DIR
 export PYTHONPATH
 PROJECT_CLI := $(UV) run --frozen python -m project_cli
 
-.PHONY: help check-uv setup setup-colab capture-environment smoke-model governance-lock storage-init storage-verify sync-upstream build-synthetic-pii build-membership run-cab score-cab annotation-packet annotation-review annotation-freeze run-pii score-pii score-h5 privacy-audit-packet score-helpfulness score-adapter-utility compare-adapter-utility train-canary attack-canary token-length-check cab-quality-check privacy-controls-smoke \
+.PHONY: help check-uv setup setup-colab capture-environment smoke-model governance-lock storage-init storage-verify sync-upstream build-synthetic-pii build-membership run-cab score-cab annotation-packet annotation-review annotation-freeze analysis-plan-check run-pii score-pii score-h5 privacy-audit-packet score-helpfulness score-adapter-utility compare-adapter-utility train-canary attack-canary token-length-check cab-quality-check privacy-controls-smoke \
 	download-data build-data build-bbq validate-data pilot \
 	infer-baseline infer-mitigation score annotate-export analyze explain \
 	privacy test lint demo reproduce-small
@@ -94,6 +94,9 @@ annotation-review: ## Resume blinded CAB ratings (PACKET required)
 annotation-freeze: ## Export completed ratings and a checksum manifest (PACKET required)
 	@test -n "$(PACKET)" || { echo "PACKET is required"; exit 2; }
 	$(UV) run --frozen python -m scoring.annotation_review export --packet "$(PACKET)"
+
+analysis-plan-check: ## Validate the exact 48-test preregistered analysis plan
+	$(UV) run --frozen python -m analysis.plan
 
 run-pii: ## Run one registered private PII condition (ROOT, RUN_ID, SPLIT required)
 	@test -n "$(ROOT)" || { echo "Usage: make run-pii ROOT=/path RUN_ID=PII-M1-P0 SPLIT=development"; exit 2; }
