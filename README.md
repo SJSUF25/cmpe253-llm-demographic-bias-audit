@@ -76,6 +76,8 @@ The six registered PII inference cells and aggregate exposure scorer are describ
 in `docs/privacy_evaluation.md`. Test runs require the private data-gate receipt.
 The controlled Phi QLoRA training/resume procedure is in
 `docs/canary_training.md`.
+The controlled canary extraction and membership attacks are documented in
+`docs/canary_attack.md`.
 
 ## Colab environment gate
 

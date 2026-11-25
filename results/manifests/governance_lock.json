@@ -8,8 +8,8 @@
     },
     {
       "path": "Makefile",
-      "sha256": "9dddfa2f2d6d38ad54a19e6394b6bea457064ed520d8b1bdb0c05fe23c8bd25c",
-      "size_bytes": 7306
+      "sha256": "8c0f5546b631d650c3bc68037bbc6994e8e330cb5c91aae0e46081cf142793c2",
+      "size_bytes": 7680
     },
     {
       "path": "pyproject.toml",
@@ -122,6 +122,11 @@
       "size_bytes": 2134
     },
     {
+      "path": "docs/canary_attack.md",
+      "sha256": "3cdd000146c2da4d3b91f64cf99beeb78522e91237d3ce0a03727bd626a153e1",
+      "size_bytes": 2369
+    },
+    {
       "path": "docs/bbq_scoring.md",
       "sha256": "7f749cef06ca6cd52fc9edd82cbadd23aa9bdfcf258c6263af8832cd6d52567d",
       "size_bytes": 3376
@@ -200,6 +205,11 @@
       "path": "src/privacy/train_canary.py",
       "sha256": "f755e762261e58d0964467fc62ace8dab3cb705a855a6ce057c7b5663798b44c",
       "size_bytes": 15107
+    },
+    {
+      "path": "src/privacy/canary_attack.py",
+      "sha256": "7ef6cfc2210247bb035a04eba0cf7aae2f5bbc30d87bfd143222e0c583569820",
+      "size_bytes": 18737
     },
     {
       "path": "src/privacy/membership_data.py",
