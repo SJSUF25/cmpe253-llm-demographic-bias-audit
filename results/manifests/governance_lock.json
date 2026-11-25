@@ -3,8 +3,8 @@
   "files": [
     {
       "path": "LLM_Bias_Audit_PRD.md",
-      "sha256": "697d302c101d592593a513e18b69443c9723c76d108b28270c81422f103027fb",
-      "size_bytes": 76953
+      "sha256": "b5ef4c61ced8da676c2c2df7cedae2409d45ded04c927c60d8c9fe53fb9631a6",
+      "size_bytes": 77422
     },
     {
       "path": "Makefile",
@@ -162,6 +162,11 @@
       "size_bytes": 1440
     },
     {
+      "path": "docs/analysis_statistics.md",
+      "sha256": "f0d565a776ec569d4aa0e2ca1ac3797b5183716cafd99a7ed74abb456a41c02b",
+      "size_bytes": 3037
+    },
+    {
       "path": "docs/model_adapter.md",
       "sha256": "2348f90c9a064422d067bf743228efab83f0b28421ffa46ce1ea0c8f3bef2c7e",
       "size_bytes": 2416
@@ -253,8 +258,8 @@
     },
     {
       "path": "src/analysis/statistics.py",
-      "sha256": "2b956fccc216ef1c6d7afcccbc2e7c9fc95a548059bc568865ee5bfba54cdf66",
-      "size_bytes": 2044
+      "sha256": "94127e49677a8e2b9ef03bb82bfc11e2ccb898d2cd9a65f68a34037789790b07",
+      "size_bytes": 11677
     },
     {
       "path": "src/privacy/membership_data.py",

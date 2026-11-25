@@ -42,6 +42,7 @@ LOCKED_FILES = (
     "docs/cab_scoring.md",
     "docs/cab_annotation.md",
     "docs/analysis_plan.md",
+    "docs/analysis_statistics.md",
     "docs/model_adapter.md",
     "docs/inference_runner.md",
     "notebooks/e0_t04_colab_smoke_test.ipynb",
