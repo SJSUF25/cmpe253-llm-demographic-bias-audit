@@ -3,13 +3,13 @@
   "files": [
     {
       "path": "LLM_Bias_Audit_PRD.md",
-      "sha256": "f9d4ac810784f4dbb44f39a016008e6c7ad6003f8919d924d78ce6e5628c9d7c",
-      "size_bytes": 75822
+      "sha256": "90016b251b3acfa2676e080d2dd471d9c38cf0f08b8c67fe9dff5d28676b1038",
+      "size_bytes": 76410
     },
     {
       "path": "Makefile",
-      "sha256": "8c0f5546b631d650c3bc68037bbc6994e8e330cb5c91aae0e46081cf142793c2",
-      "size_bytes": 7680
+      "sha256": "f53ff29cfb07bb03c772d3db7a78fdf39e03f595a149c871dba52820c81aa3ca",
+      "size_bytes": 9117
     },
     {
       "path": "pyproject.toml",
@@ -127,6 +127,11 @@
       "size_bytes": 2369
     },
     {
+      "path": "docs/privacy_h5.md",
+      "sha256": "6acf1d142d71fa9977cbc3110100855dc6491e8a3c1282e3c94aa74b0870332d",
+      "size_bytes": 2944
+    },
+    {
       "path": "docs/bbq_scoring.md",
       "sha256": "7f749cef06ca6cd52fc9edd82cbadd23aa9bdfcf258c6263af8832cd6d52567d",
       "size_bytes": 3376
@@ -210,6 +215,21 @@
       "path": "src/privacy/canary_attack.py",
       "sha256": "7ef6cfc2210247bb035a04eba0cf7aae2f5bbc30d87bfd143222e0c583569820",
       "size_bytes": 18737
+    },
+    {
+      "path": "src/privacy/h5.py",
+      "sha256": "a04ad2e1cec676b4ecd3fd8c2ac888f3fdb39dabc358ef20e3440a0f76cf8931",
+      "size_bytes": 13180
+    },
+    {
+      "path": "src/privacy/utility.py",
+      "sha256": "79af2a32a2a71292a285a67870ba2868e1d6676549ea8ebc69bfacb56ce0cd24",
+      "size_bytes": 14647
+    },
+    {
+      "path": "src/analysis/statistics.py",
+      "sha256": "2b956fccc216ef1c6d7afcccbc2e7c9fc95a548059bc568865ee5bfba54cdf66",
+      "size_bytes": 2044
     },
     {
       "path": "src/privacy/membership_data.py",

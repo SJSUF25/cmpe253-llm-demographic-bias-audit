@@ -7,7 +7,7 @@ export UV_CACHE_DIR
 export PYTHONPATH
 PROJECT_CLI := $(UV) run --frozen python -m project_cli
 
-.PHONY: help check-uv setup setup-colab capture-environment smoke-model governance-lock storage-init storage-verify sync-upstream build-synthetic-pii build-membership run-cab run-pii score-pii train-canary attack-canary token-length-check cab-quality-check privacy-controls-smoke \
+.PHONY: help check-uv setup setup-colab capture-environment smoke-model governance-lock storage-init storage-verify sync-upstream build-synthetic-pii build-membership run-cab run-pii score-pii score-h5 privacy-audit-packet score-helpfulness score-adapter-utility compare-adapter-utility train-canary attack-canary token-length-check cab-quality-check privacy-controls-smoke \
 	download-data build-data build-bbq validate-data pilot \
 	infer-baseline infer-mitigation score annotate-export analyze explain \
 	privacy test lint demo reproduce-small
@@ -86,6 +86,27 @@ run-pii: ## Run one registered private PII condition (ROOT, RUN_ID, SPLIT requir
 score-pii: ## Aggregate privacy exposure after all six test runs (ROOT required)
 	@test -n "$(ROOT)" || { echo "Usage: make score-pii ROOT=/path"; exit 2; }
 	$(UV) run --frozen python -m privacy.metrics --root "$(ROOT)"
+
+score-h5: ## Evaluate preregistered paired privacy exposure and utility (ROOT required)
+	@test -n "$(ROOT)" || { echo "Usage: make score-h5 ROOT=/path"; exit 2; }
+	$(UV) run --frozen --group colab python -m privacy.h5 --root "$(ROOT)"
+
+privacy-audit-packet: ## Prepare 50-record blinded privacy helpfulness review
+	@test -n "$(ROOT)" || { echo "Usage: make privacy-audit-packet ROOT=/path"; exit 2; }
+	$(UV) run --frozen python -m privacy.utility --root "$(ROOT)" audit-packet
+
+score-helpfulness: ## Aggregate 300 private blinded helpfulness ratings
+	@test -n "$(ROOT)" || { echo "Usage: make score-helpfulness ROOT=/path"; exit 2; }
+	$(UV) run --frozen python -m privacy.utility --root "$(ROOT)" score-helpfulness
+
+score-adapter-utility: ## Score ordinary tasks before/after adapter (MODE required)
+	@test -n "$(ROOT)" || { echo "Usage: make score-adapter-utility ROOT=/path MODE=base"; exit 2; }
+	@test -n "$(MODE)" || { echo "MODE=base or MODE=adapter is required"; exit 2; }
+	$(UV) run --frozen --group colab python -m privacy.utility --root "$(ROOT)" adapter-utility --mode "$(MODE)"
+
+compare-adapter-utility: ## Compare the two ordinary utility run summaries
+	@test -n "$(ROOT)" || { echo "Usage: make compare-adapter-utility ROOT=/path"; exit 2; }
+	$(UV) run --frozen python -m privacy.utility --root "$(ROOT)" compare-adapter-utility
 
 train-canary: ## Train or resume the controlled Phi QLoRA adapter (ROOT required)
 	@test -n "$(ROOT)" || { echo "Usage: make train-canary ROOT=/path"; exit 2; }

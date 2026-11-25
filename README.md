@@ -78,6 +78,8 @@ The controlled Phi QLoRA training/resume procedure is in
 `docs/canary_training.md`.
 The controlled canary extraction and membership attacks are documented in
 `docs/canary_attack.md`.
+The H5 privacy decision, blinded review packet, and adapter utility commands are
+documented in `docs/privacy_h5.md`.
 
 ## Colab environment gate
 
