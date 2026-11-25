@@ -3,13 +3,13 @@
   "files": [
     {
       "path": "LLM_Bias_Audit_PRD.md",
-      "sha256": "716ea83687f96446131cc98b9d5828c86688e45b92741573b009de113096c783",
-      "size_bytes": 75437
+      "sha256": "f9d4ac810784f4dbb44f39a016008e6c7ad6003f8919d924d78ce6e5628c9d7c",
+      "size_bytes": 75822
     },
     {
       "path": "Makefile",
-      "sha256": "7f2351cd89ced8740d1c5b869e4d8a7d547f5d7a0d8ca657b7cf58e32223b377",
-      "size_bytes": 6350
+      "sha256": "c38ff502cdafa2709c1991d98a519695193c20cd19a24c447ae91251465d6c00",
+      "size_bytes": 7049
     },
     {
       "path": "pyproject.toml",
@@ -68,8 +68,8 @@
     },
     {
       "path": "configs/inference.json",
-      "sha256": "d02c71ba838c39ff37d1cbd9b1552735ac0d64141d090281b99ed2cb7ea0f98b",
-      "size_bytes": 1056
+      "sha256": "16db9781da7a90e68f91c1e17b2247d021ab1aa687fceeea8715532e24d56c7c",
+      "size_bytes": 1482
     },
     {
       "path": "configs/raw_data_sources.json",
@@ -105,6 +105,11 @@
       "path": "docs/privacy_controls.md",
       "sha256": "5027dbbf4dab999b96a375e0f6da93b5f6563a4472e71dd6f356126cb9d36406",
       "size_bytes": 2555
+    },
+    {
+      "path": "docs/privacy_evaluation.md",
+      "sha256": "49f777569db608c41ad73304065b65baeed02bca5e77f9a78166d2ea342ee21e",
+      "size_bytes": 2369
     },
     {
       "path": "docs/bbq_scoring.md",
@@ -172,6 +177,16 @@
       "size_bytes": 10337
     },
     {
+      "path": "src/privacy/evaluation.py",
+      "sha256": "72f1bae2db63458bc3600fff2da441ca4c5087b4a0a326916a554e599ee4d65a",
+      "size_bytes": 9789
+    },
+    {
+      "path": "src/privacy/metrics.py",
+      "sha256": "9259084d3834e42a647636f25d8c015bb009bcac95d5911087444e6f2618cbb7",
+      "size_bytes": 10114
+    },
+    {
       "path": "src/privacy/membership_data.py",
       "sha256": "3545bcef3df8e6370d71ee6bd01c3669c57ef7196ab97d5c4f1fc49b58373b9f",
       "size_bytes": 10995
@@ -183,8 +198,8 @@
     },
     {
       "path": "src/inference/adapter.py",
-      "sha256": "192722438e22c3a06661034ca386da8ef6aaa3c3ae0b8c3bda7c9e8ef373be21",
-      "size_bytes": 13326
+      "sha256": "122862fe1fde799ad2a7b4d100c82cfd4e4103a470c0d3ad74561da6ca80f949",
+      "size_bytes": 13470
     },
     {
       "path": "src/inference/runner.py",

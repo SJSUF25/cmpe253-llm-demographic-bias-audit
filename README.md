@@ -72,6 +72,8 @@ with answer-like source content. It retains all explicit primary prompts and
 requires a separate quality-manifest hash in the data-gate receipt.
 The privacy-controls smoke command checks the pinned Presidio and spaCy models
 against one synthetic development record; see `docs/privacy_controls.md`.
+The six registered PII inference cells and aggregate exposure scorer are described
+in `docs/privacy_evaluation.md`. Test runs require the private data-gate receipt.
 
 ## Colab environment gate
 

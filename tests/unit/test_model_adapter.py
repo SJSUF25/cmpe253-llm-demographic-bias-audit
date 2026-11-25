@@ -90,6 +90,9 @@ def test_pinned_models_and_conditions():
     with pytest.raises(adapter.AdapterError, match="Unknown"):
         adapter.resolve_model("M3")
     config = adapter.load_config()
+    baseline = config["conditions"]["baseline"]
+    for condition in ("P0", "P1", "P2"):
+        assert config["conditions"][condition] == baseline
     assert adapter.decode_config(config=config).do_sample is False
     assert adapter.decode_config(sensitivity_seed=42, config=config).top_p == 0.9
     with pytest.raises(adapter.AdapterError, match="Unregistered"):
