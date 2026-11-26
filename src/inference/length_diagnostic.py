@@ -42,9 +42,11 @@ def _sample(rows: list[dict]) -> list[dict]:
     return result
 
 
-def run(root: Path, model_key: str) -> Path:
+def run(root: Path, model_key: str, max_new_tokens: int = 256) -> Path:
     if model_key not in {"M1", "M2"}:
         raise ValueError("Expected model M1 or M2")
+    if max_new_tokens not in {256, 384}:
+        raise ValueError("Diagnostic cap must be 256 or 384 tokens")
     commit, dirty = git_state()
     if dirty:
         raise ValueError("Commit the diagnostic code before running it in Colab")
@@ -54,15 +56,16 @@ def run(root: Path, model_key: str) -> Path:
     if _sha(prompt_path.read_bytes()) != selection["cab"]["sha256"]:
         raise ValueError("Frozen pilot CAB prompts changed")
     prompts = _sample(_rows(prompt_path))
+    label = "concise150" if max_new_tokens == 256 else "concise150-cap384"
     output = (
         root
         / "private_outputs/pilot_diagnostic"
-        / f"concise150-{model_key.lower()}-{commit[:12]}.jsonl"
+        / f"{label}-{model_key.lower()}-{commit[:12]}.jsonl"
     )
     report = (
         root
         / "manifests/pilot_diagnostic"
-        / f"concise150-{model_key.lower()}-{commit[:12]}.json"
+        / f"{label}-{model_key.lower()}-{commit[:12]}.json"
     )
     if output.exists() or report.exists():
         if not (output.is_file() and report.is_file()):
@@ -70,6 +73,7 @@ def run(root: Path, model_key: str) -> Path:
         saved = json.loads(report.read_text())
         if (
             saved.get("code_commit") != commit
+            or saved.get("max_new_tokens") != max_new_tokens
             or saved.get("output_sha256") != _sha(output.read_bytes())
             or saved.get("prompt_ids") != [row["prompt_id"] for row in prompts]
         ):
@@ -78,6 +82,7 @@ def run(root: Path, model_key: str) -> Path:
 
     loaded = load_model(model_key)
     diagnostic_config = copy.deepcopy(loaded.config)
+    diagnostic_config["max_new_tokens"] = max_new_tokens
     for condition in ("baseline", "mitigation"):
         diagnostic_config["conditions"][condition]["system_instruction"] += INSTRUCTION
     diagnostic = ModelAdapter(
@@ -114,6 +119,7 @@ def run(root: Path, model_key: str) -> Path:
         "model_id": model_key,
         "code_commit": commit,
         "instruction_suffix": INSTRUCTION,
+        "max_new_tokens": max_new_tokens,
         "selection_manifest_sha256": _sha(selection_path.read_bytes()),
         "prompt_ids": [row["prompt_id"] for row in prompts],
         "rows": len(results),
@@ -130,8 +136,9 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--root", required=True, type=Path)
     parser.add_argument("--model", required=True, choices=("M1", "M2"))
+    parser.add_argument("--max-new-tokens", type=int, choices=(256, 384), default=256)
     args = parser.parse_args(argv)
-    path = run(args.root.expanduser().resolve(), args.model)
+    path = run(args.root.expanduser().resolve(), args.model, args.max_new_tokens)
     print(path)
     print(path.read_text())
     return 0

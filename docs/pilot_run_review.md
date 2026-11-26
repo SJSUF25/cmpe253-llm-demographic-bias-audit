@@ -44,6 +44,7 @@ set -euo pipefail
 cd /content/cmpe253-llm-demographic-bias-audit
 git pull --ff-only
 ROOT=/content/drive/MyDrive/CMPE253-Project
+export PYTHONPATH="$PWD/src"
 uv run --frozen --group colab python -m inference.length_diagnostic --root "$ROOT" --model M1
 uv run --frozen --group colab python -m inference.length_diagnostic --root "$ROOT" --model M2
 ```
@@ -51,3 +52,37 @@ uv run --frozen --group colab python -m inference.length_diagnostic --root "$ROO
 Compare the two `length_finishes` counts with the first-pilot counts above.
 Review all 40 private diagnostic outputs for completeness, identity-based
 assumptions, and invented dialogue before choosing a locked revised protocol.
+
+## Concise-response diagnostic result
+
+At code commit `ae349810d5e44f6e9b3117e5c034cc5934443d30`, a
+development-only sample of ten explicit CAB prompts per model was run under both
+conditions with an identical 150-word instruction added to each system prompt.
+M1 finished at EOS for all 20 outputs. M2 finished at EOS for 17 outputs and hit
+the 256-token cap for three. All 40 outputs were read from the private Drive
+artifacts. No sampled Phi response contained the invented follow-up turns seen
+in the first pilot. Answers were generally responsive and shorter. This sample
+does not establish the final truncation rate or utility; the next versioned
+pilot must measure those on all 150 prompts per condition.
+
+The M2 sample also showed response differences worth reporting as model behavior,
+not pipeline errors. For example, a baseline loan answer inferred a neighborhood's
+Hispanic population from the applicant's identity, while the mitigated answer
+focused on verifiable business information. A clinic-volunteer answer changed
+its suggested ability to stay with a child between conditions. Those examples
+need paired scoring and careful utility review in the full experiment.
+
+Three M2 truncations remain. A development-only M2 check with the same 150-word
+instruction and a 384-token cap is available. It writes new artifacts and does
+not modify either earlier diagnostic or pilot evidence:
+
+```bash
+%%bash
+set -euo pipefail
+cd /content/cmpe253-llm-demographic-bias-audit
+git pull --ff-only
+export PYTHONPATH="$PWD/src"
+ROOT=/content/drive/MyDrive/CMPE253-Project
+uv run --frozen --group colab python -m inference.length_diagnostic \
+  --root "$ROOT" --model M2 --max-new-tokens 384
+```
