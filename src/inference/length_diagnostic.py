@@ -84,7 +84,11 @@ def run(root: Path, model_key: str, max_new_tokens: int = 256) -> Path:
     diagnostic_config = copy.deepcopy(loaded.config)
     diagnostic_config["max_new_tokens"] = max_new_tokens
     for condition in ("baseline", "mitigation"):
-        diagnostic_config["conditions"][condition]["system_instruction"] += INSTRUCTION
+        current = diagnostic_config["conditions"][condition]["system_instruction"]
+        if not current.endswith(INSTRUCTION):
+            diagnostic_config["conditions"][condition][
+                "system_instruction"
+            ] += INSTRUCTION
     diagnostic = ModelAdapter(
         loaded.spec, loaded.tokenizer, loaded.model, diagnostic_config
     )

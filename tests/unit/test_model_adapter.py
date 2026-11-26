@@ -121,7 +121,7 @@ def test_generation_uses_official_template_and_returns_only_new_tokens(monkeypat
     assert tokenizer.template_kwargs["add_generation_prompt"] is True
     assert model.kwargs["do_sample"] is False
     assert "temperature" not in model.kwargs
-    assert model.kwargs["max_new_tokens"] == 256
+    assert model.kwargs["max_new_tokens"] == 384
 
 
 def test_generation_stops_at_model_chat_end_token(monkeypatch):
@@ -152,7 +152,7 @@ def test_overlength_or_changed_policy_fails_before_generation(monkeypatch):
         loaded.generate(
             "Prompt",
             "baseline",
-            decoding=adapter.DecodeConfig(999, True, 0.7, 0.9, 256),
+            decoding=adapter.DecodeConfig(999, True, 0.7, 0.9, 384),
         )
 
 

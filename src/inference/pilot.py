@@ -21,6 +21,8 @@ ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_CONFIG = ROOT / "configs/pilot.json"
 CAB_CONFIG = ROOT / "configs/cab_build.json"
 BBQ_CONFIG = ROOT / "configs/bbq_build.json"
+RUN_LABEL = "PILOT2"
+RUN_DIRECTORY = "pilot_v2"
 
 
 class PilotError(ValueError):
@@ -327,10 +329,10 @@ def _run_bbq(
     if checkpoint < 1:
         raise PilotError("BBQ pilot checkpoint must be positive")
     label = "B0" if condition == "baseline" else "F1"
-    run_id = f"PILOT-BBQ-{adapter.spec.key}-{label}"
-    output = root / f"private_outputs/pilot/{run_id.lower()}.jsonl"
+    run_id = f"{RUN_LABEL}-BBQ-{adapter.spec.key}-{label}"
+    output = root / f"private_outputs/{RUN_DIRECTORY}/{run_id.lower()}.jsonl"
     parts = output.with_suffix("") / "parts"
-    manifest_path = root / f"manifests/pilot/{run_id}.json"
+    manifest_path = root / f"manifests/{RUN_DIRECTORY}/{run_id}.json"
     input_sha = _sha(_jsonl_bytes(items) + _jsonl_bytes(permutations))
     if manifest_path.is_file():
         existing = json.loads(manifest_path.read_text())
@@ -487,7 +489,7 @@ def run_model(
     runner._check_test_gate(root)
     selection, cab, bbq, permutations = _verify_selection(root)
     config = json.loads(config_path.read_text())
-    receipt_path = root / f"manifests/pilot/model-{model_key}.json"
+    receipt_path = root / f"manifests/{RUN_DIRECTORY}/model-{model_key}.json"
     if receipt_path.is_file():
         receipt = json.loads(receipt_path.read_text())
         if (
@@ -518,10 +520,10 @@ def run_model(
             cab,
             adapter,
             runner.RunSpec(
-                run_id=f"PILOT-CAB-{model_key}-{label}",
+                run_id=f"{RUN_LABEL}-CAB-{model_key}-{label}",
                 model_id=model_key,
                 condition=condition,
-                output_path=f"private_outputs/pilot/pilot-cab-{model_key.lower()}-{label.lower()}.jsonl",
+                output_path=f"private_outputs/{RUN_DIRECTORY}/pilot2-cab-{model_key.lower()}-{label.lower()}.jsonl",
                 confirmatory=False,
             ),
             root,
@@ -579,7 +581,7 @@ def build_report(shared_root: Path, config_path: Path = DEFAULT_CONFIG) -> Path:
     review_rows = []
     gpu_by_model: dict[str, set[str]] = defaultdict(set)
     for model in config["models"]:
-        receipt_path = root / f"manifests/pilot/model-{model}.json"
+        receipt_path = root / f"manifests/{RUN_DIRECTORY}/model-{model}.json"
         if not receipt_path.is_file():
             raise PilotError(f"Missing completed model pilot receipt: {model}")
         receipt = json.loads(receipt_path.read_text())
@@ -697,11 +699,11 @@ def build_report(shared_root: Path, config_path: Path = DEFAULT_CONFIG) -> Path:
         "review_packet_rows": len(review_rows),
         "decision": "pending_operator_output_review",
     }
-    review_path = root / "private_outputs/pilot/pilot_output_review.jsonl"
+    review_path = root / f"private_outputs/{RUN_DIRECTORY}/pilot_output_review.jsonl"
     _immutable(review_path, _jsonl_bytes(review_rows))
     report["review_packet_path"] = str(review_path.relative_to(root))
     report["review_packet_sha256"] = _sha(review_path.read_bytes())
-    path = root / "manifests/pilot/pilot_report.json"
+    path = root / f"manifests/{RUN_DIRECTORY}/pilot_report.json"
     _immutable(path, _json_bytes(report))
     return path
 

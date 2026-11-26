@@ -566,7 +566,9 @@ def _check_test_gate(root: Path) -> None:
     validation = root / "manifests/data_validation_manifest.json"
     token_lengths = root / "manifests/token_length_manifest.json"
     quality_path = root / CAB_QUALITY_MANIFEST
-    receipt = root / "manifests/data_gate_approval.json"
+    receipt = root / "manifests/data_gate_approval_v2.json"
+    if not receipt.is_file():
+        receipt = root / "manifests/data_gate_approval.json"
     if (
         not validation.is_file()
         or not token_lengths.is_file()
@@ -619,7 +621,11 @@ def _check_test_gate(root: Path) -> None:
         "human_review_status": "approved",
         "approved_by": ["Abhinand"],
     }
-    ai_receipt_path = root / "manifests/data_ai_review_receipt.json"
+    ai_receipt_path = root / (
+        "manifests/data_ai_review_receipt_v2.json"
+        if receipt.name == "data_gate_approval_v2.json"
+        else "manifests/data_ai_review_receipt.json"
+    )
     reviewed_packet_path = root / "private_outputs/data_qa/review_packet.json"
     ai_approval = {
         **common,

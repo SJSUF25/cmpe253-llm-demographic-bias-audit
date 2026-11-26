@@ -86,3 +86,11 @@ ROOT=/content/drive/MyDrive/CMPE253-Project
 uv run --frozen --group colab python -m inference.length_diagnostic \
   --root "$ROOT" --model M2 --max-new-tokens 384
 ```
+
+At commit `8577dca`, this 384-token M2 check produced 20/20 EOS finishes and
+zero length finishes. All 20 private responses were read; no invented follow-up
+turns appeared. This is still a small development sample. The revised protocol
+therefore fixes the same 150-word instruction and 384-token cap for both models
+and conditions, retains the original frozen pilot selection, and runs a separate
+`PILOT2` execution. Its eight-cell report and output packet determine whether
+the pilot gate can pass. The original pilot remains failed feasibility evidence.

@@ -1,7 +1,7 @@
 # Pinned Model Adapter
 
 `configs/inference.json` freezes the baseline and fairness-control system
-instructions, model keys, 4,096-token input cap, 256-token generation cap, FP16,
+instructions, model keys, 4,096-token input cap, 384-token generation cap, FP16,
 eager attention, greedy seed 253, and stochastic sensitivity settings. The model
 and tokenizer commit SHAs come from `configs/upstream_registry.json`; branch names
 and unpinned revisions are rejected.

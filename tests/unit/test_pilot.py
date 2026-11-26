@@ -146,6 +146,8 @@ def test_bbq_pilot_checkpoints_and_reuses_completed_manifest(tmp_path):
     )
     first = manifest.read_bytes()
     result = json.loads(first)
+    assert "manifests/pilot_v2/" in str(manifest)
+    assert result["run_id"].startswith("PILOT2-BBQ-")
     assert result["completed_rows"] == 3
     assert [part["rows"] for part in result["partitions"]] == [2, 1]
     assert (
