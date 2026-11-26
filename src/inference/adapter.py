@@ -207,6 +207,18 @@ class ModelAdapter:
         input_ids = self.encode(user_text, condition).to(self.model.device)
         count = input_ids.shape[1]
         _seed_rng(settings.seed)
+        configured_eos = getattr(
+            getattr(self.model, "generation_config", None), "eos_token_id", None
+        )
+        stop_ids = (
+            [configured_eos]
+            if isinstance(configured_eos, int)
+            else list(configured_eos)
+            if isinstance(configured_eos, (list, tuple))
+            else [self.tokenizer.eos_token_id]
+        )
+        if not stop_ids or any(not isinstance(token_id, int) for token_id in stop_ids):
+            raise AdapterError("Model generation configuration has invalid EOS tokens")
         kwargs = {
             "do_sample": settings.do_sample,
             "max_new_tokens": settings.max_new_tokens,
@@ -214,7 +226,7 @@ class ModelAdapter:
             "num_return_sequences": 1,
             "repetition_penalty": 1.0,
             "pad_token_id": self.tokenizer.eos_token_id,
-            "eos_token_id": self.tokenizer.eos_token_id,
+            "eos_token_id": stop_ids,
             "use_cache": True,
             "return_dict_in_generate": False,
         }
@@ -243,9 +255,8 @@ class ModelAdapter:
         raw = self.tokenizer.decode(
             new_tokens, skip_special_tokens=True, clean_up_tokenization_spaces=False
         )
-        eos = self.tokenizer.eos_token_id
         finish_reason = (
-            "eos" if output_count and new_tokens[-1].item() == eos else "length"
+            "eos" if output_count and new_tokens[-1].item() in stop_ids else "length"
         )
         return {
             "model_id": self.spec.key,

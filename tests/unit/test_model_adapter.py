@@ -124,6 +124,24 @@ def test_generation_uses_official_template_and_returns_only_new_tokens(monkeypat
     assert model.kwargs["max_new_tokens"] == 256
 
 
+def test_generation_stops_at_model_chat_end_token(monkeypatch):
+    """Phi uses a chat-turn terminator distinct from tokenizer.eos_token_id."""
+    monkeypatch.setattr(adapter, "_seed_rng", lambda _seed: None)
+    loaded, tokenizer, model = make_adapter()
+    model.generation_config = SimpleNamespace(eos_token_id=[11, 10])
+
+    def generate(input_ids, **kwargs):
+        model.kwargs = kwargs
+        return FakeMatrix(input_ids[0].tolist() + [9, 11])
+
+    model.generate = generate
+    tokenizer.decode = lambda ids, **kwargs: " answer "
+    result = loaded.generate("A test prompt", "baseline")
+    assert model.kwargs["eos_token_id"] == [11, 10]
+    assert result["finish_reason"] == "eos"
+    assert result["output_token_count"] == 2
+
+
 def test_overlength_or_changed_policy_fails_before_generation(monkeypatch):
     monkeypatch.setattr(adapter, "_seed_rng", lambda _seed: None)
     loaded, _, _ = make_adapter(4097)
