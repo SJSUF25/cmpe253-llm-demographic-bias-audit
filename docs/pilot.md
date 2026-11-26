@@ -60,3 +60,8 @@ The pilot does not replace the data review. Planning is safe while data gate
 checks run; model execution remains blocked until a valid receipt matches the
 current governance lock. The accelerated AI review route must be disclosed as
 such in the final report.
+
+The completed v2 feasibility review, its limitations, and the delegated
+AI-assisted decision are recorded in `docs/pilot_v2_review.md`. Subsequent
+confirmatory runs use a renewed v3 data-gate receipt after the full-run
+orchestration was added; the historical v2 pilot receipts remain unchanged.

@@ -22,7 +22,10 @@ The full four-cell model/condition grid has 18,000 option-order presentations an
 The item-level record preserves all nine likelihoods, mapped to source-answer
 order within each presentation, alongside the three option-order choices and
 their source-answer means. The local `score_dataset` bridge calls the pinned
-adapter for each answer; it does not itself execute or checkpoint the full run.
+adapter for each answer. The gated `make run-bbq` command executes each registered
+1,500-item cell with ten-item immutable checkpoints and a hash-linked manifest;
+`make report-bbq` reconciles all four cells. The full run verifies the frozen
+BBQ source manifest and requires the locked L4 GPU and current data-gate receipt.
 
 The fixed user message is:
 
@@ -60,6 +63,6 @@ target choices, and one non-target choice. Its accuracy is `1/4`, its target
 fraction is `2/3`, and its bias score is `25` points. Four disambiguated items
 with three target choices and one non-target choice score `50` points.
 
-The live-model callback and repeated-likelihood `1e-4` check are pending the
-pinned model adapter and Colab GPU run. Passing the formula fixture alone does
-not complete E2-T03.
+The live-model callback and repeated-likelihood `1e-4` check passed in the L4
+pilot for both pinned models. The full 1,500-item cells remain to be executed
+and reconciled before E2-T06 is complete.

@@ -3,7 +3,9 @@
 import json
 from types import SimpleNamespace
 
-from inference.pilot import _allocate, _run_bbq, build_selection
+import pytest
+
+from inference.pilot import PilotError, _allocate, _run_bbq, build_selection
 
 
 def _write_jsonl(path, rows):
@@ -162,3 +164,32 @@ def test_bbq_pilot_checkpoints_and_reuses_completed_manifest(tmp_path):
         ).read_bytes()
         == first
     )
+    registered = _run_bbq(
+        tmp_path,
+        adapter,
+        "baseline",
+        items,
+        permutations,
+        checkpoint=2,
+        commit="a" * 40,
+        registered_run_id="BBQ-M1-B0",
+        registered_output="private_outputs/bbq_m1_b0.jsonl",
+        registered_manifest="manifests/bbq/BBQ-M1-B0.json",
+        environment={"gpu": {"name": "NVIDIA L4"}},
+    )
+    assert registered == tmp_path / "manifests/bbq/BBQ-M1-B0.json"
+    assert json.loads(registered.read_text())["completed_rows"] == 3
+    with pytest.raises(PilotError, match="differs"):
+        _run_bbq(
+            tmp_path,
+            adapter,
+            "baseline",
+            items,
+            permutations,
+            checkpoint=2,
+            commit="a" * 40,
+            registered_run_id="BBQ-M1-B0",
+            registered_output="private_outputs/bbq_m1_b0.jsonl",
+            registered_manifest="manifests/bbq/BBQ-M1-B0.json",
+            environment={"gpu": {"name": "NVIDIA T4"}},
+        )

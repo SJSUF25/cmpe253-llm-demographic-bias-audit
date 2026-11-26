@@ -104,6 +104,23 @@ def collect_environment() -> dict[str, object]:
     }
 
 
+def comparable_environment(record: dict[str, object]) -> dict[str, object]:
+    """Select stable runtime fields for exact checkpoint compatibility checks."""
+    gpu = record.get("gpu") or {}
+    packages = record.get("packages") or {}
+    if not isinstance(gpu, dict) or not isinstance(packages, dict):
+        raise ValueError("Malformed environment manifest")
+    return {
+        "python": record.get("python"),
+        "gpu_name": gpu.get("name"),
+        "cuda_runtime": gpu.get("cuda_runtime"),
+        "driver_gpu_memory": gpu.get("driver_gpu_memory"),
+        "torch": packages.get("torch"),
+        "transformers": packages.get("transformers"),
+        "accelerate": packages.get("accelerate"),
+    }
+
+
 def write_environment(path: Path) -> Path:
     """Atomically write an environment manifest."""
     path = path.expanduser().resolve()

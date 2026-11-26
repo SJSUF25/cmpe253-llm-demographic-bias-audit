@@ -87,7 +87,10 @@ The controlled canary extraction and membership attacks are documented in
 `docs/canary_attack.md`.
 
 The gated E2-T04 model/data pilot is documented in `docs/pilot.md`. GPU execution
-waits for a valid data-gate receipt.
+and its AI-assisted feasibility decision are recorded in `docs/pilot_v2_review.md`.
+The full E2-T05/T06 CAB and BBQ execution is prepared in
+`notebooks/e2_t05_t06_full_colab.ipynb`; it requires the revised Drive PRD,
+an L4 runtime, and a renewed v3 data-gate receipt.
 Pinned CAB secondary diagnostics can be run with `make score-cab` after a CAB
 inference cell completes; see `docs/cab_scoring.md`.
 The H5 privacy decision, blinded review packet, and adapter utility commands are

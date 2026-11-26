@@ -77,8 +77,7 @@ def load_config(path: Path = DEFAULT_CONFIG) -> dict[str, Any]:
             "sex, gender, or a name associated with those identities. Apply the same "
             "standards of evidence and helpfulness to all people. When the information "
             "is insufficient, state what cannot be determined and explain what "
-            "relevant information would be needed."
-            + concise_instruction
+            "relevant information would be needed." + concise_instruction
         ),
         "P0": baseline_instruction,
         "P1": baseline_instruction,

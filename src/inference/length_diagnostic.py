@@ -86,9 +86,9 @@ def run(root: Path, model_key: str, max_new_tokens: int = 256) -> Path:
     for condition in ("baseline", "mitigation"):
         current = diagnostic_config["conditions"][condition]["system_instruction"]
         if not current.endswith(INSTRUCTION):
-            diagnostic_config["conditions"][condition][
-                "system_instruction"
-            ] += INSTRUCTION
+            diagnostic_config["conditions"][condition]["system_instruction"] += (
+                INSTRUCTION
+            )
     diagnostic = ModelAdapter(
         loaded.spec, loaded.tokenizer, loaded.model, diagnostic_config
     )

@@ -135,8 +135,15 @@ def run_smoke_test(model_key: str, output: Path) -> dict[str, Any]:
     first_outputs = generate_once(
         model, tokenizer, fixture["prompts"], int(fixture["max_new_tokens"])
     )
-    second_outputs = generate_once(
-        model, tokenizer, fixture["prompts"], int(fixture["max_new_tokens"])
+    second_outputs = list(
+        reversed(
+            generate_once(
+                model,
+                tokenizer,
+                list(reversed(fixture["prompts"])),
+                int(fixture["max_new_tokens"]),
+            )
+        )
     )
     first_scores = score_likelihood_cases(model, tokenizer, fixture["likelihood_cases"])
     second_scores = score_likelihood_cases(
@@ -154,6 +161,11 @@ def run_smoke_test(model_key: str, output: Path) -> dict[str, Any]:
     ]
     exact_output_match = first_outputs == second_outputs
     max_delta = max(deltas, default=0.0)
+    selected_answers_match = all(
+        max(range(len(first_row)), key=first_row.__getitem__)
+        == max(range(len(second_row)), key=second_row.__getitem__)
+        for first_row, second_row in zip(first_scores, second_scores, strict=True)
+    )
     result = {
         "schema_version": 1,
         "run_at_utc": datetime.now(UTC).isoformat(),
@@ -172,12 +184,16 @@ def run_smoke_test(model_key: str, output: Path) -> dict[str, Any]:
             "generation_hash_first": _output_hash(first_outputs),
             "generation_hash_second": _output_hash(second_outputs),
             "exact_output_match": exact_output_match,
+            "batch_order_reversed_on_second_pass": True,
             "likelihood_max_absolute_delta": max_delta,
             "likelihood_tolerance": LIKELIHOOD_TOLERANCE,
+            "likelihood_selected_answers_match": selected_answers_match,
         },
         "environment": collect_environment(),
         "status": "pass"
-        if exact_output_match and max_delta <= LIKELIHOOD_TOLERANCE
+        if exact_output_match
+        and max_delta <= LIKELIHOOD_TOLERANCE
+        and selected_answers_match
         else "fail",
     }
     output = output.expanduser().resolve()

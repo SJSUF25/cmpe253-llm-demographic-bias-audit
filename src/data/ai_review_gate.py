@@ -110,8 +110,8 @@ def approve_ai_review(root: Path) -> Path:
         "review_packet_sha256": digest(packet_path),
         "review_evidence_sha256": digest(EVIDENCE),
     }
-    receipt_path = root / "manifests/data_ai_review_receipt_v2.json"
-    gate_path = root / "manifests/data_gate_approval_v2.json"
+    receipt_path = root / "manifests/data_ai_review_receipt_v3.json"
+    gate_path = root / "manifests/data_gate_approval_v3.json"
     _write_once(receipt_path, common)
     _write_once(gate_path, {**common, "ai_review_receipt_sha256": digest(receipt_path)})
     _check_test_gate(root)

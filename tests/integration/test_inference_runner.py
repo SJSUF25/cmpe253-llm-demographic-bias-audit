@@ -104,6 +104,30 @@ def test_interruption_resumes_without_omissions_or_duplicates(tmp_path):
     assert run(rows, FakeAdapter(), tmp_path).read_bytes() != b""
 
 
+def test_confirmatory_resume_rejects_changed_gpu_environment(tmp_path):
+    rows = [prompt(0)]
+    adapter = FakeAdapter()
+    run(rows, adapter, tmp_path, confirmatory=True)
+    spec = RunSpec(
+        run_id="CAB-TEST-M1-B0",
+        model_id="M1",
+        condition="baseline",
+        output_path="private_outputs/cab_test_m1_b0.jsonl",
+        confirmatory=True,
+    )
+    with pytest.raises(RunnerError, match="GPU/software environment changed"):
+        run_inference(
+            rows,
+            adapter,
+            spec,
+            tmp_path,
+            checkpoint_interval=2,
+            state_provider=lambda: ("a" * 40, False),
+            environment_provider=lambda: {"gpu": {"name": "NVIDIA T4"}},
+            gate_checker=lambda _root: None,
+        )
+
+
 def test_one_identical_retry_and_terminal_error_row(tmp_path):
     rows = [prompt(index) for index in range(3)]
     adapter = FakeAdapter(
@@ -401,6 +425,16 @@ def test_registered_cab_test_accepts_matching_review_receipt(monkeypatch, tmp_pa
         (manifest_dir / "data_gate_approval.json").read_bytes()
     )
     (manifest_dir / "data_gate_approval.json").write_text("{}")
+    assert runner.run_registered_cab(tmp_path, "CAB-EXP-M1-B0", "test") == (
+        tmp_path / "confirmed.json"
+    )
+    (manifest_dir / "data_ai_review_receipt_v3.json").write_bytes(
+        ai_receipt_path.read_bytes()
+    )
+    (manifest_dir / "data_gate_approval_v3.json").write_bytes(
+        (manifest_dir / "data_gate_approval_v2.json").read_bytes()
+    )
+    (manifest_dir / "data_gate_approval_v2.json").write_text("{}")
     assert runner.run_registered_cab(tmp_path, "CAB-EXP-M1-B0", "test") == (
         tmp_path / "confirmed.json"
     )

@@ -8,7 +8,7 @@ export PYTHONPATH
 PROJECT_CLI := $(UV) run --frozen python -m project_cli
 
 .PHONY: help check-uv setup setup-colab capture-environment smoke-model governance-lock storage-init storage-verify sync-upstream build-synthetic-pii build-membership run-cab score-cab annotation-packet annotation-review annotation-freeze analysis-plan-check run-pii score-pii score-h5 privacy-audit-packet score-helpfulness score-adapter-utility compare-adapter-utility train-canary attack-canary token-length-check cab-quality-check ai-review-gate privacy-controls-smoke \
-	download-data build-data build-bbq validate-data pilot \
+	download-data build-data build-bbq validate-data pilot run-bbq report-bbq \
 	infer-baseline infer-mitigation score annotate-export analyze explain \
 	privacy test lint demo reproduce-small
 
@@ -157,6 +157,14 @@ token-length-check: ## Check pinned chat-template lengths for inference and trai
 pilot: ## Plan, run, or report the E2-T04 pilot (ROOT and ACTION required)
 	@test -n "$(ROOT)" && test -n "$(ACTION)" || { echo "Usage: make pilot ROOT=/path ACTION=plan|run-model|report [MODEL=M1|M2]"; exit 2; }
 	$(UV) run --frozen --group colab python -m inference.pilot "$(ACTION)" --root "$(ROOT)" $(if $(MODEL),--model "$(MODEL)",)
+
+run-bbq: ## Run one registered full BBQ cell (ROOT and RUN_ID required)
+	@test -n "$(ROOT)" && test -n "$(RUN_ID)" || { echo "Usage: make run-bbq ROOT=/path RUN_ID=BBQ-M1-B0"; exit 2; }
+	$(UV) run --frozen --group colab python -m inference.bbq_runner run --root "$(ROOT)" --run-id "$(RUN_ID)"
+
+report-bbq: ## Reconcile all four full BBQ cells (ROOT required)
+	@test -n "$(ROOT)" || { echo "Usage: make report-bbq ROOT=/path"; exit 2; }
+	$(UV) run --frozen python -m inference.bbq_runner report --root "$(ROOT)"
 
 infer-baseline: ## Run locked baseline inference
 	$(PROJECT_CLI) infer-baseline

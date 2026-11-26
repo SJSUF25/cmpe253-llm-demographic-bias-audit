@@ -17,6 +17,12 @@ Section 9.3, record its exact hash and review date in the private project record
 and complete the data and pilot gates. Changes after outcome inspection require
 versioning and exploratory labeling; they cannot silently enter H1–H5.
 
+The pilot feasibility review in `docs/pilot_v2_review.md` precedes all
+confirmatory model runs. Length-finished CAB responses remain in primary
+analysis; an additional paired-family complete-case result is reported as
+exploratory sensitivity only. The 150-word instruction is a soft request, and
+word-limit compliance is a descriptive quality diagnostic.
+
 The `H3` and `H5_utility` rows use one-sided lower bounds and margins of -0.25,
 -0.03, and -0.05 as appropriate. Their `intersection_union` correction labels
 describe the joint decision rule, not BH-adjusted p-values. The H1 and H2 rows

@@ -19,7 +19,7 @@ from typing import Any
 from data.cab_quality import MANIFEST as CAB_QUALITY_MANIFEST
 from data.cab_quality import CabQualityError
 from data.cab_quality import verify_manifest as verify_cab_quality_manifest
-from environment_tools import collect_environment
+from environment_tools import collect_environment, comparable_environment
 from inference.adapter import DecodeConfig, ModelAdapter, decode_config, load_model
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -404,6 +404,14 @@ def run_inference(
         existing_manifest.get(key) != value for key, value in run_identity.items()
     ):
         raise RunnerError("Existing run manifest identity differs")
+    current_environment = environment_provider()
+    if (
+        spec.confirmatory
+        and existing_manifest
+        and comparable_environment(existing_manifest.get("environment") or {})
+        != comparable_environment(current_environment)
+    ):
+        raise RunnerError("Confirmatory checkpoint GPU/software environment changed")
     parts = sorted(partition_dir.glob("part-*.jsonl")) if partition_dir.exists() else []
     completed: dict[tuple[str, ...], dict[str, Any]] = {}
     partition_entries = []
@@ -452,7 +460,7 @@ def run_inference(
     environment = (
         existing_manifest.get("environment")
         if existing_manifest
-        else environment_provider()
+        else current_environment
     )
 
     def checkpoint(*, finished: bool) -> None:
@@ -566,9 +574,18 @@ def _check_test_gate(root: Path) -> None:
     validation = root / "manifests/data_validation_manifest.json"
     token_lengths = root / "manifests/token_length_manifest.json"
     quality_path = root / CAB_QUALITY_MANIFEST
-    receipt = root / "manifests/data_gate_approval_v2.json"
-    if not receipt.is_file():
-        receipt = root / "manifests/data_gate_approval.json"
+    receipt = next(
+        (
+            root / name
+            for name in (
+                "manifests/data_gate_approval_v3.json",
+                "manifests/data_gate_approval_v2.json",
+                "manifests/data_gate_approval.json",
+            )
+            if (root / name).is_file()
+        ),
+        root / "manifests/data_gate_approval_v3.json",
+    )
     if (
         not validation.is_file()
         or not token_lengths.is_file()
@@ -621,10 +638,8 @@ def _check_test_gate(root: Path) -> None:
         "human_review_status": "approved",
         "approved_by": ["Abhinand"],
     }
-    ai_receipt_path = root / (
-        "manifests/data_ai_review_receipt_v2.json"
-        if receipt.name == "data_gate_approval_v2.json"
-        else "manifests/data_ai_review_receipt.json"
+    ai_receipt_path = receipt.with_name(
+        receipt.name.replace("data_gate_approval", "data_ai_review_receipt")
     )
     reviewed_packet_path = root / "private_outputs/data_qa/review_packet.json"
     ai_approval = {

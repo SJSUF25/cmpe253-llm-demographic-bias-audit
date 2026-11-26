@@ -9,10 +9,10 @@ import time
 from collections import Counter, defaultdict
 from collections.abc import Sequence
 from datetime import UTC, datetime
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 from typing import Any
 
-from environment_tools import collect_environment
+from environment_tools import collect_environment, comparable_environment
 from inference import runner
 from inference.adapter import load_model
 from scoring.bbq import format_question, score_item
@@ -325,15 +325,43 @@ def _run_bbq(
     *,
     checkpoint: int,
     commit: str,
+    registered_run_id: str | None = None,
+    registered_output: str | None = None,
+    registered_manifest: str | None = None,
+    environment: dict[str, Any] | None = None,
 ) -> Path:
     if checkpoint < 1:
         raise PilotError("BBQ pilot checkpoint must be positive")
     label = "B0" if condition == "baseline" else "F1"
-    run_id = f"{RUN_LABEL}-BBQ-{adapter.spec.key}-{label}"
-    output = root / f"private_outputs/{RUN_DIRECTORY}/{run_id.lower()}.jsonl"
+    custom = (registered_run_id, registered_output, registered_manifest)
+    if any(value is not None for value in custom) and not all(
+        value is not None for value in custom
+    ):
+        raise PilotError("Registered BBQ run requires ID, output, and manifest")
+    run_id = registered_run_id or f"{RUN_LABEL}-BBQ-{adapter.spec.key}-{label}"
+    output = runner._safe_output(
+        root,
+        registered_output or f"private_outputs/{RUN_DIRECTORY}/{run_id.lower()}.jsonl",
+    )
     parts = output.with_suffix("") / "parts"
-    manifest_path = root / f"manifests/{RUN_DIRECTORY}/{run_id}.json"
+    manifest_relative = (
+        registered_manifest or f"manifests/{RUN_DIRECTORY}/{run_id}.json"
+    )
+    manifest_pure = PurePosixPath(manifest_relative)
+    if (
+        manifest_pure.is_absolute()
+        or ".." in manifest_pure.parts
+        or not manifest_pure.parts
+        or manifest_pure.parts[0] != "manifests"
+    ):
+        raise PilotError("Unsafe BBQ manifest path")
+    manifest_path = root / Path(*manifest_pure.parts)
     input_sha = _sha(_jsonl_bytes(items) + _jsonl_bytes(permutations))
+    environment_sha = (
+        _sha(_json_bytes(comparable_environment(environment)))
+        if environment is not None
+        else None
+    )
     if manifest_path.is_file():
         existing = json.loads(manifest_path.read_text())
         partitions_match = all(
@@ -345,6 +373,10 @@ def _run_bbq(
             existing.get("run_id") == run_id
             and existing.get("code_commit") == commit
             and existing.get("input_sha256") == input_sha
+            and (
+                environment_sha is None
+                or existing.get("environment_sha256") == environment_sha
+            )
             and existing.get("status") == "complete"
             and existing.get("completed_rows") == len(items)
             and partitions_match
@@ -380,6 +412,10 @@ def _run_bbq(
                 or row.get("condition") != condition
                 or row.get("system_prompt_version")
                 != adapter.config["conditions"][condition]["version"]
+                or (
+                    environment_sha is not None
+                    and row.get("environment_sha256") != environment_sha
+                )
             ):
                 raise PilotError("BBQ pilot partition identity changed")
             if row["item_id"] in completed:
@@ -419,6 +455,11 @@ def _run_bbq(
                 "runtime_seconds": time.perf_counter() - item_start,
                 "timestamp_utc": datetime.now(UTC).isoformat(),
                 "code_commit": commit,
+                **(
+                    {"environment_sha256": environment_sha}
+                    if environment_sha is not None
+                    else {}
+                ),
             }
         )
         if len(pending) == checkpoint:
@@ -472,6 +513,9 @@ def _run_bbq(
         "output_path": str(output.relative_to(root)),
         "output_sha256": _sha(output.read_bytes()),
     }
+    if environment is not None:
+        manifest["environment"] = environment
+        manifest["environment_sha256"] = environment_sha
     _immutable(manifest_path, _json_bytes(manifest))
     return manifest_path
 
