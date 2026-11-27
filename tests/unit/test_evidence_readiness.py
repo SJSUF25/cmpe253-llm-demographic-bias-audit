@@ -56,6 +56,32 @@ def test_evidence_audit_links_sources_and_flags_accuracy_failure(tmp_path) -> No
         "not_evaluable_from_this_aggregate"
     )
     assert by_claim["Robustness automated refusal shift"] == "pending"
+    scoring = {
+        run_id: _write(
+            tmp_path / "manifests/scoring" / f"{run_id}.json", run_id.encode()
+        )
+        for run_id in CAB_IDS
+    }
+    _write(
+        tmp_path / "aggregate_results/cab_secondary_summary.json",
+        json.dumps(
+            {
+                "schema_version": 1,
+                "status": "descriptive_secondary_uncalibrated",
+                "source_scoring_manifest_sha256": scoring,
+            }
+        ).encode(),
+    )
+    measured = json.loads(audit(tmp_path).read_text())
+    assert {row["claim"]: row["status"] for row in measured["claims"]}[
+        "Secondary CAB diagnostic tables"
+    ] == "measured_descriptive"
+    (tmp_path / "manifests/scoring" / f"{CAB_IDS[0]}.json").write_text("changed")
+    with pytest.raises(EvidenceError, match="source manifest changed"):
+        audit(tmp_path)
+    (tmp_path / "manifests/scoring" / f"{CAB_IDS[0]}.json").write_bytes(
+        CAB_IDS[0].encode()
+    )
     (tmp_path / "manifests/bbq" / f"{BBQ_IDS[0]}.json").write_text("tampered")
     with pytest.raises(EvidenceError, match="source manifest changed"):
         audit(tmp_path)

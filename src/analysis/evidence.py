@@ -107,7 +107,16 @@ def audit(root: Path) -> Path:
                 expected_status and value.get("status") != expected_status
             ):
                 raise EvidenceError(f"Optional aggregate schema differs: {claim}")
-            status = "aggregate_present_source_not_reverified"
+            if claim == "Secondary CAB diagnostic tables":
+                _check_sources(
+                    root,
+                    value.get("source_scoring_manifest_sha256"),
+                    "scoring",
+                    set(CAB_IDS),
+                )
+                status = "measured_descriptive"
+            else:
+                status = "aggregate_present_source_not_reverified"
             optional_hashes[relative] = _sha(path)
         else:
             status = "pending"
