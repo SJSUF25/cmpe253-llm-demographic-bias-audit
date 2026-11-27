@@ -19,6 +19,12 @@ make test
 make lint
 ```
 
+`make reproduce-small` runs a clean, offline CPU contract fixture through CAB
+pair expansion, BBQ option-order scoring, aggregation, and an exact paired test.
+It writes `build/reproduce_small/report.json`. The fixture uses a deterministic
+stand-in likelihood function, so its numbers verify code wiring and are **not**
+model findings or a substitute for the pinned GPU experiments.
+
 Use `make help` to list the complete project workflow. Experiment commands that have
 not yet been implemented exit with a clear status instead of silently succeeding.
 
