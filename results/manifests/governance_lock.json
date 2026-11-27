@@ -8,8 +8,8 @@
     },
     {
       "path": "Makefile",
-      "sha256": "a7f183ad369002fc75343897f64a8f65353d572a0e32c92d6496a5b53ca668af",
-      "size_bytes": 11650
+      "sha256": "b705d7599d59b98b8bda583080b61bef0bc99f995723e4a83a98303c81b91188",
+      "size_bytes": 13810
     },
     {
       "path": "pyproject.toml",
@@ -172,14 +172,29 @@
       "size_bytes": 3037
     },
     {
+      "path": "docs/fairness_descriptive.md",
+      "sha256": "bb9a357f1ce825625ac0089f6e2232f567c8a937e92a428bb2dfb2c52ed690a3",
+      "size_bytes": 2382
+    },
+    {
+      "path": "docs/explanation_ablation.md",
+      "sha256": "eaee3f8c895202a5381f9bcacd49355a9580200664e0900d3da2352ad0c93ef9",
+      "size_bytes": 2118
+    },
+    {
+      "path": "docs/robustness_subset.md",
+      "sha256": "4540903dba1451d6b92d84addb5ff304597f2322c8d714944cd3e3f21fdd81dd",
+      "size_bytes": 1919
+    },
+    {
       "path": "docs/model_adapter.md",
       "sha256": "4808c967f558b0a6db2a2e12940130f2fc70da501115b17f2abb0fa62a5be5d0",
       "size_bytes": 2416
     },
     {
       "path": "docs/inference_runner.md",
-      "sha256": "29b7fe7d6cb54d66394194662bbfde19d53d07cefc842480c665a60387e34457",
-      "size_bytes": 4763
+      "sha256": "0f42c52fd845624987e3c140531918f804702666d7eac8f76e95a22b96543e23",
+      "size_bytes": 4875
     },
     {
       "path": "docs/pilot.md",
@@ -222,6 +237,26 @@
       "size_bytes": 14147
     },
     {
+      "path": "notebooks/e3_e4_analysis_colab.ipynb",
+      "sha256": "0802ec31a0acdc750264f38d45500fb8256deb27ef7941226c5140213da41484",
+      "size_bytes": 5564
+    },
+    {
+      "path": "notebooks/e5_explanations_colab.ipynb",
+      "sha256": "622a3c7c1d6d487e7d7b443dceda973bc5214ad1bee80550d47fa0fc04e1ef14",
+      "size_bytes": 4821
+    },
+    {
+      "path": "notebooks/e7_robustness_colab.ipynb",
+      "sha256": "d74a3e0fb0009944db02b042e070987325a80ec70b869f7c918ca7ae01c4561f",
+      "size_bytes": 5050
+    },
+    {
+      "path": "notebooks/e6_privacy_colab.ipynb",
+      "sha256": "090f64d1120f5b1502db6db9325d8dafc677e0f78d4c6a60382798d0c97dece6",
+      "size_bytes": 12342
+    },
+    {
       "path": "src/environment_tools.py",
       "sha256": "4541c87eedfd8259ab076867752abff63b65688621c441005fb2c66f11acb733",
       "size_bytes": 4637
@@ -238,7 +273,7 @@
     },
     {
       "path": "src/data/ai_review_gate.py",
-      "sha256": "0786a81f3a943392438cf2a2eab415f95ce8cc1c8f0eea0288ae69d4588ab171",
+      "sha256": "f9e5db3fd8c982c8bdec59ba4bdcf7be5093b071667a3168e8df2c6c33690e93",
       "size_bytes": 5381
     },
     {
@@ -307,6 +342,51 @@
       "size_bytes": 11677
     },
     {
+      "path": "src/analysis/descriptive.py",
+      "sha256": "790973b41fcd3d58cee74049090022d7395dc49359c23019dc354ecf8fa2bba0",
+      "size_bytes": 22267
+    },
+    {
+      "path": "src/explain/sample.py",
+      "sha256": "30efab15a8b93523a29ba2f21211218f892f0eeb48f068dfb6af70f7408fc5c3",
+      "size_bytes": 3642
+    },
+    {
+      "path": "src/explain/ablation.py",
+      "sha256": "ce0f08e9359752062182754f6698a6eb47a2e26ca383e78b8c4ff0ad3ad725db",
+      "size_bytes": 6316
+    },
+    {
+      "path": "src/explain/runner.py",
+      "sha256": "6c174e564dad96304504804c9f552bf6519d4e1b3682656a33794293dab14729",
+      "size_bytes": 8117
+    },
+    {
+      "path": "src/explain/report.py",
+      "sha256": "b4442d42f252706a3fcd3ebec26ef90c6ccbc7ff19faa271ff5bbc1044187cfa",
+      "size_bytes": 10538
+    },
+    {
+      "path": "src/robustness/sample.py",
+      "sha256": "169413bbc37a513dacb69be29acde37a61ecfe736a3a3a5764158263380d4afe",
+      "size_bytes": 6299
+    },
+    {
+      "path": "src/robustness/perturb.py",
+      "sha256": "cf4b417acb93b58910453a54842f6371767dd885b8194d089f97bb57d868489b",
+      "size_bytes": 4777
+    },
+    {
+      "path": "src/robustness/runner.py",
+      "sha256": "12a3a9e874ae01a30509f240fc711adf69ea27f98648c14eaae8aac15f3cd741",
+      "size_bytes": 5030
+    },
+    {
+      "path": "src/robustness/report.py",
+      "sha256": "404bef9686ef5c883c4ab671398ad923faf4d00866ea76d42293b551eabee42a",
+      "size_bytes": 8340
+    },
+    {
       "path": "src/privacy/membership_data.py",
       "sha256": "3545bcef3df8e6370d71ee6bd01c3669c57ef7196ab97d5c4f1fc49b58373b9f",
       "size_bytes": 10995
@@ -333,8 +413,8 @@
     },
     {
       "path": "src/inference/runner.py",
-      "sha256": "b42fd9822bc4c557dae05e362e68f4734e9ff9b30358bd0b0324e9d5a57c283b",
-      "size_bytes": 28340
+      "sha256": "43c238f43acabd4c55c2af7ba32d7b859bc60a6c92c511483bd35bd8cc1ee136",
+      "size_bytes": 28396
     },
     {
       "path": "src/inference/pilot.py",

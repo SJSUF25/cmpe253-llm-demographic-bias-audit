@@ -578,13 +578,14 @@ def _check_test_gate(root: Path) -> None:
         (
             root / name
             for name in (
+                "manifests/data_gate_approval_v4.json",
                 "manifests/data_gate_approval_v3.json",
                 "manifests/data_gate_approval_v2.json",
                 "manifests/data_gate_approval.json",
             )
             if (root / name).is_file()
         ),
-        root / "manifests/data_gate_approval_v3.json",
+        root / "manifests/data_gate_approval_v4.json",
     )
     if (
         not validation.is_file()

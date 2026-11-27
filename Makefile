@@ -7,8 +7,8 @@ export UV_CACHE_DIR
 export PYTHONPATH
 PROJECT_CLI := $(UV) run --frozen python -m project_cli
 
-.PHONY: help check-uv setup setup-colab capture-environment smoke-model governance-lock storage-init storage-verify sync-upstream build-synthetic-pii build-membership run-cab score-cab annotation-packet annotation-review annotation-freeze analysis-plan-check run-pii score-pii score-h5 privacy-audit-packet score-helpfulness score-adapter-utility compare-adapter-utility train-canary attack-canary token-length-check cab-quality-check ai-review-gate privacy-controls-smoke \
-	download-data build-data build-bbq validate-data pilot run-bbq report-bbq \
+.PHONY: help check-uv setup setup-colab capture-environment smoke-model governance-lock storage-init storage-verify sync-upstream build-synthetic-pii build-membership run-cab score-cab annotation-packet annotation-review annotation-freeze analysis-plan-check run-pii score-pii score-h5 privacy-audit-packet score-helpfulness score-adapter-utility compare-adapter-utility train-canary attack-canary token-length-check cab-quality-check ai-review-gate privacy-controls-smoke freeze-explain-sample run-explain report-explain freeze-robustness-sample build-robustness-perturbations run-robustness report-robustness \
+	download-data build-data build-bbq validate-data pilot run-bbq report-bbq score-fairness-descriptive \
 	infer-baseline infer-mitigation score annotate-export analyze explain \
 	privacy test lint demo reproduce-small
 
@@ -111,6 +111,38 @@ score-pii: ## Aggregate privacy exposure after all six test runs (ROOT required)
 score-h5: ## Evaluate preregistered paired privacy exposure and utility (ROOT required)
 	@test -n "$(ROOT)" || { echo "Usage: make score-h5 ROOT=/path"; exit 2; }
 	$(UV) run --frozen --group colab python -m privacy.h5 --root "$(ROOT)"
+
+score-fairness-descriptive: ## Verify and summarize full CAB/BBQ runs with clustered CIs
+	@test -n "$(ROOT)" || { echo "Usage: make score-fairness-descriptive ROOT=/path"; exit 2; }
+	$(UV) run --frozen python -m analysis.descriptive --root "$(ROOT)"
+
+freeze-explain-sample: ## Freeze 60 balanced BBQ source items before attribution
+	@test -n "$(ROOT)" || { echo "Usage: make freeze-explain-sample ROOT=/path"; exit 2; }
+	$(UV) run --frozen python -m explain.sample --root "$(ROOT)"
+
+freeze-robustness-sample: ## Freeze 60 stratified CAB test families without outputs
+	@test -n "$(ROOT)" || { echo "Usage: make freeze-robustness-sample ROOT=/path"; exit 2; }
+	$(UV) run --frozen python -m robustness.sample --root "$(ROOT)"
+
+build-robustness-perturbations: ## Build 540 source-preserving robustness variants
+	@test -n "$(ROOT)" || { echo "Usage: make build-robustness-perturbations ROOT=/path"; exit 2; }
+	$(UV) run --frozen python -m robustness.perturb --root "$(ROOT)"
+
+run-robustness: ## Run one 180-prompt robustness GPU cell
+	@test -n "$(ROOT)" && test -n "$(RUN_ID)" || { echo "Usage: make run-robustness ROOT=/path RUN_ID=ROB-SPACE-M1-B0"; exit 2; }
+	$(UV) run --frozen --group colab python -m robustness.runner --root "$(ROOT)" --run-id "$(RUN_ID)"
+
+report-robustness: ## Summarize eight completed robustness GPU cells
+	@test -n "$(ROOT)" || { echo "Usage: make report-robustness ROOT=/path"; exit 2; }
+	$(UV) run --frozen python -m robustness.report --root "$(ROOT)"
+
+run-explain: ## Run a resumable 60-item BBQ ablation cell (ROOT and RUN_ID required)
+	@test -n "$(ROOT)" && test -n "$(RUN_ID)" || { echo "Usage: make run-explain ROOT=/path RUN_ID=EXPLAIN-M1-B0"; exit 2; }
+	$(UV) run --frozen --group colab python -m explain.runner --root "$(ROOT)" --run-id "$(RUN_ID)"
+
+report-explain: ## Aggregate the four completed BBQ explanation cells
+	@test -n "$(ROOT)" || { echo "Usage: make report-explain ROOT=/path"; exit 2; }
+	$(UV) run --frozen python -m explain.report --root "$(ROOT)"
 
 privacy-audit-packet: ## Prepare 50-record blinded privacy helpfulness review
 	@test -n "$(ROOT)" || { echo "Usage: make privacy-audit-packet ROOT=/path"; exit 2; }

@@ -26,3 +26,28 @@ must not contain transformations or analysis logic unavailable from project comm
 runs M1 and M2 in separate restart-safe cells, and builds the combined report. The
 reusable selection, checkpoint, and reporting logic lives in `inference.pilot`.
 
+`e3_e4_analysis_colab.ipynb` verifies the completed full CAB/BBQ inventory,
+renews the versioned data gate, freezes the explanation sample before attribution,
+produces the clustered descriptive fairness
+summary, and runs the pinned secondary CAB scorers. It starts only after the
+full-run notebook finishes and its analysis commit is pushed.
+That notebook also freezes the CAB robustness60 source selection and builds the
+neutral-format and fixed-adversarial input variants before aggregate outcomes
+are shown. See `docs/robustness_subset.md`.
+
+`e5_explanations_colab.ipynb` runs the same 60 BBQ items under both models and
+conditions, rechecks the original answer likelihoods, saves per-item ablation
+effects, and aggregates global feature sensitivity. See
+`docs/explanation_ablation.md` for its bounded interpretation.
+
+`e7_robustness_colab.ipynb` runs the frozen whitespace and adversarial CAB
+subset under both models and conditions, then summarizes automated refusal-gap
+changes. It records the unmeasured paraphrase, position, seed, and human-label
+conditions explicitly.
+
+`e6_privacy_colab.ipynb` orchestrates the six measured PII cells, H5 exposure and
+utility scoring, the three-epoch Phi QLoRA canary adapter, base/adapter attacks,
+and ordinary-task adapter utility. Run it after the full CAB/BBQ notebook finishes
+and the matching code is committed. It renews the v4 data gate without overwriting
+the v3 receipt used by the earlier full run. Reusable methods live under `src/privacy/`.
+

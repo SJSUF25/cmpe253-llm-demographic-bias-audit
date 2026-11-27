@@ -438,6 +438,16 @@ def test_registered_cab_test_accepts_matching_review_receipt(monkeypatch, tmp_pa
     assert runner.run_registered_cab(tmp_path, "CAB-EXP-M1-B0", "test") == (
         tmp_path / "confirmed.json"
     )
+    (manifest_dir / "data_ai_review_receipt_v4.json").write_bytes(
+        ai_receipt_path.read_bytes()
+    )
+    (manifest_dir / "data_gate_approval_v4.json").write_bytes(
+        (manifest_dir / "data_gate_approval_v3.json").read_bytes()
+    )
+    (manifest_dir / "data_gate_approval_v3.json").write_text("{}")
+    assert runner.run_registered_cab(tmp_path, "CAB-EXP-M1-B0", "test") == (
+        tmp_path / "confirmed.json"
+    )
     packet_path.write_text("changed")
     with pytest.raises(RunnerError, match="incomplete or stale"):
         runner.run_registered_cab(tmp_path, "CAB-EXP-M1-B0", "test")

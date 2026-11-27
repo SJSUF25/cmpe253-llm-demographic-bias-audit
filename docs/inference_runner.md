@@ -32,14 +32,16 @@ config hashes, seed, and error counts. Raw outputs stay in the designated Drive
 folder under the documented access exception.
 
 `SPLIT=test` refuses to load a model unless the Git worktree is clean and a
-private `manifests/data_gate_approval_v3.json` exists with the exact fields below.
+private versioned data-gate receipt exists with the exact fields below. The CAB/BBQ
+full-run notebook uses v3; subsequent privacy runs renew it as v4 after the next
+governance-lock change.
 The full-run Colab notebook first runs `make smoke-model` for each model in that
 runtime. Its frozen 20-prompt fixture is generated twice, with reverse execution
 order on the second pass. It requires byte-identical output hashes, unchanged
 likelihood-selected answers, and a maximum repeated-likelihood delta of `1e-4`.
 The preflight receipt is saved under `manifests/full_preflight/`. If it fails,
 stop that model's full run.
-The historical v1/v2 receipts are retained as evidence of earlier protocol
+The historical v1/v2/v3 receipts are retained as evidence of earlier protocol
 versions; the runner prefers the newest receipt and validates it against the
 current governance lock.
 The generic runner checks the same gate for every confirmatory call.
@@ -47,8 +49,8 @@ The accelerated route uses `make ai-review-gate ROOT=/mounted/shared/path`; its
 receipt names `Codex AI-assisted audit` and declares
 `review_method=ai_assisted_no_human_review`. The runner verifies the exact reviewed
 packet and evidence hashes. Reports must disclose that no human review occurred.
-The AI command writes `data_ai_review_receipt_v3.json` and
-`data_gate_approval_v3.json` without overwriting v1/v2. Create the AI receipt only
+The AI command writes `data_ai_review_receipt_v4.json` and
+`data_gate_approval_v4.json` without overwriting v1/v2/v3. Create the AI receipt only
 after the tokenizer-length and quality checks pass.
 The human receipt shown below is a separate option after Abhinand's manual QA.
 The named approval is process evidence; the program checks receipt

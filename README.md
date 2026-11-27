@@ -91,8 +91,21 @@ and its AI-assisted feasibility decision are recorded in `docs/pilot_v2_review.m
 The full E2-T05/T06 CAB and BBQ execution is prepared in
 `notebooks/e2_t05_t06_full_colab.ipynb`; it requires the revised Drive PRD,
 an L4 runtime, and a renewed v3 data-gate receipt.
+After that full run is finished, `notebooks/e6_privacy_colab.ipynb` executes the
+original proposal's PII and controlled-canary experiments under a newly hash-bound
+v4 data gate. Do not pull its newer commit into an interrupted CAB/BBQ run.
 Pinned CAB secondary diagnostics can be run with `make score-cab` after a CAB
 inference cell completes; see `docs/cab_scoring.md`.
+After all full CAB/BBQ cells complete, `make score-fairness-descriptive` produces
+hash-verified subgroup and intersectional tables with scenario/template-cluster
+intervals; see `docs/fairness_descriptive.md`. It does not replace the locked
+confirmatory analysis or human ratings. The full analysis sequence is in
+`notebooks/e3_e4_analysis_colab.ipynb`.
+The bounded local/global BBQ input-ablation workflow is in
+`notebooks/e5_explanations_colab.ipynb`; see `docs/explanation_ablation.md`.
+The CAB robustness60 source selection and neutral/adversarial input preparation
+are documented in `docs/robustness_subset.md`; GPU execution is in
+`notebooks/e7_robustness_colab.ipynb`.
 The H5 privacy decision, blinded review packet, and adapter utility commands are
 documented in `docs/privacy_h5.md`.
 
