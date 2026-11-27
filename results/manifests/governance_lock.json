@@ -8,18 +8,23 @@
     },
     {
       "path": "Makefile",
-      "sha256": "b705d7599d59b98b8bda583080b61bef0bc99f995723e4a83a98303c81b91188",
-      "size_bytes": 13810
+      "sha256": "daa43c2631626d8138bd753d61c6cec83a02e8ae2f238a6dd9023a57aaa53430",
+      "size_bytes": 14492
     },
     {
       "path": "pyproject.toml",
-      "sha256": "f2f1b559c0f65d54bd9e02a874945b0cabf9302340a6f2271f398e77a1f7c870",
-      "size_bytes": 1376
+      "sha256": "7f225cd6a24e4f561510307338ac2605f4c597ae21c2c6257ecbd15fea8da7a0",
+      "size_bytes": 1412
     },
     {
       "path": "uv.lock",
-      "sha256": "84abf7e5472ecd11e10ea2eabf2d48540c644b28b28bdb95a18a1f2107361248",
-      "size_bytes": 210716
+      "sha256": "3fa4f4b99c17621e58ffa4505b546b228d3ad9624fdf2d72f9b58ab098d5c8de",
+      "size_bytes": 251767
+    },
+    {
+      "path": "results/manifests/governance_lock_v4.json",
+      "sha256": "fb78f5ec1562e3ba39021fe07a08d3b05896fa34037fe09e62154e09903aeae5",
+      "size_bytes": 14807
     },
     {
       "path": "configs/experiment_registry.json",
@@ -187,14 +192,19 @@
       "size_bytes": 1919
     },
     {
+      "path": "docs/demo_cached.md",
+      "sha256": "4b6b4c6845ca22f29110c1e7d9c7e745c31beb1c351ad2f1a7b9f8f54d41cd32",
+      "size_bytes": 1348
+    },
+    {
       "path": "docs/model_adapter.md",
       "sha256": "4808c967f558b0a6db2a2e12940130f2fc70da501115b17f2abb0fa62a5be5d0",
       "size_bytes": 2416
     },
     {
       "path": "docs/inference_runner.md",
-      "sha256": "0f42c52fd845624987e3c140531918f804702666d7eac8f76e95a22b96543e23",
-      "size_bytes": 4875
+      "sha256": "cf88c80861c6aee745e14a214531ccc58e50661c2699c62b917d06575335a32b",
+      "size_bytes": 5005
     },
     {
       "path": "docs/pilot.md",
@@ -238,8 +248,8 @@
     },
     {
       "path": "notebooks/e3_e4_analysis_colab.ipynb",
-      "sha256": "0802ec31a0acdc750264f38d45500fb8256deb27ef7941226c5140213da41484",
-      "size_bytes": 5564
+      "sha256": "b26eaa0aaf0cecaa9ee60a0c1dd13fea71ee790fe0e319f803dbf04ba15bc88f",
+      "size_bytes": 5645
     },
     {
       "path": "notebooks/e5_explanations_colab.ipynb",
@@ -273,8 +283,8 @@
     },
     {
       "path": "src/data/ai_review_gate.py",
-      "sha256": "f9e5db3fd8c982c8bdec59ba4bdcf7be5093b071667a3168e8df2c6c33690e93",
-      "size_bytes": 5381
+      "sha256": "801cdc47080e0de9ca44e7195f591509469df028a3ef327b5941d06430578949",
+      "size_bytes": 5541
     },
     {
       "path": "src/data/bbq_sampler.py",
@@ -347,6 +357,11 @@
       "size_bytes": 22267
     },
     {
+      "path": "src/analysis/evidence.py",
+      "sha256": "73567fa9b552be991944bc3f46e23bbcd168d215b7f88d2e27cd6de38b589886",
+      "size_bytes": 5573
+    },
+    {
       "path": "src/explain/sample.py",
       "sha256": "30efab15a8b93523a29ba2f21211218f892f0eeb48f068dfb6af70f7408fc5c3",
       "size_bytes": 3642
@@ -387,6 +402,16 @@
       "size_bytes": 8340
     },
     {
+      "path": "src/demo/assets.py",
+      "sha256": "b76f4c150c445b83576cb41dfb91c1b6746730e19770ccc0f1e42c330650a426",
+      "size_bytes": 9509
+    },
+    {
+      "path": "src/demo/app.py",
+      "sha256": "d14d9b97c2e4cda138a7f9bdd99dcb08e0cd54f3f78a9f18415fa9975f2870fb",
+      "size_bytes": 5573
+    },
+    {
       "path": "src/privacy/membership_data.py",
       "sha256": "3545bcef3df8e6370d71ee6bd01c3669c57ef7196ab97d5c4f1fc49b58373b9f",
       "size_bytes": 10995
@@ -413,8 +438,8 @@
     },
     {
       "path": "src/inference/runner.py",
-      "sha256": "43c238f43acabd4c55c2af7ba32d7b859bc60a6c92c511483bd35bd8cc1ee136",
-      "size_bytes": 28396
+      "sha256": "11e5036998e99bfa2d4819a67df10eff9118c29805b9a1b474f821f322381d4e",
+      "size_bytes": 29202
     },
     {
       "path": "src/inference/pilot.py",

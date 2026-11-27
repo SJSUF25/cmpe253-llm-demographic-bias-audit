@@ -42,8 +42,9 @@ likelihood-selected answers, and a maximum repeated-likelihood delta of `1e-4`.
 The preflight receipt is saved under `manifests/full_preflight/`. If it fails,
 stop that model's full run.
 The historical v1/v2/v3 receipts are retained as evidence of earlier protocol
-versions; the runner prefers the newest receipt and validates it against the
-current governance lock.
+versions; the runner prefers the newest receipt. The v4 receipt is validated
+against its immutable `governance_lock_v4.json` snapshot. Later code changes
+update the current lock without rewriting the approved v4 data-gate evidence.
 The generic runner checks the same gate for every confirmatory call.
 The accelerated route uses `make ai-review-gate ROOT=/mounted/shared/path`; its
 receipt names `Codex AI-assisted audit` and declares
@@ -64,7 +65,7 @@ token-length manifest, so a changed data file cannot reuse a stale length check.
   "validation_manifest_sha256": "<SHA-256 of manifests/data_validation_manifest.json>",
   "token_length_manifest_sha256": "<SHA-256 of manifests/token_length_manifest.json>",
   "cab_implicit_quality_manifest_sha256": "<SHA-256 of manifests/cab_implicit_quality_manifest.json>",
-  "governance_lock_sha256": "<SHA-256 of results/manifests/governance_lock.json>",
+  "governance_lock_sha256": "<SHA-256 of the lock bound to this receipt version>",
   "token_length_status": "passed",
   "human_review_status": "approved",
   "approved_by": ["Abhinand"]

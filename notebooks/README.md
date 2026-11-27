@@ -29,7 +29,8 @@ reusable selection, checkpoint, and reporting logic lives in `inference.pilot`.
 `e3_e4_analysis_colab.ipynb` verifies the completed full CAB/BBQ inventory,
 renews the versioned data gate, freezes the explanation sample before attribution,
 produces the clustered descriptive fairness
-summary, and runs the pinned secondary CAB scorers. It starts only after the
+summary, and runs the pinned secondary CAB scorers on CPU. Use a fresh CPU runtime;
+no GPU is needed for this notebook. It starts only after the
 full-run notebook finishes and its analysis commit is pushed.
 That notebook also freezes the CAB robustness60 source selection and builds the
 neutral-format and fixed-adversarial input variants before aggregate outcomes

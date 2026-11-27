@@ -28,6 +28,7 @@ LOCK_PATH = ROOT / "uv.lock"
 REGISTRY_PATH = ROOT / "configs/experiment_registry.json"
 CAB_CONFIG_PATH = ROOT / "configs/cab_build.json"
 GOVERNANCE_LOCK_PATH = ROOT / "results/manifests/governance_lock.json"
+V4_GOVERNANCE_LOCK_PATH = ROOT / "results/manifests/governance_lock_v4.json"
 CHECKPOINT_INTERVAL = 100
 RUN_ID_PATTERN = re.compile(r"^[A-Z0-9][A-Z0-9-]*$")
 REQUIRED_FIELDS = {
@@ -626,12 +627,28 @@ def _check_test_gate(root: Path) -> None:
             and _hash((root / relative).read_bytes()) == input_hashes[relative]
             for relative in expected_inputs
         )
+    # The v4 receipt records the governance state at approval time. Later code
+    # additions must not silently rewrite that historical data-gate evidence.
+    lock_path = (
+        V4_GOVERNANCE_LOCK_PATH
+        if receipt.name == "data_gate_approval_v4.json"
+        else GOVERNANCE_LOCK_PATH
+    )
+    if receipt.name == "data_gate_approval_v4.json":
+        locked = json.loads(lock_path.read_text(encoding="utf-8"))
+        prd_hash = next(
+            row["sha256"]
+            for row in locked["files"]
+            if row["path"] == "LLM_Bias_Audit_PRD.md"
+        )
+        if _hash((root / "LLM_Bias_Audit_PRD.md").read_bytes()) != prd_hash:
+            raise RunnerError("CAB test data-gate PRD differs from approved version")
     common = {
         "schema_version": 1,
         "validation_manifest_sha256": _hash(validation.read_bytes()),
         "token_length_manifest_sha256": _hash(token_lengths.read_bytes()),
         "cab_implicit_quality_manifest_sha256": _hash(quality_path.read_bytes()),
-        "governance_lock_sha256": _hash(GOVERNANCE_LOCK_PATH.read_bytes()),
+        "governance_lock_sha256": _hash(lock_path.read_bytes()),
         "token_length_status": "passed",
     }
     human_approval = {

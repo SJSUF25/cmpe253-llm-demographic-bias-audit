@@ -438,15 +438,39 @@ def test_registered_cab_test_accepts_matching_review_receipt(monkeypatch, tmp_pa
     assert runner.run_registered_cab(tmp_path, "CAB-EXP-M1-B0", "test") == (
         tmp_path / "confirmed.json"
     )
-    (manifest_dir / "data_ai_review_receipt_v4.json").write_bytes(
-        ai_receipt_path.read_bytes()
+    (tmp_path / "LLM_Bias_Audit_PRD.md").write_bytes(
+        (runner.ROOT / "LLM_Bias_Audit_PRD.md").read_bytes()
     )
-    (manifest_dir / "data_gate_approval_v4.json").write_bytes(
-        (manifest_dir / "data_gate_approval_v3.json").read_bytes()
+    ai_receipt_v4 = {
+        **ai_receipt,
+        "governance_lock_sha256": hashlib.sha256(
+            runner.V4_GOVERNANCE_LOCK_PATH.read_bytes()
+        ).hexdigest(),
+    }
+    ai_receipt_v4_path = manifest_dir / "data_ai_review_receipt_v4.json"
+    ai_receipt_v4_path.write_text(json.dumps(ai_receipt_v4))
+    (manifest_dir / "data_gate_approval_v4.json").write_text(
+        json.dumps(
+            {
+                **ai_receipt_v4,
+                "ai_review_receipt_sha256": hashlib.sha256(
+                    ai_receipt_v4_path.read_bytes()
+                ).hexdigest(),
+            }
+        )
     )
     (manifest_dir / "data_gate_approval_v3.json").write_text("{}")
+    changed_current_lock = tmp_path / "later_governance_lock.json"
+    changed_current_lock.write_text("later code revision")
+    monkeypatch.setattr(runner, "GOVERNANCE_LOCK_PATH", changed_current_lock)
     assert runner.run_registered_cab(tmp_path, "CAB-EXP-M1-B0", "test") == (
         tmp_path / "confirmed.json"
+    )
+    (tmp_path / "LLM_Bias_Audit_PRD.md").write_text("changed PRD")
+    with pytest.raises(RunnerError, match="PRD differs"):
+        runner.run_registered_cab(tmp_path, "CAB-EXP-M1-B0", "test")
+    (tmp_path / "LLM_Bias_Audit_PRD.md").write_bytes(
+        (runner.ROOT / "LLM_Bias_Audit_PRD.md").read_bytes()
     )
     packet_path.write_text("changed")
     with pytest.raises(RunnerError, match="incomplete or stale"):

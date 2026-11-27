@@ -7,7 +7,7 @@ export UV_CACHE_DIR
 export PYTHONPATH
 PROJECT_CLI := $(UV) run --frozen python -m project_cli
 
-.PHONY: help check-uv setup setup-colab capture-environment smoke-model governance-lock storage-init storage-verify sync-upstream build-synthetic-pii build-membership run-cab score-cab annotation-packet annotation-review annotation-freeze analysis-plan-check run-pii score-pii score-h5 privacy-audit-packet score-helpfulness score-adapter-utility compare-adapter-utility train-canary attack-canary token-length-check cab-quality-check ai-review-gate privacy-controls-smoke freeze-explain-sample run-explain report-explain freeze-robustness-sample build-robustness-perturbations run-robustness report-robustness \
+.PHONY: help check-uv setup setup-colab capture-environment smoke-model governance-lock storage-init storage-verify sync-upstream build-synthetic-pii build-membership run-cab score-cab annotation-packet annotation-review annotation-freeze analysis-plan-check run-pii score-pii score-h5 privacy-audit-packet score-helpfulness score-adapter-utility compare-adapter-utility train-canary attack-canary token-length-check cab-quality-check ai-review-gate privacy-controls-smoke freeze-explain-sample run-explain report-explain freeze-robustness-sample build-robustness-perturbations run-robustness report-robustness demo-assets audit-evidence \
 	download-data build-data build-bbq validate-data pilot run-bbq report-bbq score-fairness-descriptive \
 	infer-baseline infer-mitigation score annotate-export analyze explain \
 	privacy test lint demo reproduce-small
@@ -115,6 +115,10 @@ score-h5: ## Evaluate preregistered paired privacy exposure and utility (ROOT re
 score-fairness-descriptive: ## Verify and summarize full CAB/BBQ runs with clustered CIs
 	@test -n "$(ROOT)" || { echo "Usage: make score-fairness-descriptive ROOT=/path"; exit 2; }
 	$(UV) run --frozen python -m analysis.descriptive --root "$(ROOT)"
+
+audit-evidence: ## Verify source hashes and list measured versus pending claims
+	@test -n "$(ROOT)" || { echo "Usage: make audit-evidence ROOT=/path"; exit 2; }
+	$(UV) run --frozen python -m analysis.evidence --root "$(ROOT)"
 
 freeze-explain-sample: ## Freeze 60 balanced BBQ source items before attribution
 	@test -n "$(ROOT)" || { echo "Usage: make freeze-explain-sample ROOT=/path"; exit 2; }
@@ -226,8 +230,13 @@ lint: check-uv ## Run static checks and formatting verification
 	$(UV) run --frozen ruff check .
 	$(UV) run --frozen ruff format --check .
 
-demo: ## Start the cached Streamlit presentation
-	$(PROJECT_CLI) demo
+demo-assets: audit-evidence ## Export safe aggregate-only cached demo bundle (ROOT required)
+	@test -n "$(ROOT)" || { echo "Usage: make demo-assets ROOT=/mounted/project"; exit 2; }
+	$(UV) run --frozen python -m demo.assets --root "$(ROOT)"
+
+demo: ## Start the cached Streamlit presentation (ROOT required)
+	@test -n "$(ROOT)" || { echo "Usage: make demo ROOT=/mounted/project"; exit 2; }
+	DEMO_BUNDLE="$(ROOT)/demo_assets/bundle.json" $(UV) run --frozen --group demo streamlit run src/demo/app.py
 
 reproduce-small: ## Run the clean small end-to-end reproduction
 	$(PROJECT_CLI) reproduce-small

@@ -10,8 +10,8 @@ from pathlib import Path
 
 from data.cab_quality import verify_manifest
 from inference.runner import (
-    GOVERNANCE_LOCK_PATH,
     ROOT,
+    V4_GOVERNANCE_LOCK_PATH,
     _check_test_gate,
 )
 
@@ -91,7 +91,9 @@ def approve_ai_review(root: Path) -> Path:
     for relative, expected in lengths["inputs_sha256"].items():
         if digest(root / relative) != expected:
             raise ValueError(f"Tokenizer input changed: {relative}")
-    lock = json.loads(GOVERNANCE_LOCK_PATH.read_text())
+    # v4 remains bound to the archived governance state that created the
+    # original receipt, while the current lock can track later analysis code.
+    lock = json.loads(V4_GOVERNANCE_LOCK_PATH.read_text())
     expected_prd = next(
         row["sha256"] for row in lock["files"] if row["path"] == "LLM_Bias_Audit_PRD.md"
     )
@@ -102,7 +104,7 @@ def approve_ai_review(root: Path) -> Path:
         "validation_manifest_sha256": digest(validation_path),
         "token_length_manifest_sha256": digest(lengths_path),
         "cab_implicit_quality_manifest_sha256": digest(quality_path),
-        "governance_lock_sha256": digest(GOVERNANCE_LOCK_PATH),
+        "governance_lock_sha256": digest(V4_GOVERNANCE_LOCK_PATH),
         "token_length_status": "passed",
         "review_status": "approved_with_documented_implicit_exclusions",
         "review_method": "ai_assisted_no_human_review",

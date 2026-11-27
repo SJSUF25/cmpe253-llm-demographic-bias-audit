@@ -108,6 +108,11 @@ are documented in `docs/robustness_subset.md`; GPU execution is in
 `notebooks/e7_robustness_colab.ipynb`.
 The H5 privacy decision, blinded review packet, and adapter utility commands are
 documented in `docs/privacy_h5.md`.
+Run `make audit-evidence ROOT=/mounted/project` to check the fairness aggregate
+against all 12 full-run source manifests and list measured versus pending claims.
+For the offline presentation, `make demo-assets ROOT=/mounted/project` checks that
+provenance before exporting aggregate-only data, and `make demo ROOT=/mounted/project`
+opens the cached dashboard. See `docs/demo_cached.md`.
 
 ## Colab environment gate
 

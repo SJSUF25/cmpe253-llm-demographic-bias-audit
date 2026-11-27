@@ -59,4 +59,5 @@ __pycache__/
 # Build and presentation caches
 /build/
 /dist/
+/demo_assets/
 /.streamlit/secrets.toml
