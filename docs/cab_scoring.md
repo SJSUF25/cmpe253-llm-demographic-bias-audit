@@ -39,3 +39,15 @@ These model scores cannot establish demographic bias on their own.
 The local tests use fake scorers. Real model loading, tokenization, output
 lengths, and reactivity values still require the Colab execution after CAB
 inference. Raw generations and row-level diagnostic scores stay private.
+
+After all eight test scoring receipts are complete, run:
+
+```bash
+make report-cab-secondary ROOT="$AUDIT_SHARED_ROOT"
+```
+
+This verifies the eight scoring receipt hashes and exact 640/594 row and
+724/677 pair inventories before writing `aggregate_results/cab_secondary_summary.json`.
+The output contains group means, paired semantic similarity, response-length
+differences, and scorer truncation counts. It is descriptive only: classifier
+probabilities are uncalibrated and similarity does not establish equal treatment.

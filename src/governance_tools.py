@@ -101,6 +101,7 @@ LOCKED_FILES = (
     "src/inference/pilot.py",
     "src/scoring/bbq.py",
     "src/scoring/cab.py",
+    "src/scoring/cab_summary.py",
     "src/scoring/annotation.py",
     "src/scoring/annotation_review.py",
     "src/analysis/plan.py",

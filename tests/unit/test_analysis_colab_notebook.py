@@ -14,7 +14,7 @@ def test_analysis_notebook_has_gate_before_scoring() -> None:
     ]
     for cell in code:
         compile(cell, str(path), "exec")
-    assert len(code) == 4
+    assert len(code) == 5
     assert all(
         command in code[1]
         for command in (
@@ -26,6 +26,7 @@ def test_analysis_notebook_has_gate_before_scoring() -> None:
     )
     assert "score-fairness-descriptive" in code[2]
     assert "score-cab" in code[3]
+    assert "report-cab-secondary" in code[4]
     assert all(
         cell["outputs"] == []
         for cell in notebook["cells"]

@@ -7,7 +7,7 @@ export UV_CACHE_DIR
 export PYTHONPATH
 PROJECT_CLI := $(UV) run --frozen python -m project_cli
 
-.PHONY: help check-uv setup setup-colab capture-environment smoke-model governance-lock storage-init storage-verify sync-upstream build-synthetic-pii build-membership run-cab score-cab annotation-packet annotation-review annotation-freeze analysis-plan-check run-pii score-pii score-h5 privacy-audit-packet score-helpfulness score-adapter-utility compare-adapter-utility train-canary attack-canary token-length-check cab-quality-check ai-review-gate privacy-controls-smoke freeze-explain-sample run-explain report-explain freeze-robustness-sample build-robustness-perturbations run-robustness report-robustness demo-assets audit-evidence \
+.PHONY: help check-uv setup setup-colab capture-environment smoke-model governance-lock storage-init storage-verify sync-upstream build-synthetic-pii build-membership run-cab score-cab report-cab-secondary annotation-packet annotation-review annotation-freeze analysis-plan-check run-pii score-pii score-h5 privacy-audit-packet score-helpfulness score-adapter-utility compare-adapter-utility train-canary attack-canary token-length-check cab-quality-check ai-review-gate privacy-controls-smoke freeze-explain-sample run-explain report-explain freeze-robustness-sample build-robustness-perturbations run-robustness report-robustness demo-assets audit-evidence \
 	download-data build-data build-bbq validate-data pilot run-bbq report-bbq score-fairness-descriptive \
 	infer-baseline infer-mitigation score annotate-export analyze explain \
 	privacy test lint demo reproduce-small
@@ -82,6 +82,10 @@ score-cab: ## Score one completed CAB run with pinned secondary scorers
 	@test -n "$(RUN_ID)" || { echo "RUN_ID is required"; exit 2; }
 	@test -n "$(SPLIT)" || { echo "SPLIT=development or test is required"; exit 2; }
 	$(UV) run --frozen --group colab python -m scoring.cab --root "$(ROOT)" --run-id "$(RUN_ID)" --split "$(SPLIT)"
+
+report-cab-secondary: ## Verify eight CAB scorer outputs and aggregate diagnostics
+	@test -n "$(ROOT)" || { echo "Usage: make report-cab-secondary ROOT=/path"; exit 2; }
+	$(UV) run --frozen python -m scoring.cab_summary --root "$(ROOT)"
 
 annotation-packet: ## Build a blinded CAB review packet after four runs (ROOT, SPLIT, ANNOTATOR)
 	@test -n "$(ROOT)" && test -n "$(SPLIT)" && test -n "$(ANNOTATOR)" || { echo "Usage: make annotation-packet ROOT=/path SPLIT=development ANNOTATOR=vineet"; exit 2; }

@@ -8,8 +8,8 @@
     },
     {
       "path": "Makefile",
-      "sha256": "daa43c2631626d8138bd753d61c6cec83a02e8ae2f238a6dd9023a57aaa53430",
-      "size_bytes": 14492
+      "sha256": "5e7f9ea141b9a11c80ec2aa32234e47f47a137f21a0dfeff7ee699edf416d304",
+      "size_bytes": 14751
     },
     {
       "path": "pyproject.toml",
@@ -158,8 +158,8 @@
     },
     {
       "path": "docs/cab_scoring.md",
-      "sha256": "a09789e797bf935ab218d2be3387e8ee9c7fb20bcb7b86c7f2b9e15585059be7",
-      "size_bytes": 2351
+      "sha256": "3af2129176ea7d9b6c4ba1837701979f59294b02e5f100058f1cd9d81b5af2f8",
+      "size_bytes": 2873
     },
     {
       "path": "docs/cab_annotation.md",
@@ -193,8 +193,8 @@
     },
     {
       "path": "docs/demo_cached.md",
-      "sha256": "4b6b4c6845ca22f29110c1e7d9c7e745c31beb1c351ad2f1a7b9f8f54d41cd32",
-      "size_bytes": 1348
+      "sha256": "eccca67c39c298d615d1669c83e85acde5ec0845f6e8a1c1f4482421b51a41b5",
+      "size_bytes": 1363
     },
     {
       "path": "docs/model_adapter.md",
@@ -248,8 +248,8 @@
     },
     {
       "path": "notebooks/e3_e4_analysis_colab.ipynb",
-      "sha256": "b26eaa0aaf0cecaa9ee60a0c1dd13fea71ee790fe0e319f803dbf04ba15bc88f",
-      "size_bytes": 5645
+      "sha256": "06965773e2229cfd69c8ba7bad3efba58b5bbc53d6165887ea3e687133aabe6c",
+      "size_bytes": 6591
     },
     {
       "path": "notebooks/e5_explanations_colab.ipynb",
@@ -358,8 +358,8 @@
     },
     {
       "path": "src/analysis/evidence.py",
-      "sha256": "73567fa9b552be991944bc3f46e23bbcd168d215b7f88d2e27cd6de38b589886",
-      "size_bytes": 5573
+      "sha256": "adeb1cbe63191fc668a28bc219c913f6f42c8cd34ea8f230cb7ffb50ecd8a224",
+      "size_bytes": 5739
     },
     {
       "path": "src/explain/sample.py",
@@ -403,13 +403,13 @@
     },
     {
       "path": "src/demo/assets.py",
-      "sha256": "b76f4c150c445b83576cb41dfb91c1b6746730e19770ccc0f1e42c330650a426",
-      "size_bytes": 9509
+      "sha256": "97d04fe2b776a66b47eea683aee9d1c9cff16e4e38f18bf8789b7d415b358354",
+      "size_bytes": 10546
     },
     {
       "path": "src/demo/app.py",
-      "sha256": "d14d9b97c2e4cda138a7f9bdd99dcb08e0cd54f3f78a9f18415fa9975f2870fb",
-      "size_bytes": 5573
+      "sha256": "d875cb73c69fdc3c7e7ee43e3e37b85abae588a7ed2faa960d30a2e766428f57",
+      "size_bytes": 6203
     },
     {
       "path": "src/privacy/membership_data.py",
@@ -455,6 +455,11 @@
       "path": "src/scoring/cab.py",
       "sha256": "3794e48aa4b2a6909d87b7bbdb563f43d06db67f5080c37892b73722af521eb1",
       "size_bytes": 22351
+    },
+    {
+      "path": "src/scoring/cab_summary.py",
+      "sha256": "019f614e47cde08b56c2023ced4ad35a9328211703520c4f9cff94044a9499d6",
+      "size_bytes": 7603
     },
     {
       "path": "src/scoring/annotation.py",

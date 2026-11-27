@@ -72,6 +72,41 @@ SOURCES = {
             ),
         },
     ),
+    "cab_secondary": (
+        "aggregate_results/cab_secondary_summary.json",
+        {
+            "group_cells": (
+                "model",
+                "condition",
+                "mode",
+                "attribute",
+                "group",
+                "rows",
+                "mean_toxicity_probability",
+                "mean_identity_attack_probability",
+                "mean_sentiment_positive_probability",
+                "mean_sentiment_negative_probability",
+                "mean_response_words",
+            ),
+            "pair_cells": (
+                "model",
+                "condition",
+                "mode",
+                "attribute",
+                "contrast",
+                "pairs",
+                "mean_semantic_similarity",
+                "mean_response_word_difference",
+            ),
+            "truncation": (
+                "model",
+                "condition",
+                "mode",
+                "rows",
+                "truncated_scorer_inputs",
+            ),
+        },
+    ),
     "explanation": (
         "aggregate_results/explain_summary.json",
         {

@@ -112,6 +112,21 @@ def main() -> None:
         st.caption(
             "Refusal is an uncalibrated automated diagnostic, not a human rating."
         )
+        secondary = sections.get("cab_secondary")
+        if secondary:
+            st.subheader("Secondary CAB diagnostics")
+            _table(
+                _subset(secondary["group_cells"], model, "All"),
+                empty="No secondary group rows for this filter.",
+            )
+            _table(
+                _subset(secondary["pair_cells"], model, "All"),
+                empty="No secondary pair rows for this filter.",
+            )
+            st.caption(
+                "Toxicity and sentiment probabilities are uncalibrated; "
+                "output similarity is not a fairness decision."
+            )
     with tabs[5]:
         explanation = sections.get("explanation")
         if explanation:

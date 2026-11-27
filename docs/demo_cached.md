@@ -11,7 +11,7 @@ make demo ROOT=/mounted/project
 Install the pinned `demo` dependency group once while online. The running app
 reads only `ROOT/demo_assets/bundle.json` and does not load models or call the
 network. The `demo-assets` target first verifies the fairness source hashes. The
-exporter copies allowlisted fields from the fairness, explanation,
+exporter copies allowlisted fields from the fairness, secondary CAB, explanation,
 robustness, and privacy aggregate files and records each source SHA-256. It does
 not copy raw prompts, model outputs, canaries, PII values, or private paths.
 `demo_assets/manifest.json` records the bundle hash and pending sections.

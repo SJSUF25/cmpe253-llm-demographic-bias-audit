@@ -96,6 +96,10 @@ original proposal's PII and controlled-canary experiments under a newly hash-bou
 v4 data gate. Do not pull its newer commit into an interrupted CAB/BBQ run.
 Pinned CAB secondary diagnostics can be run with `make score-cab` after a CAB
 inference cell completes; see `docs/cab_scoring.md`.
+After all eight test scoring manifests exist, run
+`make report-cab-secondary ROOT=/mounted/project` to verify their private outputs
+and write aggregate-only
+diagnostic tables. Classifier scores remain uncalibrated secondary measures.
 After all full CAB/BBQ cells complete, `make score-fairness-descriptive` produces
 hash-verified subgroup and intersectional tables with scenario/template-cluster
 intervals; see `docs/fairness_descriptive.md`. It does not replace the locked

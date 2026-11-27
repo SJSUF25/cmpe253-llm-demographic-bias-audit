@@ -81,6 +81,10 @@ def audit(root: Path) -> Path:
         },
     ]
     optional = {
+        "Secondary CAB diagnostic tables": (
+            "aggregate_results/cab_secondary_summary.json",
+            "descriptive_secondary_uncalibrated",
+        ),
         "Explanation section ablation and answer-order stability": (
             "aggregate_results/explain_summary.json",
             "descriptive_section_ablation_and_order_stability",
