@@ -1,0 +1,233 @@
+{
+  "analysis_plan_sha256": "5c97b5ef071dd33cb2b56ac5f4990cb61d5e9f27f56364e863f00a91670b4afa",
+  "fairness_descriptive_sha256": "91ef16906e01dff46f4dc17dd666431941bb4b7eeccba3a035e3d46c35d97b56",
+  "likelihood_items_checked": 6000,
+  "planned_h1_h2_tests": 36,
+  "schema_version": 1,
+  "source_sha256": {
+    "BBQ-M1-B0": {
+      "manifest_sha256": "4238f5a488c321dc87179ad079853423266fe5d4352fef0a7299b25bda07c03b",
+      "output_sha256": "3f2e4969f584ca0af434d8a24d7899dd7cf12f91af43ec1cd389c7b9b779c15f"
+    },
+    "BBQ-M1-F1": {
+      "manifest_sha256": "afaa12364bf6a1fe7948d890e34ceca86428bd8ea349114a7761ee6dc082b446",
+      "output_sha256": "0c23f9656ae94609adb3f81856f542e27e9f7a2581d6fc4f60630e9838956835"
+    },
+    "BBQ-M2-B0": {
+      "manifest_sha256": "900f7e14261e837341acae57976ae2c8619608d104a894778840926929255631",
+      "output_sha256": "f81b7d45dd32ad12f4acb117516cf026691ec0c5db3bf5fbe3eb27d455053618"
+    },
+    "BBQ-M2-F1": {
+      "manifest_sha256": "cbd1dbdfc155da53a6327e4bcb3a49982310ea7ac5d8aca4bde7e203e78a7826",
+      "output_sha256": "5b88b18bdfef6f49ae24cd66407eeb4efb2c386feeed1008bae44e8370f9203e"
+    }
+  },
+  "status": "partial_h1_h2_bbq_only_no_family_decision",
+  "tests": [
+    {
+      "category": "Gender_identity",
+      "ci95": {
+        "lower": -0.7751937984496113,
+        "upper": 2.4590163934426212,
+        "valid_draws": 10000
+      },
+      "estimate_points": 0.8000000000000004,
+      "family": "H1",
+      "items": 250,
+      "model": "M1",
+      "p_unadjusted": 0.6233376662333766,
+      "permutation_method": "template_cluster_sign_flip",
+      "q_bh18": null,
+      "templates": 50,
+      "test_id": "H1:bbq_ambiguous_bias:M1:Gender_identity"
+    },
+    {
+      "category": "Race_ethnicity",
+      "ci95": {
+        "lower": -4.25531914893617,
+        "upper": 4.048582995951417,
+        "valid_draws": 10000
+      },
+      "estimate_points": 0.0,
+      "family": "H1",
+      "items": 250,
+      "model": "M1",
+      "p_unadjusted": 1.0,
+      "permutation_method": "template_cluster_sign_flip",
+      "q_bh18": null,
+      "templates": 50,
+      "test_id": "H1:bbq_ambiguous_bias:M1:Race_ethnicity"
+    },
+    {
+      "category": "Race_x_gender",
+      "ci95": {
+        "lower": -0.5235602094240833,
+        "upper": 9.090909090909088,
+        "valid_draws": 10000
+      },
+      "estimate_points": 4.0,
+      "family": "H1",
+      "items": 250,
+      "model": "M1",
+      "p_unadjusted": 0.11828817118288171,
+      "permutation_method": "template_cluster_sign_flip",
+      "q_bh18": null,
+      "templates": 42,
+      "test_id": "H1:bbq_ambiguous_bias:M1:Race_x_gender"
+    },
+    {
+      "category": "Gender_identity",
+      "ci95": {
+        "lower": -1.739130434782609,
+        "upper": 6.870229007633586,
+        "valid_draws": 10000
+      },
+      "estimate_points": 2.3999999999999995,
+      "family": "H1",
+      "items": 250,
+      "model": "M2",
+      "p_unadjusted": 0.38936106389361064,
+      "permutation_method": "template_cluster_sign_flip",
+      "q_bh18": null,
+      "templates": 50,
+      "test_id": "H1:bbq_ambiguous_bias:M2:Gender_identity"
+    },
+    {
+      "category": "Race_ethnicity",
+      "ci95": {
+        "lower": -8.0168776371308,
+        "upper": 4.504504504504507,
+        "valid_draws": 10000
+      },
+      "estimate_points": -1.5999999999999996,
+      "family": "H1",
+      "items": 250,
+      "model": "M2",
+      "p_unadjusted": 0.7030296970302969,
+      "permutation_method": "template_cluster_sign_flip",
+      "q_bh18": null,
+      "templates": 50,
+      "test_id": "H1:bbq_ambiguous_bias:M2:Race_ethnicity"
+    },
+    {
+      "category": "Race_x_gender",
+      "ci95": {
+        "lower": -5.128205128205128,
+        "upper": 6.481481481481484,
+        "valid_draws": 10000
+      },
+      "estimate_points": 1.1999999999999993,
+      "family": "H1",
+      "items": 250,
+      "model": "M2",
+      "p_unadjusted": 0.78992100789921,
+      "permutation_method": "template_cluster_sign_flip",
+      "q_bh18": null,
+      "templates": 42,
+      "test_id": "H1:bbq_ambiguous_bias:M2:Race_x_gender"
+    },
+    {
+      "category": "Gender_identity",
+      "ci95": {
+        "lower": -1.6528925619834711,
+        "upper": 0.8474576271186425,
+        "valid_draws": 9996
+      },
+      "estimate_points": -0.40000000000000047,
+      "family": "H2",
+      "items": 250,
+      "model": "M1",
+      "p_unadjusted": 0.8731126887311269,
+      "permutation_method": "paired_template_swap_nonlinear_absolute_bias",
+      "q_bh18": null,
+      "templates": 50,
+      "test_id": "H2:bbq_ambiguous_bias:M1:Gender_identity"
+    },
+    {
+      "category": "Race_ethnicity",
+      "ci95": {
+        "lower": -3.861003861003862,
+        "upper": 2.994011976047908,
+        "valid_draws": 10000
+      },
+      "estimate_points": -1.5999999999999996,
+      "family": "H2",
+      "items": 250,
+      "model": "M1",
+      "p_unadjusted": 0.9012098790120988,
+      "permutation_method": "paired_template_swap_nonlinear_absolute_bias",
+      "q_bh18": null,
+      "templates": 50,
+      "test_id": "H2:bbq_ambiguous_bias:M1:Race_ethnicity"
+    },
+    {
+      "category": "Race_x_gender",
+      "ci95": {
+        "lower": -4.182509505703424,
+        "upper": 7.079646017699118,
+        "valid_draws": 10000
+      },
+      "estimate_points": 3.6000000000000005,
+      "family": "H2",
+      "items": 250,
+      "model": "M1",
+      "p_unadjusted": 0.008399160083991601,
+      "permutation_method": "paired_template_swap_nonlinear_absolute_bias",
+      "q_bh18": null,
+      "templates": 42,
+      "test_id": "H2:bbq_ambiguous_bias:M1:Race_x_gender"
+    },
+    {
+      "category": "Gender_identity",
+      "ci95": {
+        "lower": -2.4793388429752077,
+        "upper": 5.416666666666664,
+        "valid_draws": 9951
+      },
+      "estimate_points": 0.799999999999998,
+      "family": "H2",
+      "items": 250,
+      "model": "M2",
+      "p_unadjusted": 0.42605739426057393,
+      "permutation_method": "paired_template_swap_nonlinear_absolute_bias",
+      "q_bh18": null,
+      "templates": 50,
+      "test_id": "H2:bbq_ambiguous_bias:M2:Gender_identity"
+    },
+    {
+      "category": "Race_ethnicity",
+      "ci95": {
+        "lower": -3.6290322580645165,
+        "upper": 5.5762081784386615,
+        "valid_draws": 10000
+      },
+      "estimate_points": 1.5999999999999996,
+      "family": "H2",
+      "items": 250,
+      "model": "M2",
+      "p_unadjusted": 0.1972802719728027,
+      "permutation_method": "paired_template_swap_nonlinear_absolute_bias",
+      "q_bh18": null,
+      "templates": 50,
+      "test_id": "H2:bbq_ambiguous_bias:M2:Race_ethnicity"
+    },
+    {
+      "category": "Race_x_gender",
+      "ci95": {
+        "lower": -4.166666666666663,
+        "upper": 3.8251366120218595,
+        "valid_draws": 10000
+      },
+      "estimate_points": -1.200000000000001,
+      "family": "H2",
+      "items": 250,
+      "model": "M2",
+      "p_unadjusted": 0.7259274072592741,
+      "permutation_method": "paired_template_swap_nonlinear_absolute_bias",
+      "q_bh18": null,
+      "templates": 42,
+      "test_id": "H2:bbq_ambiguous_bias:M2:Race_x_gender"
+    }
+  ],
+  "tests_computed": 12
+}

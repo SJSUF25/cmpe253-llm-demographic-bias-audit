@@ -4,8 +4,10 @@ This note records the E6 results supplied from the completed Colab run on
 2026-11-27. It is a bounded interpretation, not the final privacy handoff.
 Source artifacts are in the shared project Drive. The H5 artifact binds all six
 `PII-M1/M2-P0/P1/P2` source-output hashes and the exposure-summary hash. The
-canary and adapter-utility figures below were supplied as aggregate output;
-their Drive files and receipt hashes still need an independent audit.
+canary and adapter-utility figures below were reconciled against the Drive
+receipts and row-level scores. The reproducible source audit is
+`make audit-privacy-receipts ROOT=/mounted/project`; its 46-file SHA-256 inventory
+is saved in `results/manifests/e6_receipt_audit.json`.
 
 | Model | Control | P0 exposed | Control exposed | Exposure reduction | Utility delta | One-sided lower 95% | Joint H5 |
 |---|---|---:|---:|---:|---:|---:|---|
@@ -53,6 +55,13 @@ task-specific result does not establish general assistant quality. The largest
 accuracy gains are for addition (0% to 98%) and JSON-field extraction (0% to
 100%); copy-code was already high (94% to 100%). The same training that improves
 these tasks also creates severe controlled membership and extraction risk.
+
+The receipt audit regenerated the sealed 200-record PII test corpus, checked
+all six output and two filter hashes, and recomputed all 30 task-level exact,
+normalized, and entity-type exposure counts. It also recomputed both 1,300-row
+canary attack summaries with their frozen 10,000 bootstrap draws, and the
+400-row ordinary-task utility totals in each mode. The audit did not rerun the
+models or independently verify the adapter weight bytes.
 
 The result supports a narrow claim: these controls prevented the measured
 known-value exposure on this synthetic corpus, with a measured content-similarity

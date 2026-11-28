@@ -118,6 +118,23 @@ are documented in `docs/robustness_subset.md`; GPU execution is in
 `notebooks/e7_robustness_colab.ipynb`.
 The H5 privacy decision, blinded review packet, and adapter utility commands are
 documented in `docs/privacy_h5.md`.
+
+The completed E6 outputs can be checked without a GPU. The first command
+regenerates the sealed synthetic input hashes and recomputes canary, adapter
+utility, and PII exposure totals from the saved row scores. The second computes
+the 12 BBQ portions of the frozen H1/H2 test inventory. Its p values are
+unadjusted until the corresponding CAB ratings complete each 18-test family.
+
+```bash
+make audit-privacy-receipts ROOT="$AUDIT_SHARED_ROOT"
+make analyze-bbq-partial ROOT="$AUDIT_SHARED_ROOT"
+```
+
+The audit outputs are `results/manifests/e6_receipt_audit.json` and
+`results/manifests/bbq_partial_h1_h2.json`. Their scope and interpretation are
+recorded in `docs/interim_privacy_evidence.md` and
+`docs/interim_results_review.md`. A concise claim-to-evidence summary and
+remaining review steps are in `docs/review_handoff.md`.
 Run `make audit-evidence ROOT=/mounted/project` to check the fairness aggregate
 against all 12 full-run source manifests and list measured versus pending claims.
 For the offline presentation, `make demo-assets ROOT=/mounted/project` checks that

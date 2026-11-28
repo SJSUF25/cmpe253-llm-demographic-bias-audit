@@ -1,0 +1,72 @@
+{
+  "canary_auc": {
+    "adapter": {
+      "min_k20": 1.0,
+      "negative_loss": 1.0
+    },
+    "base": {
+      "min_k20": 0.4789733333333333,
+      "negative_loss": 0.46930666666666665
+    }
+  },
+  "ordinary_exact_accuracy": {
+    "adapter": 0.9225,
+    "base": 0.2425
+  },
+  "schema_version": 1,
+  "source_count": 46,
+  "source_sha256": {
+    "aggregate_results/adapter_utility_adapter.json": "8984fc5cf1bc4bbaba06dc6c633acdbe80170b88db1021af595778f7c257d3d5",
+    "aggregate_results/adapter_utility_base.json": "9bf16877b1a0a4e8697f1285d330f12d126877a5427f79cc41549c5a8371869d",
+    "aggregate_results/adapter_utility_comparison.json": "fa66a8a3678ca8e3896686a371bdb07742b867feee85ee9dd3a5dcd79a12db13",
+    "aggregate_results/canary_attack_adapter.json": "db32bdbca3a420dede2b4dacf8048432467daf3d5e0c7c99e134a6d96c9f55f7",
+    "aggregate_results/canary_attack_base.json": "4341af6a88d894d1f5f1c9f101e21b6bb08c38a50c623082d9bc9e30f657e0a6",
+    "aggregate_results/privacy_exposure_summary.json": "4135d9f408024d28f37ddef2696839438ba8f05d9636b52b6aaecd375923d2ef",
+    "aggregate_results/privacy_h5.json": "a4dc42a37a8757b6328bd6fd4f9c0a09aa593f9ec3b8169e83f8cc2c3af00187",
+    "manifests/canary_attack/adapter.json": "89f429bc484a8df00fa641a8153f004dfd938e4926566f9e0b1c5804f01eafe2",
+    "manifests/canary_attack/base.json": "81dea232e931261732f7d5fd11e799f400aa0c7e2bdb76d127c4757406859b43",
+    "manifests/canary_training/epoch_1.json": "ae0b50a138a5b60eb6fe1012dbe338ed42ea478acbf9034b9b2c3ea9f6a09041",
+    "manifests/canary_training/epoch_2.json": "fdabdfae06483912ca31985c97f74a3d8fb158ba768985ac01b1f850381913cc",
+    "manifests/canary_training/epoch_3.json": "ff5091f23e7f96feee4cf6047e41e613a3c19b7f8c31f158f5ccda067390552b",
+    "manifests/canary_training/plan.json": "4c8aa5ac9eaa2cda3d0be10f3b2f5c91fa2a91b98156a871fa28a0d9a67fdec7",
+    "manifests/inference/PII-M1-P0.json": "b3bf7babb4fe50817ce3e848ae046190a8e4afd02d3a2be69915e59578f0f4cd",
+    "manifests/inference/PII-M1-P1.json": "07e8a7ed49436323659831126cdbe6c9e3b966e90630a9c44a6dcb789fa1e24f",
+    "manifests/inference/PII-M1-P2.json": "ddd53d17ccd6ad37f04d9703944389a7c9f52384b66690d32e1f0fb7a93da328",
+    "manifests/inference/PII-M2-P0.json": "37584f3a25bd7fb32f86284112660fe6fdbc58b9e88b5f83380d4a704365d823",
+    "manifests/inference/PII-M2-P1.json": "e02ea41455a968ad7ec2147c5a993ff519e6d3c5964de4bd7b2aa8e38ee67e41",
+    "manifests/inference/PII-M2-P2.json": "86b7eeeee88395ec5228c8279a049e5df52d74b4de39e3ec6ba53fae64dcc3c8",
+    "manifests/membership_data_manifest.json": "69d00aa4a9518fbb75fc1df3f0de4bd2ed6d2cf5f1af99e8b7e7b431e3fe2e28",
+    "manifests/privacy/PII-M1-P0_input.json": "2fbb3200a44550d0ba034d0cbdf489f0e091c7ab5cce018ec27e6d5fb992b0ec",
+    "manifests/privacy/PII-M1-P1_input.json": "91d0f393b01828f9b7bbe51d9699af003bb4d2703057abadf9268d4ad38362b9",
+    "manifests/privacy/PII-M1-P2_filter.json": "68a74def47f85054f259284f3e7213770617d802383fe3b037f717c8074cb692",
+    "manifests/privacy/PII-M1-P2_input.json": "e7cec10808e5b7aece9b7717370c2dfef103b9126022fa536972bcd8316948c8",
+    "manifests/privacy/PII-M2-P0_input.json": "cc84be095380f34e545e9379ec09aad00b84b7328dae1a5573904ca96966f63b",
+    "manifests/privacy/PII-M2-P1_input.json": "53e4d647df3e49b93cfc8526eb0c5016127a6d841fc1b2a9b2299c17c37f6eb5",
+    "manifests/privacy/PII-M2-P2_filter.json": "db666b7f7fd600c125000a0365fa0ad842b185f926b6f906fbfd42259af1019e",
+    "manifests/privacy/PII-M2-P2_input.json": "0a9d0258f472922f696cf125267f3db25a8b6f9eca4c4eca32f57d4c0a1900dc",
+    "manifests/synthetic_pii_manifest.json": "6177a966b3c634dedcf9905019e32b4d20a421c677d848fc4c4416b1b023bce2",
+    "private_outputs/adapter_utility/adapter.jsonl": "96307c09ece20e08e63110041c59efc6562ef34d51caed243235fe4684c03197",
+    "private_outputs/adapter_utility/base.jsonl": "022ee63b23f367c949df8f39b6f73c5e87c05730f8c1353205b694d2e78131f1",
+    "private_outputs/canary_attack/adapter.jsonl": "515551af4a84429c4be6cd26cf75f5699ef10bb633a312a6d65332fc93eabc2e",
+    "private_outputs/canary_attack/base.jsonl": "02a2eaf19ed928dd65ac11f0da5fb1c71b361e4ae04eba39c1fffac6feb819b4",
+    "private_outputs/membership/member_canaries.jsonl": "8be3dc2de31c8ad048152ee5baadc73818ee5e8d0131458ffa5a7fe9aa1c9b53",
+    "private_outputs/membership/nonmember_calibration.jsonl": "7a0e913d77d3284e7149db4bd0624737062a4cbac46191d7369420cda39ba685",
+    "private_outputs/membership/nonmember_evaluation.jsonl": "2a372720642c98556e56633121ba578cfeac517d661395e3d4702c2668705b27",
+    "private_outputs/membership/ordinary_validation.jsonl": "0f0770bf5ff882188decfea272a8d5efc93671934c6d0514a687a40debbaf9a0",
+    "private_outputs/pii_m1_p0.jsonl": "45f969e07f926f90daa8c7e952e9f3853ed396202a8edf2cb8ebd5a7ec9a2b57",
+    "private_outputs/pii_m1_p1.jsonl": "7691bc94e86d126713c36a196f5d03e4c40c9c23fffa1e8ada8fbd23f9380cc5",
+    "private_outputs/pii_m1_p2.jsonl": "812aef1c6b1d0ba25ea70d19d361f6e15a9e9f296c7786c162a1ca91f3d50e59",
+    "private_outputs/pii_m1_p2_filtered.jsonl": "a6d075f967cb878982e0a9a987bf77868e325448f97b50a566784bd796dc15e4",
+    "private_outputs/pii_m2_p0.jsonl": "579bfed8ed8a99c67fffc09ea0deb38b8ce962c6ca0a6023f191fac62f48a3ad",
+    "private_outputs/pii_m2_p1.jsonl": "3219c034fb30ebe968c5e32bc39d56c777670fb6149d1b9cee821d013e8d6bc1",
+    "private_outputs/pii_m2_p2.jsonl": "fdb0ee7655da8855a651d2906a4aa81d058051cd878c39fbe21d9761cb7060af",
+    "private_outputs/pii_m2_p2_filtered.jsonl": "057155d12405f509efca5018c014ded08307a2f4791d4cd2c8f5a9a182ed1258",
+    "private_outputs/synthetic_pii/test.jsonl": "3aec3ecb8e3efdd9a00dea71be7bfcebc161e13c0fa3f5481ec0fb3d4ce52377"
+  },
+  "status": "verified_source_hashes_and_recomputed_canary_utility_pii_exposure",
+  "training_epoch_mean_losses": [
+    2.10378236451294,
+    0.38043516982925896,
+    0.10791272533529252
+  ]
+}

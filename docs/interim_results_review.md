@@ -15,12 +15,25 @@ remain findings.
 | `explain_summary.json` | 4 explanation manifests | 240 model-condition-item rows, 60 feature cells, 36 order-stability cells |
 | `robustness_refusal.json` | 8 robustness receipts | 32 automated-refusal cells for whitespace and adversarial variants |
 | `privacy_exposure_summary.json` / `privacy_h5.json` | 6 PII source-output hashes | 1,200 generations; 4 frozen H5 exposure/utility comparisons |
-| `canary_attack_base.json` / `canary_attack_adapter.json` | Aggregate output supplied from the completed Colab notebook; receipt hashes not independently rechecked here | 2 modes × 1,300 synthetic records, with held-out attack metrics |
-| `adapter_utility_comparison.json` | Aggregate output supplied from the completed Colab notebook; source hashes not independently rechecked here | 400 held-out ordinary task records |
+| `canary_attack_base.json` / `canary_attack_adapter.json` | Both source-output SHA-256 links and complete 1,300-row summaries independently recomputed in the E6 receipt audit | 2 modes × 1,300 synthetic records, with held-out attack metrics |
+| `adapter_utility_comparison.json` | Both 400-row source hashes and task-level totals independently recomputed in the E6 receipt audit | 400 held-out ordinary task records |
 
 These inventory and hash fields show that the aggregate builders consumed the
 intended files. They do not independently certify model behavior or human label
 quality. The full-run BBQ likelihood spot check remains an independent review item.
+The E6 receipt audit verified 46 files and recomputed the 30 task-level synthetic
+PII exposure cells. Its hash inventory is in
+`results/manifests/e6_receipt_audit.json`.
+
+The 12 available planned H1/H2 BBQ tests were computed with 10,000 seeded
+template-cluster permutations. Their result is in
+`results/manifests/bbq_partial_h1_h2.json`. These are unadjusted partial
+statistics: the frozen H1 and H2 families each contain 18 tests, so their
+Benjamini–Hochberg corrections and decisions await the CAB ratings. One H2
+comparison, M1 `Race_x_gender`, has an unadjusted one-sided permutation
+`p = 0.0084`; its separate cluster-bootstrap 95% interval includes zero.
+That mixed uncertainty and the missing family correction preclude a success
+claim for this comparison.
 
 ## Findings against the original expectations
 
@@ -32,7 +45,7 @@ quality. The full-run BBQ likelihood spot check remains an independent review it
 | Explanation | Answer-order feature-rank Spearman means range from 0.695 to 0.970 across 36 cells. Exact identity-marker effects are missing for 148/240 rows, including all 80 race-by-gender rows. | Section ablation and cyclic-order stability are measured, but the identity-marker claim is unsupported for the missing rows. The exact-text matcher does not find the target-group label in those prompts. Token faithfulness and paraphrase stability remain open. |
 | Robustness | Among 32 cells, 7 adversarial refusal-gap point changes are nonzero; none of their 95% intervals excludes zero. All whitespace gap changes are zero. | This is only an uncalibrated anchored-refusal diagnostic. It cannot establish adversarial safety or harmful-compliance rates. Human labels, paraphrase, position, and stochastic tests remain open. |
 | Synthetic PII | P1/P2 reduce measured normalized known-value exposure to 0/200 per model. All four corrected exposure tests pass. All four joint H5 cells fail: utility lower bounds range from -0.0933 to -0.1029, below the -0.05 margin. | The controls block these known fictional values but do not meet the prespecified content-preservation rule. The redaction detector's 1.0 precision/recall is against exact known synthetic fields, not unfamiliar real PII. Human helpfulness remains open; the separate adapter utility result is reported below. See `docs/interim_privacy_evidence.md`. |
-| Controlled memorization | All three training receipts exist for the pinned Phi adapter, each with 3,200 presentations and 200 optimizer steps. Mean microbatch loss fell from 2.104 to 0.380 to 0.108. Base loss and Min-K membership AUCs were 0.469 and 0.479; both adapter AUCs were 1.000 on 300 members and 500 held-out non-members. Adapter exact extraction was 2%, 99%, and 100% after one, five, and ten presentations; base extraction was 0% in all strata. | This is a strong controlled memorization finding. The bootstrap [1.0, 1.0] AUC intervals describe this fixed synthetic sample, not an assurance of perfect detection on new data. The threshold was calibrated on a separate 500 non-members; held-out adapter FPRs were 0.4% (loss) and 0.8% (Min-K). Audit Drive receipt hashes before final signoff. |
+| Controlled memorization | All three training receipts exist for the pinned Phi adapter, each with 3,200 presentations and 200 optimizer steps. Mean microbatch loss fell from 2.104 to 0.380 to 0.108. Base loss and Min-K membership AUCs were 0.469 and 0.479; both adapter AUCs were 1.000 on 300 members and 500 held-out non-members. Adapter exact extraction was 2%, 99%, and 100% after one, five, and ten presentations; base extraction was 0% in all strata. | This is a strong controlled memorization finding. The bootstrap [1.0, 1.0] AUC intervals describe this fixed synthetic sample, not an assurance of perfect detection on new data. The threshold was calibrated on a separate 500 non-members; held-out adapter FPRs were 0.4% (loss) and 0.8% (Min-K). Source hashes and aggregate scores were checked in the E6 receipt audit. |
 | Adapter ordinary-task utility | On 400 held-out synthetic ordinary records, exact accuracy increased from 24.25% to 92.25% and mean target loss fell from 2.394 to 0.073. | The adapter improves the four measured task formats while substantially increasing canary leakage. This does not establish general-purpose assistant utility. |
 
 ### Where the fairness-instruction accuracy loss occurs
@@ -72,7 +85,9 @@ method lacks most exact identity-marker effects. Report those failures directly;
 do not retune the frozen prompts, thresholds, or sample after seeing test results
 and then present the new version as confirmatory.
 
-The most valuable remaining work is to audit the E6 Drive receipts, review the
-human-facing examples and labels, compute the planned fairness tests, and prepare
-bounded demo language. This note is an interim interpretation and should be
-refreshed from final artifacts before submission.
+The remaining evidence work is the blinded CAB and helpfulness ratings,
+calibration of the refusal rule, remaining H1/H2 tests, and bounded presentation
+examples. The cached demo fallback was checked locally against its SHA-256
+manifest and loaded in 0.003 seconds; all nine aggregate sections were present.
+This note remains an interim interpretation until the remaining evidence is
+completed and signed off.

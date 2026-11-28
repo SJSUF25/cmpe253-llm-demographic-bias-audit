@@ -7,7 +7,7 @@ export UV_CACHE_DIR
 export PYTHONPATH
 PROJECT_CLI := $(UV) run --frozen python -m project_cli
 
-.PHONY: help check-uv setup setup-colab capture-environment smoke-model governance-lock storage-init storage-verify sync-upstream build-synthetic-pii build-membership run-cab score-cab report-cab-secondary annotation-packet annotation-review annotation-freeze analysis-plan-check run-pii score-pii score-h5 privacy-audit-packet score-helpfulness score-adapter-utility compare-adapter-utility train-canary attack-canary token-length-check cab-quality-check ai-review-gate privacy-controls-smoke freeze-explain-sample run-explain report-explain freeze-robustness-sample build-robustness-perturbations run-robustness report-robustness demo-assets audit-evidence \
+.PHONY: help check-uv setup setup-colab capture-environment smoke-model governance-lock storage-init storage-verify sync-upstream build-synthetic-pii build-membership run-cab score-cab report-cab-secondary annotation-packet annotation-review annotation-freeze analysis-plan-check run-pii score-pii score-h5 privacy-audit-packet score-helpfulness score-adapter-utility compare-adapter-utility train-canary attack-canary token-length-check cab-quality-check ai-review-gate privacy-controls-smoke freeze-explain-sample run-explain report-explain freeze-robustness-sample build-robustness-perturbations run-robustness report-robustness demo-assets audit-evidence audit-privacy-receipts analyze-bbq-partial \
 	download-data build-data build-bbq validate-data pilot run-bbq report-bbq score-fairness-descriptive \
 	infer-baseline infer-mitigation score annotate-export analyze explain \
 	privacy test lint demo reproduce-small
@@ -123,6 +123,14 @@ score-fairness-descriptive: ## Verify and summarize full CAB/BBQ runs with clust
 audit-evidence: ## Verify source hashes and list measured versus pending claims
 	@test -n "$(ROOT)" || { echo "Usage: make audit-evidence ROOT=/path"; exit 2; }
 	$(UV) run --frozen python -m analysis.evidence --root "$(ROOT)"
+
+audit-privacy-receipts: ## Recheck E6 source hashes and recompute canary, utility, and PII exposure results
+	@test -n "$(ROOT)" || { echo "Usage: make audit-privacy-receipts ROOT=/path"; exit 2; }
+	$(UV) run --frozen python -m analysis.receipt_audit --root "$(ROOT)" --output results/manifests/e6_receipt_audit.json
+
+analyze-bbq-partial: ## Compute the 12 available H1/H2 BBQ tests without a family decision
+	@test -n "$(ROOT)" || { echo "Usage: make analyze-bbq-partial ROOT=/path"; exit 2; }
+	$(UV) run --frozen python -m analysis.bbq_partial --root "$(ROOT)" --output results/manifests/bbq_partial_h1_h2.json
 
 freeze-explain-sample: ## Freeze 60 balanced BBQ source items before attribution
 	@test -n "$(ROOT)" || { echo "Usage: make freeze-explain-sample ROOT=/path"; exit 2; }
