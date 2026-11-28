@@ -164,6 +164,36 @@ def main() -> None:
                 _table(utility["cells"], empty="No privacy utility results.")
         else:
             st.info("Synthetic PII evaluation has not completed.")
+        if model in ("All", "M2"):
+            base = sections.get("canary_base")
+            adapter = sections.get("canary_adapter")
+            if base and adapter:
+                st.subheader("Controlled Phi canary memorization")
+                _table(
+                    [
+                        {"mode": result["mode"], **row}
+                        for result in (base, adapter)
+                        for row in result["scores"]
+                    ],
+                    empty="No membership attack summary.",
+                )
+                _table(
+                    [
+                        {"mode": result["mode"], **row}
+                        for result in (base, adapter)
+                        for row in result["extraction"]
+                    ],
+                    empty="No canary extraction summary.",
+                )
+                st.caption(
+                    "Calibration used separate non-members; FPR is held out. "
+                    "These synthetic canaries do not estimate real-world leakage."
+                )
+            ordinary = sections.get("adapter_utility")
+            if ordinary:
+                st.subheader("Ordinary-task utility before and after the adapter")
+                _table(ordinary["cells"], empty="No ordinary-task utility summary.")
+                st.caption("Four synthetic task formats; not a general utility test.")
 
 
 if __name__ == "__main__":

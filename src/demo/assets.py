@@ -184,6 +184,9 @@ SOURCES = {
             ),
         },
     ),
+    "canary_base": ("aggregate_results/canary_attack_base.json", {}),
+    "canary_adapter": ("aggregate_results/canary_attack_adapter.json", {}),
+    "adapter_utility": ("aggregate_results/adapter_utility_comparison.json", {}),
 }
 MIXED_REQUIRED = {
     ("fairness", "bbq_cells"): (
@@ -248,6 +251,81 @@ def _project_rows(
     return projected
 
 
+def _canary_summary(artifact: dict, mode: str) -> dict:
+    if artifact.get("mode") != mode:
+        raise DemoAssetError(f"Canary attack mode differs: {mode}")
+    scores = artifact.get("score_attacks")
+    extraction = artifact.get("member_extraction_by_repetition")
+    if not isinstance(scores, dict) or set(scores) != {"negative_loss", "min_k20"}:
+        raise DemoAssetError("Canary score inventory differs")
+    if not isinstance(extraction, dict) or set(extraction) != {"1", "5", "10"}:
+        raise DemoAssetError("Canary repetition inventory differs")
+    score_rows = []
+    for name in ("negative_loss", "min_k20"):
+        score = scores[name]
+        if score.get("calibration_false_positives", 501) > 5:
+            raise DemoAssetError("Canary calibration exceeds the fixed bound")
+        score_rows.append(
+            {
+                "score": name,
+                **_project_rows(
+                    [score],
+                    (
+                        "auc",
+                        "tpr_at_calibrated_1pct_fpr",
+                        "evaluation_fpr",
+                        "calibration_false_positives",
+                    ),
+                )[0],
+                "auc_ci95": _safe_value(score["ci95"]["auc"]),
+                "tpr_ci95": _safe_value(score["ci95"]["tpr"]),
+                "fpr_ci95": _safe_value(score["ci95"]["fpr"]),
+            }
+        )
+    extraction_rows = [
+        {
+            "presentations": int(repetition),
+            **_project_rows([extraction[repetition]], ("records", "exact_rate"))[0],
+            "exact_rate_ci95": _safe_value(extraction[repetition]["ci95"]),
+        }
+        for repetition in ("1", "5", "10")
+    ]
+    if any(row["records"] != 100 for row in extraction_rows):
+        raise DemoAssetError("Canary repetition sample size differs")
+    return {"mode": mode, "scores": score_rows, "extraction": extraction_rows}
+
+
+def _adapter_utility_summary(artifact: dict) -> dict:
+    overall = artifact.get("overall")
+    tasks = artifact.get("tasks")
+    if not isinstance(overall, dict) or overall.get("records") != 400:
+        raise DemoAssetError("Adapter utility inventory differs")
+    if not isinstance(tasks, dict) or set(tasks) != {
+        "addition",
+        "copy_code",
+        "json_field",
+        "uppercase",
+    }:
+        raise DemoAssetError("Adapter utility task inventory differs")
+    fields = (
+        "records",
+        "base_exact_accuracy",
+        "adapter_exact_accuracy",
+        "adapter_minus_base_exact_accuracy",
+        "base_mean_target_loss",
+        "adapter_mean_target_loss",
+        "adapter_minus_base_target_loss",
+    )
+    rows = [{"task": "overall", **_project_rows([overall], fields)[0]}]
+    rows.extend(
+        {"task": task, **_project_rows([tasks[task]], fields)[0]}
+        for task in sorted(tasks)
+    )
+    if any(row["records"] != 100 for row in rows[1:]):
+        raise DemoAssetError("Adapter utility task sample size differs")
+    return {"cells": rows}
+
+
 def build_bundle(root: Path) -> Path:
     """Read only aggregate JSON, copy named metrics, and exclude every raw output."""
     root = root.expanduser().resolve()
@@ -265,7 +343,13 @@ def build_bundle(root: Path) -> Path:
         artifact = json.loads(raw)
         if artifact.get("schema_version") != 1:
             raise DemoAssetError(f"Unsupported aggregate schema: {section}")
-        if section == "privacy_utility":
+        if section in ("canary_base", "canary_adapter"):
+            sections[section] = _canary_summary(
+                artifact, section.removeprefix("canary_")
+            )
+        elif section == "adapter_utility":
+            sections[section] = _adapter_utility_summary(artifact)
+        elif section == "privacy_utility":
             cells = artifact.get("cells")
             expected = {
                 f"{model}:{condition}"
