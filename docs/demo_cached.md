@@ -25,3 +25,12 @@ mitigation view distinguishes BBQ accuracy from the joint utility decision.
 The bundle is a presentation artifact. The signed aggregate files in Drive
 remain the evidence source. Rebuild the bundle when a new aggregate section is
 completed; do not hand-edit its JSON.
+
+For the optional live segment, use `notebooks/e8_live_demo_colab.ipynb` on L4.
+Prepare the verified cached summary before loading Qwen. The notebook selects a
+frozen, AI-reviewed CAB development pair, verifies that only the gender marker
+changes, and applies the same pinned baseline and fairness configurations as the
+study. Generated text is private and must be inspected before presentation. A
+live answer illustrates the method; the aggregate dashboard carries the results.
+If model loading or inference fails, interrupt the live cell and show the cached
+cell immediately. This is the operator's fallback path and needs no restart.

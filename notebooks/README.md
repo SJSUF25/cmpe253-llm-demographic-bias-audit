@@ -52,3 +52,11 @@ and ordinary-task adapter utility. Run it after the full CAB/BBQ notebook finish
 and the matching code is committed. It renews the v4 data gate without overwriting
 the v3 receipt used by the earlier full run. Reusable methods live under `src/privacy/`.
 
+`e8_live_demo_colab.ipynb` is an optional presentation notebook. Run its setup,
+cached fallback, and frozen development-pair cells first. The last cell loads only
+the pinned FP16 Qwen model on L4 and displays four greedy responses for one
+female/male identity pair under baseline and fairness instructions. It does not
+save generated text. Inspect the outputs privately before screen sharing. If the
+GPU step fails, interrupt it and rerun the already prepared cached fallback cell.
+The cached results are the measured study evidence; the live pair is illustrative.
+
