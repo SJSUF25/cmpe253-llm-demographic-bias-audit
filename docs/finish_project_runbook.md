@@ -45,12 +45,32 @@ for RUN_ID in CAB-EXP-M1-B0 CAB-EXP-M1-F1 CAB-EXP-M2-B0 CAB-EXP-M2-F1; do
 done
 ```
 
+After the four development inference manifests exist, the four CAB secondary
+diagnostic scores can run without human input. The pinned classifier and MPNet
+scorers execute on CPU, even in an L4 runtime; they are useful for later
+development-only refusal calibration but do not replace human ratings. If a
+session ends, completed manifests are skipped by this shell loop:
+
+```bash
+ROOT=/content/drive/MyDrive/CMPE253-Project
+for RUN_ID in CAB-EXP-M1-B0 CAB-EXP-M1-F1 CAB-EXP-M2-B0 CAB-EXP-M2-F1; do
+  test -f "$ROOT/manifests/scoring/${RUN_ID}-DEV.json" && continue
+  make score-cab ROOT="$ROOT" RUN_ID="$RUN_ID" SPLIT=development || break
+done
+```
+
 Only after all four runs finish, build and review the development packet:
 
 ```bash
 set -e
 make annotation-packet ROOT=/content/drive/MyDrive/CMPE253-Project SPLIT=development ANNOTATOR=vineet
 make annotation-review PACKET=/content/drive/MyDrive/CMPE253-Project/private_outputs/annotation/vineet/development/packet.json
+```
+
+If you stop early, rerun `make annotation-review` to resume. Only after all 320
+development cards are rated, run:
+
+```bash
 make annotation-freeze PACKET=/content/drive/MyDrive/CMPE253-Project/private_outputs/annotation/vineet/development/packet.json
 ```
 
@@ -60,6 +80,11 @@ packet. Then run:
 ```bash
 make annotation-packet ROOT=/content/drive/MyDrive/CMPE253-Project SPLIT=test ANNOTATOR=vineet
 make annotation-review PACKET=/content/drive/MyDrive/CMPE253-Project/private_outputs/annotation/vineet/test/packet.json
+```
+
+Only after all 768 test cards are rated, run:
+
+```bash
 make annotation-freeze PACKET=/content/drive/MyDrive/CMPE253-Project/private_outputs/annotation/vineet/test/packet.json
 ```
 
@@ -97,19 +122,54 @@ do not change those prespecified decisions.
 
 ## 4. Finish analysis and independent validation
 
-After the CAB export, use the frozen labels to compute the remaining 24 CAB
-H1/H2 tests, correct each full 18-test family with Benjamini–Hochberg, compute
-H3 helpfulness bounds, and produce subgroup and intersectional summaries. No
-production command for this full analysis exists yet; Codex must implement and
-verify it before it can be run. Do not treat the current 12 BBQ p values as a
-complete corrected family.
+After the CAB test export, run the complete first-pass H1/H2 and H3 analysis:
+
+```bash
+make analyze-fairness ROOT=/content/drive/MyDrive/CMPE253-Project PACKET=/content/drive/MyDrive/CMPE253-Project/private_outputs/annotation/vineet/test/packet.json
+```
+
+This command verifies the frozen CAB ratings and original CAB/BBQ sources,
+computes the 24 CAB H1/H2 tests and two CAB helpfulness components, recomputes
+the 12 BBQ H1/H2 tests, applies BH correction separately to the complete
+18-test H1 and H2 families, and evaluates the per-model fairness-plus-utility
+gate. It writes only aggregate results to
+`aggregate_results/fairness_confirmatory.json`. Do not run it before the test
+ratings are frozen. Subgroup, abstention sensitivity, and delayed repeat
+analyses remain separate; the 12 BBQ tests alone cannot receive a full-family
+decision.
 
 The current E5 explanation run covers section ablation and answer-order
 stability. Token-deletion faithfulness and paraphrase stability remain unmeasured.
 The current E7 run covers whitespace and a fixed adversarial suffix; validated
 paraphrases, identity-clause position, three sampling seeds, and blinded
-harmful-compliance labels remain unmeasured. Each omitted condition must either
-be run or listed as a limitation. Do not describe a missing condition as passed.
+harmful-compliance labels remain unmeasured. A three-seed exploratory runner is
+now prepared for the frozen 60-family subset. After committing and pushing its
+code, on the same L4 class used for baseline runs, run the following in a Colab
+terminal with Drive mounted. Each 180-prompt cell checkpoints every 20 prompts;
+rerunning a cell on the same commit resumes verified work.
+
+```bash
+set -e
+cd /content/cmpe253-llm-demographic-bias-audit
+git pull --ff-only
+ROOT=/content/drive/MyDrive/CMPE253-Project
+for MODEL in M1 M2; do
+  for CONDITION in B0 F1; do
+    for SEED in 17 42 2026; do
+      make run-stochastic ROOT="$ROOT" RUN_ID="ROB-SEED${SEED}-${MODEL}-${CONDITION}"
+    done
+  done
+done
+make report-stochastic ROOT="$ROOT"
+```
+
+The report writes `aggregate_results/robustness_stochastic.json`, with
+seed-specific anchored-refusal disagreements and exact response agreement
+against greedy output. It is exploratory: it uses an uncalibrated refusal proxy
+and repeated generations of the same families, not independent observations.
+It does not replace validated paraphrases, position changes, or blinded harmful
+compliance labels. Each omitted condition must either be run or listed as a
+limitation. Do not describe a missing condition as passed.
 
 ## 5. Prepare delivery
 

@@ -7,7 +7,7 @@ export UV_CACHE_DIR
 export PYTHONPATH
 PROJECT_CLI := $(UV) run --frozen python -m project_cli
 
-.PHONY: help check-uv setup setup-colab capture-environment smoke-model governance-lock storage-init storage-verify sync-upstream build-synthetic-pii build-membership run-cab score-cab report-cab-secondary annotation-packet annotation-review annotation-freeze analysis-plan-check run-pii score-pii score-h5 privacy-audit-packet review-helpfulness score-helpfulness score-adapter-utility compare-adapter-utility train-canary attack-canary token-length-check cab-quality-check ai-review-gate privacy-controls-smoke freeze-explain-sample run-explain report-explain freeze-robustness-sample build-robustness-perturbations run-robustness report-robustness demo-assets audit-evidence audit-privacy-receipts analyze-bbq-partial \
+.PHONY: help check-uv setup setup-colab capture-environment smoke-model governance-lock storage-init storage-verify sync-upstream build-synthetic-pii build-membership run-cab score-cab report-cab-secondary annotation-packet annotation-review annotation-freeze analysis-plan-check run-pii score-pii score-h5 privacy-audit-packet review-helpfulness score-helpfulness score-adapter-utility compare-adapter-utility train-canary attack-canary token-length-check cab-quality-check ai-review-gate privacy-controls-smoke freeze-explain-sample run-explain report-explain freeze-robustness-sample build-robustness-perturbations run-robustness report-robustness run-stochastic report-stochastic demo-assets audit-evidence audit-privacy-receipts analyze-bbq-partial analyze-fairness \
 	download-data build-data build-bbq validate-data pilot run-bbq report-bbq score-fairness-descriptive \
 	infer-baseline infer-mitigation score annotate-export analyze explain \
 	privacy test lint demo reproduce-small
@@ -132,6 +132,10 @@ analyze-bbq-partial: ## Compute the 12 available H1/H2 BBQ tests without a famil
 	@test -n "$(ROOT)" || { echo "Usage: make analyze-bbq-partial ROOT=/path"; exit 2; }
 	$(UV) run --frozen python -m analysis.bbq_partial --root "$(ROOT)" --output results/manifests/bbq_partial_h1_h2.json
 
+analyze-fairness: ## Join frozen CAB ratings with BBQ and evaluate complete H1/H2/H3 gates
+	@test -n "$(ROOT)" && test -n "$(PACKET)" || { echo "Usage: make analyze-fairness ROOT=/path PACKET=/path/to/test/packet.json"; exit 2; }
+	$(UV) run --frozen python -m analysis.full_fairness --root "$(ROOT)" --packet "$(PACKET)"
+
 freeze-explain-sample: ## Freeze 60 balanced BBQ source items before attribution
 	@test -n "$(ROOT)" || { echo "Usage: make freeze-explain-sample ROOT=/path"; exit 2; }
 	$(UV) run --frozen python -m explain.sample --root "$(ROOT)"
@@ -151,6 +155,14 @@ run-robustness: ## Run one 180-prompt robustness GPU cell
 report-robustness: ## Summarize eight completed robustness GPU cells
 	@test -n "$(ROOT)" || { echo "Usage: make report-robustness ROOT=/path"; exit 2; }
 	$(UV) run --frozen python -m robustness.report --root "$(ROOT)"
+
+run-stochastic: ## Run one frozen three-seed robustness GPU cell (ROOT and RUN_ID required)
+	@test -n "$(ROOT)" && test -n "$(RUN_ID)" || { echo "Usage: make run-stochastic ROOT=/path RUN_ID=ROB-SEED17-M1-B0"; exit 2; }
+	$(UV) run --frozen --group colab python -m robustness.stochastic --root "$(ROOT)" --run-id "$(RUN_ID)"
+
+report-stochastic: ## Summarize twelve completed stochastic sensitivity cells
+	@test -n "$(ROOT)" || { echo "Usage: make report-stochastic ROOT=/path"; exit 2; }
+	$(UV) run --frozen python -m robustness.stochastic_report --root "$(ROOT)"
 
 run-explain: ## Run a resumable 60-item BBQ ablation cell (ROOT and RUN_ID required)
 	@test -n "$(ROOT)" && test -n "$(RUN_ID)" || { echo "Usage: make run-explain ROOT=/path RUN_ID=EXPLAIN-M1-B0"; exit 2; }
