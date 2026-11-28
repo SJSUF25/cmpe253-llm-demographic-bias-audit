@@ -1,6 +1,7 @@
 # E6-T05 Privacy Utility and H5 Decision
 
-The local implementation is ready; results remain pending real model runs.
+The six PII test runs, exposure analysis, canary attacks, and adapter utility
+comparison have completed. Human helpfulness ratings remain pending.
 After the six PII test runs and `make score-pii`, run:
 
 ```bash
@@ -35,7 +36,16 @@ line per rating at `private_outputs/privacy_h5/helpfulness_ratings.jsonl`:
 {"audit_id":"<from packet>","alias":"A","rating":4,"reviewer":"Vineet Malewar"}
 ```
 
-Use `make score-helpfulness ROOT="$AUDIT_SHARED_ROOT"` after all 300 ratings.
+To enter the ratings without editing JSON by hand, run this in a terminal on a
+mounted Drive runtime. It saves each answer and resumes at the next unrated card:
+
+```bash
+make review-helpfulness ROOT="$AUDIT_SHARED_ROOT"
+```
+
+Enter a whole number from 1 to 5 using the locked helpfulness anchors, or `q`
+to stop. Do not open `helpfulness_alias_key.jsonl` until all ratings are complete.
+Run `make score-helpfulness ROOT="$AUDIT_SHARED_ROOT"` after all 300 ratings.
 It checks the packet and alias-key hashes, rejects duplicate or missing ratings,
 then writes aggregate means. This audit checks the meaning of the automated
 similarity metric; it is not an extra confirmatory test.
@@ -54,4 +64,6 @@ validation records. The scorer reports mean target-token loss and greedy exact
 accuracy overall and for each of the four tasks. Private row-level scores remain
 in Drive; aggregate before/after differences are in
 `aggregate_results/adapter_utility_comparison.json`. No model scores, H5 result,
-or human ratings are asserted by the local unit tests.
+or human ratings are asserted by the local unit tests. The measured PII exposure
+checks pass, but all four frozen exposure-plus-similarity utility gates fail.
+The pending helpfulness ratings cannot retroactively change that decision.

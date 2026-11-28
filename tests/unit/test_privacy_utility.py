@@ -92,3 +92,38 @@ def test_blinded_rating_tally_requires_all_aliases(tmp_path: Path):
     ratings_path.write_text("".join(json.dumps(row) + "\n" for row in ratings[:-1]))
     with pytest.raises(utility.UtilityError, match="300 blinded ratings"):
         utility.score_helpfulness_ratings(tmp_path)
+
+
+def test_helpfulness_review_saves_and_resumes_without_unblinding(
+    tmp_path: Path, monkeypatch
+):
+    directory = tmp_path / "private_outputs/privacy_h5"
+    directory.mkdir(parents=True)
+    packet = directory / "helpfulness_packet.jsonl"
+    rows = [
+        {
+            "audit_id": f"AUD-{index}",
+            "task": "case_note",
+            "case_facts": "Fictional case facts",
+            "responses": {"A": "First", "B": "Second", "C": "Third"},
+        }
+        for index in range(100)
+    ]
+    packet.write_text("".join(json.dumps(row) + "\n" for row in rows))
+    manifest = tmp_path / "manifests/privacy/helpfulness_packet.json"
+    manifest.parent.mkdir(parents=True)
+    manifest.write_text(
+        json.dumps({"packet_sha256": utility.evaluation._sha(packet.read_bytes())})
+    )
+    answers = iter(("4", "q"))
+    monkeypatch.setattr("builtins.input", lambda _: next(answers))
+    utility.review_helpfulness(tmp_path)
+    ratings = directory / "helpfulness_ratings.jsonl"
+    assert [json.loads(line)["alias"] for line in ratings.read_text().splitlines()] == [
+        "A"
+    ]
+    answers = iter(("3", "q"))
+    monkeypatch.setattr("builtins.input", lambda _: next(answers))
+    utility.review_helpfulness(tmp_path)
+    saved = [json.loads(line) for line in ratings.read_text().splitlines()]
+    assert [(row["alias"], row["rating"]) for row in saved] == [("A", 4), ("B", 3)]
